@@ -9,7 +9,7 @@
 .cache-loader
 
 # Idea
-.idea
+/.idea/
 
 # Misc
 .DS_Store
