@@ -1,0 +1,115 @@
+---
+sidebar_position: 3
+sidebar_label: The Renderer
+title: GeckoLib Entities - Creating the Renderer
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Once you've made your entity class and registered your `EntityType`, you can now create the renderer and register it.
+
+## Making the class
+:::note
+All code snippets in this section add onto the previous code snippets, using a step-by-step approach to build the complete class.
+:::
+
+To begin, let's create a renderer class that extends `GeoEntityRenderer`:
+
+<Tabs groupId="mappings" queryString="mappings">
+    <TabItem value="mojmap" label="Mojmap">
+        ```java
+        public class ExampleEntityRenderer extends GeoEntityRenderer {
+
+        }
+        ```
+    </TabItem>
+    <TabItem value="yarn" label="Yarn (Fabric)">
+        ```java
+        public class ExampleEntityRenderer extends GeoEntityRenderer {
+
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+Then, we'll need to add in the [generic types](https://www.baeldung.com/java-generics) that the renderer requires:
+
+For more information on this, see the [The generic types](#the-generic-types) section.
+
+<Tabs groupId="mappings" queryString="mappings">
+    <TabItem value="mojmap" label="Mojmap">
+        ```java
+        //highlight-next-line
+        public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+
+        }
+        ```
+    </TabItem>
+    <TabItem value="yarn" label="Yarn (Fabric)">
+        ```java
+        //highlight-next-line
+        public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+And then we add in the constructor, passing in a new `DefaultedEntityGeoModel` instance:
+
+<Tabs groupId="mappings" queryString="mappings">
+    <TabItem value="mojmap" label="Mojmap">
+        ```java
+        public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+            //highlight-start
+            public ExampleEntityRenderer(EntityRendererProvider.Context context) {
+                super(context, new DefaultedEntityGeoModel(ResourceLocation.fromNamespaceAndPath("mymod", "example_entity")));
+            }
+            //highlight-end
+        }
+        ```
+    </TabItem>
+    <TabItem value="yarn" label="Yarn (Fabric)">
+        ```java
+        public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+            //highlight-start
+            public ExampleEntityRenderer(EntityRendererFactory.Context context) {
+                super(context, new DefaultedEntityGeoModel(ResourceLocation.fromNamespaceAndPath("mymod", "example_entity")));
+            }
+            //highlight-end
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+That's it! Now you just need to register it.
+
+## Registering the renderer
+Once you have created your renderer class, you then need to register it.
+This differs depending on the modloader you are using.
+
+Select your loader below for a link to that loader's documentation for registering entity renderers.
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        [https://wiki.fabricmc.net/tutorial:entity#registering_entity_renderer](https://wiki.fabricmc.net/tutorial:entity#registering_entity_renderer)
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        None exists :(
+
+        See the NeoForge tab for similar instructions
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge" default>
+        [https://docs.neoforged.net/docs/entities/renderer/#creating-an-entity-renderer](https://docs.neoforged.net/docs/entities/renderer/#creating-an-entity-renderer)
+    </TabItem>
+</Tabs>
+
+## The generic types
+In the [Making the class](#making-the-class) section, we added in the generic types that the renderer requires in step 2.
+
+But what are these generic types?
+
+- `R` - This is the `RenderState` type. By default, GeckoLib uses vanilla's `LivingEntityRenderState`, combined with GeckoLib's `GeoRenderState`.
+    For more information on RenderStates, see the [RenderStates](./renderstates) section.
+- `ExampleEntity` - This is your entity! Replace this with your entity's class name.

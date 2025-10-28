@@ -1,4 +1,6 @@
-import {themes as prismThemes} from 'prism-react-renderer';
+import {
+  themes as prismThemes
+} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
@@ -127,14 +129,19 @@ const config: Config = {
             {
               label: 'Wiki Issues/Suggestions',
               href: 'https://github.com/Tslat/Geckolib-Wiki/issues',
+            },
+            {
+              label: 'General Modding Support',
+              href: 'https://discord.gg/moddedmc',
             }
           ],
         },
       ]
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.oneLight,
+      darkTheme: prismThemes.okaidia,
+      additionalLanguages: ['java', 'json'],
     },
   } satisfies Preset.ThemeConfig,
 };

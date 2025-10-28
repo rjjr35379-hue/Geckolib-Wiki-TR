@@ -1,0 +1,182 @@
+---
+sidebar_position: 2
+sidebar_label: The Entity Class
+title: GeckoLib Entities - Creating the Entity Class
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+The first step in making a GeckoLib entity is to create the entity class itself.
+
+## Quick Summary
+Just looking for a quick summary? Expand the section below!
+
+<details>
+
+<summary>Click to expand</summary>
+
+Here are the quick steps required to create a GeckoLib entity class:
+
+1. Create a new class extending one of the `Entity` subclasses
+2. Implement the `GeoEntity` interface
+3. Override the `getAnimatableInstanceCache` and `registerController` methods from `GeoEntity`
+4. Instantiate a new `AnimatableInstanceCache` in a `final` field at the top of your class via `GeckoLibUtil.createInstanceCache(this)` 
+5. Return the `AnimatableInstanceCache` in the `getAnimatableInstanceCache` method
+6. Add any animation controllers you want to use in `registerControllers`
+
+You now have a working GeckoLib entity!
+
+</details>
+
+## Making the class
+:::note
+All code snippets in this section add onto the previous code snippets, using a step-by-step approach to build the complete class.
+:::
+
+First, we will make the base entity class:
+
+<Tabs groupId="mappings" queryString="mappings">
+    <TabItem value="mojmap" label="Mojmap">
+        ```java
+        public class ExampleEntity extends PathfinderMob {
+            public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+                super(entityType, level);
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="yarn" label="Yarn (Fabric)">
+        ```java
+        public class ExampleEntity extends PathAwareMob {
+            public ExampleEntity(EntityType<? extends PathAwareMob> entityType, World world) {
+                super(entityType, world);
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+Then, we will implement the `GeoEntity` interface and override the `getAnimatableInstanceCache` and `registerController` methods:
+
+<Tabs groupId="mappings" queryString="mappings">
+    <TabItem value="mojmap" label="Mojmap">
+        ```java
+        //highlight-next-line
+        public class ExampleEntity extends PathfinderMob implements GeoEntity {
+            public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+                super(entityType, level);
+            }
+
+            //highlight-start
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+                // We can fill this in later
+            }
+            //highlight-end
+
+            //highlight-start
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                return null;
+            }
+            //highlight-end
+        }
+        ```
+    </TabItem>
+    <TabItem value="yarn" label="Yarn (Fabric)">
+        ```java
+        //highlight-next-line
+        public class ExampleEntity extends PathAwareMob implements GeoEntity {
+            public ExampleEntity(EntityType<? extends PathAwareMob> entityType, World world) {
+                super(entityType, world);
+            }
+
+            //highlight-start
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+                // We can fill this in later
+            }
+            //highlight-end
+
+            //highlight-start
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                return null;
+            }
+            //highlight-end
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+Next, let's instantiate an `AnimatableInstanceCache` in a `final` field at the top of our class, and return it in `getAnimatableInstanceCache`:
+
+<Tabs groupId="mappings" queryString="mappings">
+    <TabItem value="mojmap" label="Mojmap">
+        ```java
+        public class ExampleEntity extends PathfinderMob implements GeoEntity {
+            //highlight-next-line
+            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+            public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+                super(entityType, level);
+            }
+
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+            }
+
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                //highlight-next-line
+                return this.geoCache;
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="yarn" label="Yarn (Fabric)">
+        ```java
+        public class ExampleEntity extends PathAwareMob implements GeoEntity {
+            //highlight-next-line
+            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+            public ExampleEntity(EntityType<? extends PathAwareMob> entityType, World world) {
+                super(entityType, world);
+            }
+
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+                // We can fill this in later
+            }
+
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                //highlight-next-line
+                return this.geoCache;
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+And you're done!
+
+## Registering the entity
+Once you have created your entity class, you then need to register it.
+This differs depending on the modloader you are using.
+
+Select your loader below for a link to that loader's documentation for registering entities.
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        [https://wiki.fabricmc.net/tutorial:entity#creating_registering_an_entity](https://wiki.fabricmc.net/tutorial:entity#creating_registering_an_entity)
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        [https://docs.minecraftforge.net/en/1.20.x/concepts/registries/#methods-for-registering](https://docs.minecraftforge.net/en/1.20.x/concepts/registries/#methods-for-registering)
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge" default>
+        [https://docs.neoforged.net/docs/entities/#entitytype](https://docs.neoforged.net/docs/entities/#entitytype)
+    </TabItem>
+</Tabs>

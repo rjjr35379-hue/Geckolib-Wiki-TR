@@ -1,0 +1,18 @@
+---
+sidebar_position: 1
+sidebar_label: Introduction
+title: GeckoLib Entities - Introduction
+---
+
+GeckoLib supports rendering and animating entities.
+
+To do so, you will need to create a standard entity in much the same way you would a non-GeckoLib entity then add the GeckoLib parts onto it.
+
+In total, you will need to complete the following steps:
+1. Create the entity class
+2. Create the GeoModel instance
+3. Create the entity renderer class
+4. Register the entity
+5. Register the entity renderer
+
+When you're ready to begin, click `Next` at the bottom of the page to continue.
