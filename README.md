@@ -18,7 +18,7 @@ From there, as long as you leave your console open, you can make changes to the 
 
 ## Adding a category
 To add a category, create a new folder in the `docs` directory.
-The folder name should represent the category name, but isn't the visible name for end-users.
+The folder name should represent the category name; but isn't the visible name for end-users.
 
 Add a `_category_.json` file to the folder, with the below contents:
 
@@ -52,6 +52,11 @@ sidebar_label: Armor
 title: Armor
 ---
 ```
+
+## Adding a Minecraft Version
+When a new Minecraft version comes out, we'll want to add it to the list of available versions for users to select from.
+This is done by editing the [VersionSelect](src/components/VersionSelect/index.tsx) file and adding the new version to the `versions` array
+in the same format as the other versions.
 
 ## Working on a specific version
 By default, the `docs` directory is the main documentation directory, supporting the current latest major GeckoLib version (GeckoLib5).
