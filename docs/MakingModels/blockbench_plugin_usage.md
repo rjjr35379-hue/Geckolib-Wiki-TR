@@ -57,3 +57,4 @@ To convert your model, open your existing model in Blockbench, then go to `File`
 :::note
 After converting the model, it is recommended that you check and adjust the model properties of your newly converted model to ensure it's correct.<br/>
 See the [Model Properties](#model-properties) section for more information.
+:::
