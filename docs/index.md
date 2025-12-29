@@ -6,6 +6,11 @@ sidebar_position: 1
 
 Welcome to the GeckoLib Wiki for GeckoLib5!
 
+## Wiki Usage
+Use the panel on the left to navigate the sections of the wiki.
+
+Alternatively, you can use the previous/next buttons at the bottom of the page to navigate between sections.
+
 ## Version Support
 Below is the list of Minecraft versions and their levels of GeckoLib support.
 
