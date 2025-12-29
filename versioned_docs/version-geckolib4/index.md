@@ -3,3 +3,38 @@ sidebar_position: 1
 ---
 
 # GeckoLib Wiki
+
+Welcome to the GeckoLib Wiki for GeckoLib4!
+
+## Version Support
+Below is the list of Minecraft versions and their levels of GeckoLib support.
+
+<details>
+
+<summary>Click to expand</summary>
+
+### Legend
+⚙️ – Active development and features<br/>
+🐛 – Bug fixes<br/>
+🤝 – Readily available community support<br />
+📖 – Tailored wiki documentation<br/>
+❌ – No GeckoLib version and no support
+
+| MC Version | GeckoLib Version | Support  |
+|------------|------------------|----------|
+| 1.21.4     | 4.8.5            | 🤝📖     |
+| 1.21.3     | 4.7.3            | 🤝📖     |
+| 1.21.2     | -                | ❌        |
+| 1.21.1     | 4.8.2            | ⚙️🐛🤝📖 |
+| 1.21       | 4.5.8            | 📖       |
+| 1.20.6     | 4.5.4.1          | 📖       |
+| 1.20.5     | 4.5              | 📖       |
+| 1.20.4     | 4.4.4            | 📖       |
+| 1.20.3     | 4.3.1            | 📖       |
+| 1.20.2     | 4.3.1            | 📖       |
+| 1.20.1     | 4.8.2            | ⚙️🐛🤝📖 |
+| 1.20       | 4.2              | 📖       |
+| 1.19.4     | 4.2              | 📖       |
+| 1.19.3     | 4.0.6            | 📖       |
+
+</details>
