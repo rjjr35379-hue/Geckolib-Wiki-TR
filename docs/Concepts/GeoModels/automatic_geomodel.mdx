@@ -1,0 +1,70 @@
+---
+sidebar_position: 2
+sidebar_label: Automatic GeoModels
+title: Automatic GeoModels
+---
+
+Automatic GeoModels are the easiest way to implement GeoModels. They're so easy to use that you don't even need to make one!
+
+Instead, when instantiating your GeckoLib renderer, you can simply pass the registered object to the renderer's constructor, and it will automatically generate a `GeoModel` instance for you.
+
+See below for an example of this
+
+<details>
+
+<summary>Example Implementation</summary>
+
+```java
+new GeoEntityRenderer(context, EntityRegistry.EXAMPLE_ENTITY);
+```
+
+This automatically generates a `DefaultedEntityGeoModel` for you, which will look for your assets using the registered object's registry ID as the file name.
+
+For example, if we assume that `EntityRegistry.EXAMPLE_ENTITY` is registered as `examplemod:example_entity`, we would place our assets in these locations:
+
+<table>
+    <tbody>
+        <tr>
+            <td>Model</td><td>`/assets/examplemod/geckolib/models/entity/example_entity.geo.json`</td>
+        </tr>
+        <tr>
+            <td>Animations</td><td>`/assets/examplemod/geckolib/animations/entity/example_entity.animation.json`</td>
+        </tr>
+        <tr>
+            <td>Texture</td><td>`/assets/examplemod/textures/entity/example_entity.png`</td>
+        </tr>
+    </tbody>
+</table>
+
+</details>
+<details>
+
+<summary>Another Example Implementation</summary>
+
+```java
+new GeoItemRenderer(context, ItemRegistry.EXAMPLE_ITEM);
+```
+
+Same as the first example, this automatically generates a `DefaultedItemGeoModel` for you.
+
+If we assume that `ItemRegistry.EXAMPLE_ITEM` is registered as `examplemod:example_item`, we would place our assets in these locations:
+
+<table>
+    <tbody>
+        <tr>
+            <td>Model</td><td>`/assets/examplemod/geckolib/models/item/example_item.geo.json`</td>
+        </tr>
+        <tr>
+            <td>Animations</td><td>`/assets/examplemod/geckolib/animations/item/example_item.animation.json`</td>
+        </tr>
+        <tr>
+            <td>Texture</td><td>`/assets/examplemod/textures/item/example_item.png`</td>
+        </tr>
+    </tbody>
+</table>
+
+</details>
+
+The drawback to this approach is that you miss out on the ability to dynamically return values or manage subfolders in your GeoModel.
+
+For more customizability, see the next page.
