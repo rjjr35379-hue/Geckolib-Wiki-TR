@@ -7,7 +7,7 @@ title: Placing the asset files
 For GeckoLib to be able to find your files, they need to be put in the correct location.
 
 Once the files have been placed, you will use a `GeoModel` instance in code to reference them.<br/>
-See the pages on [GeoModels](/docs/Concepts/GeoModels/geomodels_overview.mdx) for more information
+See the pages on [GeoModels](/Concepts/GeoModels/geomodels_overview.mdx) for more information
 
 ## File Locations
 ### Model Files

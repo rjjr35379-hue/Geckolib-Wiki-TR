@@ -17,7 +17,7 @@ To use the plugin, you'll need to install it from the Blockbench plugins browser
 ![GeckoLib Plugin Installation](/img/blockbench_geckolib_plugin.png)
 
 Then you can close the plugins window, and you're ready to go!<br/>
-See the additional settings section below for additional options; or move onto the [next page](/docs/Setup/Blockbench/blockbench_plugin_usage.md) to learn how to use the plugin.
+See the additional settings section below for additional options; or move to the [Plugin Usage](/MakingModels/blockbench_plugin_usage.md) page to learn how to use the plugin.
 
 ## Additional Settings
 The GeckoLib Blockbench plugin comes with a few additional optional settings that can be managed if wanted.
