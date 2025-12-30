@@ -19,8 +19,9 @@ const config: Config = {
   url: 'https://tslat.github.io',
   baseUrl: '/',
   // Github Pages settings
-  organizationName: 'tslat.github.io',
-  projectName: 'geckolib-wiki.github.io',
+  organizationName: 'tslat',
+  deploymentBranch: 'gh-pages',
+  projectName: 'Geckolib-Wiki',
   onBrokenLinks: 'throw',
 
   i18n: {
