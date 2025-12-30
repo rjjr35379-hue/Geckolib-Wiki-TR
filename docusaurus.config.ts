@@ -22,7 +22,7 @@ const config: Config = {
   organizationName: 'tslat',
   deploymentBranch: 'gh-pages',
   projectName: 'Geckolib-Wiki',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   i18n: {
     defaultLocale: 'en',
