@@ -9,11 +9,11 @@ Below are common issues encountered while using Blockbench with the Geckolib plu
 ## I don't have the **Display** tab
 If you don't see the `Display` tab in the top right section next to `Paint`, there are a few possible problems:
 
-| Problem                                       | Solution                                                                                                                |
-|-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Your Blockbench model is not a GeckoLib model | [Convert the model](/docs/Setup/Blockbench/blockbench_plugin_usage.md#converting-an-existing-model) to a GeckoLib model |
-| Your GeckoLib model type is not set to `Item` | Change the model type in the `File` -> `Project` window to `Item`                                                       |
-| You do not have the GeckoLib plugin installed | [Install the plugin](/docs/Setup/Blockbench/blockbench_plugin.md)                                                       |
+| Problem                                       | Solution                                                                                                            |
+|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| Your Blockbench model is not a GeckoLib model | [Convert the model](/docs/MakingModels/blockbench_plugin_usage.md#converting-an-existing-model) to a GeckoLib model |
+| Your GeckoLib model type is not set to `Item` | Change the model type in the `File` -> `Project` window to `Item`                                                   |
+| You do not have the GeckoLib plugin installed | [Install the plugin](/docs/Setup/Blockbench/blockbench_plugin.md)                                                   |
 
 ## I can't find `GeckoLib Animated Model` in the `New` model dropdown
 If `GeckoLib Animated Model` doesn't show up as an option in the `New` model dropdown menu, you do not have the GeckoLib plugin installed.
@@ -25,4 +25,4 @@ If you get the below error when opening an older GeckoLib model, you need to con
 
 ![Invalid Format Error](/img/blockbench_invalid_format_error.png)
 
-See the [Converting an existing model](/docs/Setup/Blockbench/blockbench_plugin_usage.md#converting-an-existing-model) section for more information.
+See the [Converting an existing model](/docs/MakingModels/blockbench_plugin_usage.md#converting-an-existing-model) section for more information.
