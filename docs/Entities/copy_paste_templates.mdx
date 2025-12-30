@@ -1,0 +1,38 @@
+---
+sidebar_position: 5
+sidebar_label: Copy-Paste Templates
+title: GeckoLib Entities - Copy-Paste Templates
+---
+
+Just looking for some template code to copy-paste?<br/>
+See below for some existing code you can use to get you started.
+
+## Entity Class
+```java
+public class ExampleEntity extends PathfinderMob implements GeoEntity {
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+        super(entityType, level);
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.geoCache;
+    }
+}
+```
+
+## Entity Renderer
+```java
+public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+    public ExampleEntityRenderer(EntityRendererProvider.Context context, EntityType<ExampleEntity> entityType) {
+        super(context, entityType);
+    }
+}
+```

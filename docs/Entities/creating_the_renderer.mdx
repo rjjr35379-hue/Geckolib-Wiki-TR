@@ -16,72 +16,32 @@ All code snippets in this section add onto the previous code snippets, using a s
 
 To begin, let's create a renderer class that extends `GeoEntityRenderer`:
 
-<Tabs groupId="mappings" queryString="mappings">
-    <TabItem value="mojmap" label="Mojmap">
-        ```java
-        public class ExampleEntityRenderer extends GeoEntityRenderer {
-
-        }
-        ```
-    </TabItem>
-    <TabItem value="yarn" label="Yarn (Fabric)">
-        ```java
-        public class ExampleEntityRenderer extends GeoEntityRenderer {
-
-        }
-        ```
-    </TabItem>
-</Tabs>
+```java
+public class ExampleEntityRenderer extends GeoEntityRenderer {
+}
+```
 
 Then, we'll need to add in the [generic types](https://www.baeldung.com/java-generics) that the renderer requires:
 
 For more information on this, see the [The generic types](#the-generic-types) section.
 
-<Tabs groupId="mappings" queryString="mappings">
-    <TabItem value="mojmap" label="Mojmap">
-        ```java
-        //highlight-next-line
-        public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+```java
+//highlight-next-line
+public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+}
+```
 
-        }
-        ```
-    </TabItem>
-    <TabItem value="yarn" label="Yarn (Fabric)">
-        ```java
-        //highlight-next-line
-        public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+And then we add in the constructor, passing in the `EntityType` to automatically create the GeoModel:
 
-        }
-        ```
-    </TabItem>
-</Tabs>
-
-And then we add in the constructor, passing in a new `DefaultedEntityGeoModel` instance:
-
-<Tabs groupId="mappings" queryString="mappings">
-    <TabItem value="mojmap" label="Mojmap">
-        ```java
-        public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
-            //highlight-start
-            public ExampleEntityRenderer(EntityRendererProvider.Context context) {
-                super(context, new DefaultedEntityGeoModel(ResourceLocation.fromNamespaceAndPath("mymod", "example_entity")));
-            }
-            //highlight-end
-        }
-        ```
-    </TabItem>
-    <TabItem value="yarn" label="Yarn (Fabric)">
-        ```java
-        public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
-            //highlight-start
-            public ExampleEntityRenderer(EntityRendererFactory.Context context) {
-                super(context, new DefaultedEntityGeoModel(ResourceLocation.fromNamespaceAndPath("mymod", "example_entity")));
-            }
-            //highlight-end
-        }
-        ```
-    </TabItem>
-</Tabs>
+```java
+public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+    //highlight-start
+    public ExampleEntityRenderer(EntityRendererProvider.Context context, EntityType<ExampleEntity> entityType) {
+        super(context, entityType);
+    }
+    //highlight-end
+}
+```
 
 That's it! Now you just need to register it.
 

@@ -36,130 +36,62 @@ All code snippets in this section add onto the previous code snippets, using a s
 
 First, we will make the base entity class:
 
-<Tabs groupId="mappings" queryString="mappings">
-    <TabItem value="mojmap" label="Mojmap">
-        ```java
-        public class ExampleEntity extends PathfinderMob {
-            public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
-                super(entityType, level);
-            }
-        }
-        ```
-    </TabItem>
-    <TabItem value="yarn" label="Yarn (Fabric)">
-        ```java
-        public class ExampleEntity extends PathAwareMob {
-            public ExampleEntity(EntityType<? extends PathAwareMob> entityType, World world) {
-                super(entityType, world);
-            }
-        }
-        ```
-    </TabItem>
-</Tabs>
+```java
+public class ExampleEntity extends PathfinderMob {
+    public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+        super(entityType, level);
+    }
+}
+```
 
 Then, we will implement the `GeoEntity` interface and override the `getAnimatableInstanceCache` and `registerController` methods:
 
-<Tabs groupId="mappings" queryString="mappings">
-    <TabItem value="mojmap" label="Mojmap">
-        ```java
-        //highlight-next-line
-        public class ExampleEntity extends PathfinderMob implements GeoEntity {
-            public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
-                super(entityType, level);
-            }
+```java
+//highlight-next-line
+public class ExampleEntity extends PathfinderMob implements GeoEntity {
+    public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+        super(entityType, level);
+    }
 
-            //highlight-start
-            @Override
-            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-                // We can fill this in later
-            }
-            //highlight-end
+    //highlight-start
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        // We can fill this in later
+    }
+    //highlight-end
 
-            //highlight-start
-            @Override
-            public AnimatableInstanceCache getAnimatableInstanceCache() {
-                return null;
-            }
-            //highlight-end
-        }
-        ```
-    </TabItem>
-    <TabItem value="yarn" label="Yarn (Fabric)">
-        ```java
-        //highlight-next-line
-        public class ExampleEntity extends PathAwareMob implements GeoEntity {
-            public ExampleEntity(EntityType<? extends PathAwareMob> entityType, World world) {
-                super(entityType, world);
-            }
-
-            //highlight-start
-            @Override
-            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-                // We can fill this in later
-            }
-            //highlight-end
-
-            //highlight-start
-            @Override
-            public AnimatableInstanceCache getAnimatableInstanceCache() {
-                return null;
-            }
-            //highlight-end
-        }
-        ```
-    </TabItem>
-</Tabs>
+    //highlight-start
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return null;
+    }
+    //highlight-end
+}
+```
 
 Next, let's instantiate an `AnimatableInstanceCache` in a `final` field at the top of our class, and return it in `getAnimatableInstanceCache`:
 
-<Tabs groupId="mappings" queryString="mappings">
-    <TabItem value="mojmap" label="Mojmap">
-        ```java
-        public class ExampleEntity extends PathfinderMob implements GeoEntity {
-            //highlight-next-line
-            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+```java
+public class ExampleEntity extends PathfinderMob implements GeoEntity {
+    //highlight-next-line
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-            public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
-                super(entityType, level);
-            }
+    public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+        super(entityType, level);
+    }
 
-            @Override
-            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-                // We can fill this in later
-            }
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        // We can fill this in later
+    }
 
-            @Override
-            public AnimatableInstanceCache getAnimatableInstanceCache() {
-                //highlight-next-line
-                return this.geoCache;
-            }
-        }
-        ```
-    </TabItem>
-    <TabItem value="yarn" label="Yarn (Fabric)">
-        ```java
-        public class ExampleEntity extends PathAwareMob implements GeoEntity {
-            //highlight-next-line
-            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-
-            public ExampleEntity(EntityType<? extends PathAwareMob> entityType, World world) {
-                super(entityType, world);
-            }
-
-            @Override
-            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-                // We can fill this in later
-            }
-
-            @Override
-            public AnimatableInstanceCache getAnimatableInstanceCache() {
-                //highlight-next-line
-                return this.geoCache;
-            }
-        }
-        ```
-    </TabItem>
-</Tabs>
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        //highlight-next-line
+        return this.geoCache;
+    }
+}
+```
 
 And you're done!
 
