@@ -17,7 +17,7 @@ const config: Config = {
   // Deployment settings
   // See: https://docusaurus.io/docs/deployment#deploying-to-github-pages
   url: 'https://tslat.github.io',
-  baseUrl: '/Geckolib-Wiki/',
+  baseUrl: '/',
   // Github Pages settings
   organizationName: 'tslat',
   deploymentBranch: 'gh-pages',
