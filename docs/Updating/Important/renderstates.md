@@ -3,3 +3,21 @@ sidebar_position: 5
 sidebar_label: RenderStates
 title: RenderStates
 ---
+
+RenderStates are Minecraft's method of holding data to be used when submitting a render task.
+
+GeckoLib extends on these objects by using `GeoRenderStates`.
+
+## What are they
+Because rendering now requires that all the information required to render an object be submitted prior to rendering,
+Minecraft needed a way of holding this information.
+
+`RenderState`s were created for various object types in Minecraft, and GeckoLib extends on them with `GeoRenderState`.
+
+GeckoLib creates a new `GeoRenderState` for each render pass for each object being rendered, and holds all the information
+required to render that object.
+
+## More Information
+Going forward, all rendering data will be handled through `RenderStates`, and you will need to know how to use them.
+
+For more information, see the [RenderStates](/Concepts/Rendering/renderstates.mdx) page.

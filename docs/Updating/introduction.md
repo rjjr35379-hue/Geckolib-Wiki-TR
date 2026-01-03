@@ -31,4 +31,3 @@ Note that this is not an exhaustive list of all changes, and some of these chang
 - [Molang Variables](Noteworthy/molang_variables)
 - ['Dynamic' Renderers](Noteworthy/dynamic_renderers)
 - [TextureLayerGeoLayer/CustomBoneTextureGeoLayer](Noteworthy/texturelayergeolayer)
-- [Miscellaneous Changes](Noteworthy/miscellaneous)

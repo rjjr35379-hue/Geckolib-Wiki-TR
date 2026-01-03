@@ -142,7 +142,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.oneLight,
       darkTheme: prismThemes.okaidia,
-      additionalLanguages: ['java', 'json'],
+      additionalLanguages: ['java', 'toml', 'groovy', 'properties'],
     },
   } satisfies Preset.ThemeConfig,
 };
