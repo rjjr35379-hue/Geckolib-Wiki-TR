@@ -1,0 +1,66 @@
+---
+sidebar_position: 4
+sidebar_label: Adding the Dependency
+title: Adding the Dependency
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Once you've added your GeckoLib version reference, and the maven repository, you can add the dependency.
+
+## Adding the dependency
+<Tabs groupId="versionschema" queryString="versionschema">
+    <TabItem value="gradleproperties" label="gradle.properties">
+        1. Find the `dependencies` block in your `build.gradle` file. If one doesn't exist, create it.
+        2. Inside the `dependencies` block, add the below dependency line:
+
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                implementation "software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}"
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                implementation("software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}")
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="versioncatalogue" label="libs.versions.toml">
+        1. Open your `libs.versions.toml` file (located in the `gradle` directory at the root of your project)
+        2. Add a new line in the `[libraries]` section with the following content:
+
+        ```toml
+        geckolib = { group = "software.bernie.geckolib", name = "geckolib-neoforge-1.21.11", version.ref = "geckolib" }
+        ```
+
+        :::note
+        Make sure you change `1.21.11` to your intended Minecraft version
+        :::
+
+        3. In your `build.gradle` file, locate the `dependencies` block. If one doesn't exist, create it.
+        4. Inside the `dependencies` block, add the below dependency line:
+
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                implementation libs.geckolib
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                implementation(libs.geckolib)
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+</Tabs>
+
+## Finally
+Once you're done, refresh Gradle by opening the Gradle tool window and clicking the refresh button.
+
+![Gradle Refresh Button](/img/gradle_refresh_button.png)
+
+And you should be good to go!

@@ -1,0 +1,42 @@
+---
+sidebar_position: 2
+sidebar_label: Setting the Version
+title: Setting the Version
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Once you have your GeckoLib version identified (see [Finding the Version](finding_the_version.mdx)),
+you'll need to set it in your project so that it can be used.
+
+## Setting the version
+You'll need to set the version in either your `gradle.properties` file, or your `libs.versions.toml` file if you use
+version catalogues.
+
+If you're not sure, you probably use `gradle.properties`.
+
+<Tabs groupId="versionschema" queryString="versionschema">
+    <TabItem value="gradleproperties" label="gradle.properties">
+        1. Find your `gradle.properties` file (located in the root directory of your project), and open it
+        2. Add a new line at the bottom of the file with the following content:
+
+        ```properties
+        geckolibVersion=
+        ```
+
+        and put your version number at the end, after the `=` symbol
+
+        3. While you're there, check that you have a `minecraftVersion` property set as well, as you'll need that later
+    </TabItem>
+    <TabItem value="versioncatalogue" label="libs.versions.toml">
+        1. Open your `libs.versions.toml` file (located in the `gradle` directory at the root of your project)
+        2. Add a new line in the `[versions]` section with the following content:
+
+        ```toml
+        geckolib =
+        ```
+
+        and put your version number at the end, after the `=` symbol
+    </TabItem>
+</Tabs>
