@@ -30,7 +30,7 @@ public class ExampleEntity extends PathfinderMob implements GeoEntity {
 
 ## Entity Renderer
 ```java
-public class ExampleEntityRenderer<R extends LivingEntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
     public ExampleEntityRenderer(EntityRendererProvider.Context context, EntityType<ExampleEntity> entityType) {
         super(context, entityType);
     }
