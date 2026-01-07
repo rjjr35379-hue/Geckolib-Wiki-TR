@@ -106,3 +106,35 @@ In your `build.gradle` file:
         </Tabs>
     </TabItem>
 </Tabs>
+
+### Optional: Interface Injections
+<Tabs groupId="versionschema" queryString="versionschema">
+    <TabItem value="gradleproperties" label="gradle.properties">
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                interfaceInjectionData "software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}"
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                interfaceInjectionData("software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}")
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="versioncatalogue" label="libs.versions.toml">
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                interfaceInjectionData libs.geckolib
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                interfaceInjectionData(libs.geckolib)
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+</Tabs>
