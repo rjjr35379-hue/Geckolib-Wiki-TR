@@ -58,6 +58,43 @@ Once you've added your GeckoLib version reference, and the maven repository, you
     </TabItem>
 </Tabs>
 
+## Optional: Interface Injections
+GeckoLib provides compile-time [interface injections](https://docs.neoforged.net/toolchain/docs/plugins/mdg/#interface-injection)
+for users of [ModDevGradle](https://projects.neoforged.net/neoforged/ModDevGradle)
+
+If you are using `ModDevGradle`, it's recommended that you also add the below injection data to your dependencies block:
+
+<Tabs groupId="versionschema" queryString="versionschema">
+    <TabItem value="gradleproperties" label="gradle.properties">
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                interfaceInjectionData "software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}"
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                interfaceInjectionData("software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}")
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="versioncatalogue" label="libs.versions.toml">
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                interfaceInjectionData libs.geckolib
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                interfaceInjectionData(libs.geckolib)
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+</Tabs>
+
 ## Finally
 Once you're done, refresh Gradle by opening the Gradle tool window and clicking the refresh button.
 
