@@ -12,4 +12,4 @@ and powerful with its render handling.
 All bone manipulation, `RenderState` data, and other render-related data is stored in the `RenderPassInfo`.
 
 ## More information
-For more information, see the [RenderPassInfo](/Concepts/Rendering/renderpassinfo.md) page.
+For more information, see the [RenderPassInfo](/Concepts/Rendering/renderpassinfo.mdx) page.
