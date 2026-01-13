@@ -27,7 +27,7 @@ Below is the list of Minecraft versions and their levels of GeckoLib support.
 
 | MC Version | GeckoLib Version | Support  |
 |------------|------------------|----------|
-| 1.21.11    | 5.4              | ⚙️🐛🤝📖 |
+| 1.21.11    | 5.4.2            | ⚙️🐛🤝📖 |
 | 1.21.10    | 5.3-Alpha-3      |          |
 | 1.21.9     | -                | ❌        |
 | 1.21.8     | 5.2.2            | 📖*      |
