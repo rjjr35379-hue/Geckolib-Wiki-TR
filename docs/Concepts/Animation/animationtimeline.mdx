@@ -4,3 +4,10 @@ sidebar_label: AnimationTimeline
 title: AnimationTimeline
 ---
 
+The AnimationTimeline is an object each [AnimationController](./animationcontroller.mdx) keeps when it has an active animation.
+
+### What is it?
+When an `AnimationController` starts an animation, it takes the `RawAnimation` object and creates a new `AnimationTimeline` object.
+
+This timeline represents the entire `RawAnimation`, including any transition periods into, out of, and between each stage.
+The `AnimationController`.
