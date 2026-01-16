@@ -13,19 +13,18 @@ The first step in making a GeckoLib entity is to create the entity class itself.
 Just looking for a quick summary? Expand the section below!
 
 <details>
+    <summary>Click to expand</summary>
 
-<summary>Click to expand</summary>
+    Here are the quick steps required to create a GeckoLib entity class:
 
-Here are the quick steps required to create a GeckoLib entity class:
+    1. Create a new class extending one of the `Entity` subclasses
+    2. Implement the `GeoEntity` interface
+    3. Override the `getAnimatableInstanceCache` and `registerController` methods from `GeoEntity`
+    4. Instantiate a new `AnimatableInstanceCache` in a `final` field at the top of your class via `GeckoLibUtil.createInstanceCache(this)`
+    5. Return the `AnimatableInstanceCache` in the `getAnimatableInstanceCache` method
+    6. Add any animation controllers you want to use in `registerControllers`
 
-1. Create a new class extending one of the `Entity` subclasses
-2. Implement the `GeoEntity` interface
-3. Override the `getAnimatableInstanceCache` and `registerController` methods from `GeoEntity`
-4. Instantiate a new `AnimatableInstanceCache` in a `final` field at the top of your class via `GeckoLibUtil.createInstanceCache(this)` 
-5. Return the `AnimatableInstanceCache` in the `getAnimatableInstanceCache` method
-6. Add any animation controllers you want to use in `registerControllers`
-
-You now have a working GeckoLib entity!
+    You now have a working GeckoLib entity!
 
 </details>
 

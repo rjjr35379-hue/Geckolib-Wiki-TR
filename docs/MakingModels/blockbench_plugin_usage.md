@@ -19,20 +19,18 @@ These properties can also be changed at any time by going to `File` -> `Project`
 ![GeckoLib Model Properties](/img/blockbench_model_properties.png)
 
 <details>
-
-<summary>Available Properties – Click to expand</summary>
-
-The following properties are available for GeckoLib models:
-
-| Property                | Description                                                                                                                    |
-|-------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| Model Type              | The type of model this project is for. Determines initial project setup and some additional properties                         |
-| Project Name (Optional) | The name of this model project. Used to help Blockbench suggest file names for you when saving. E.G., `Green Gecko`            |
-| Object ID (Optional)    | The id of the object this model is for. Used to help Blockbench suggest file names for you when exporting. E.G., `green_gecko` |
-| Mod ID (Optional)       | The `modid` of the mod this model is for. This will be used to calculate asset export paths for your mod to use, if needed     |
-| Default UV Mode         | The default UV mode your model cubes will use for UV mapping. Leave this as default unless you know what you are doing         |
-| Default Texture Size    | The default pixel size of the texture your model will use. Leave this as default unless you know what you are doing            |
-
+    <summary>Available Properties – Click to expand</summary>
+    
+    The following properties are available for GeckoLib models:
+    
+    | Property                | Description                                                                                                                    |
+    |-------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+    | Model Type              | The type of model this project is for. Determines initial project setup and some additional properties                         |
+    | Project Name (Optional) | The name of this model project. Used to help Blockbench suggest file names for you when saving. E.G., `Green Gecko`            |
+    | Object ID (Optional)    | The id of the object this model is for. Used to help Blockbench suggest file names for you when exporting. E.G., `green_gecko` |
+    | Mod ID (Optional)       | The `modid` of the mod this model is for. This will be used to calculate asset export paths for your mod to use, if needed     |
+    | Default UV Mode         | The default UV mode your model cubes will use for UV mapping. Leave this as default unless you know what you are doing         |
+    | Default Texture Size    | The default pixel size of the texture your model will use. Leave this as default unless you know what you are doing            |
 </details>
 
 ### Video Tutorials
