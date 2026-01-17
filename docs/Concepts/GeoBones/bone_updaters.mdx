@@ -1,6 +1,34 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 sidebar_label: Bone Updaters
 title: Bone Updaters
 ---
 
+`Bone Updaters` are the interface that GeckoLib provides to add bone manipulations to `GeoRenderers` from outside
+the renderer itself.
+
+## Overview
+Because of the changes Mojang has made to rendering in Minecraft (see: [Bone Snapshots](bone_snapshots.mdx#Overview)),
+GeckoLib no longer allows bones to be manipulated directly for animation.<br/>
+Additionally, GeckoLib requires that bone manipulations be done at a specific time in the rendering process.
+
+Due to this, GeckoLib only allows manipulation of bones via `BoneUpdaters` - an interface that `RenderPassInfo` provides.
+
+## Usage
+If you want to modify bones for a render pass, you have two options:
+
+1. If you are modifying them inside a `GeoRenderer`, you override and use `adjustModelBonesForRender`. See [here](bone_snapshots/#Usage)
+2. If you are modifying them anywhere else, you add a `BoneUpdater` to the `RenderPassInfo`
+
+```java
+renderPassInfo.addBoneUpdater((renderPassInfo, boneSnapshots) -> {
+    // Modify bones here
+});
+```
+
+See the [BoneSnapshots](bone_snapshots.mdx#Usage) page for more information on using them.
+
+:::warning
+BoneUpdaters can only be added prior to the render pass being submitted in `GeoRenderer#submitRenderTasks`.
+Attempting to add one too late will result in an error.
+:::
