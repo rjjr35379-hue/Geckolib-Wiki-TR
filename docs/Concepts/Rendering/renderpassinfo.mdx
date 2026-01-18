@@ -4,3 +4,32 @@ sidebar_label: RenderPassInfo
 title: RenderPassInfo
 ---
 
+The `RenderPassInfo` is an all-inclusive object that GeckoLib uses to hold all information related to a `GeoRenderer`'s
+render pass.
+
+## Overview
+At the beginning of each render pass (`GeoRenderer#performRenderPass`), GeckoLib instantiates a new `RenderPassInfo` instance.
+
+This instance is then passed around to everywhere the `GeoRenderer` interacts with in the process of its render pass.<br/>
+This allows for full access to the properties of the render pass without needing to have an unmanageable number of method
+parameters.
+
+### What does it hold?
+- The `GeoRenderer` instance
+- The `GeoRenderState` instance
+- The `PoseStack`
+- The `BakedGeoModel` for the render pass
+- The `CameraRenderState` for the render pass
+- Various `PoseStack` matrix snapshots for
+- The `BoneUpdaters` for the render pass
+- Any `BonePositionListeners` registered for the render pass
+- Any `PerBoneRender`s registered for the render pass
+
+## What can I do with it?
+Because the `RenderPassInfo` is the singular collection point of all the data for a render pass, you can retrieve
+that data at any time from the instance GeckoLib passes around.
+
+Additionally, you can do some other specific things:
+- [Manually position/hide bones](/docs/Concepts/GeoBones/bone_updaters.mdx)
+- [Retrieve the bone's position in the world](/docs/Concepts/GeoBones/bone_position_listeners.mdx)
+- [Set DataTicket values](/docs/Concepts/Rendering/renderstates.mdx)
