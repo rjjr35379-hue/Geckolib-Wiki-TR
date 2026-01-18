@@ -10,4 +10,4 @@ This was a rarely used and inefficient system anyway, and has been fully superce
 Additionally, GeckoLib5 no longer modifies the base texture when using an emissive texture. 
 This means that you can selectively/conditionally/dynamically apply a glowmask without having missing chunks of your texture.
 
-See the Glowmasks/Emissive Rendering page for more details
+See the [Glowmasks/Emissive Rendering](/docs/Miscellaneous/glowmasks.md) page for more details
