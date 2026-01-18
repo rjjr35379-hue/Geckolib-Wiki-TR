@@ -33,5 +33,6 @@ Not sure where to go? This page contains a number of quick links for various com
 
 ### Miscellaneous
 * [Placing the files/Where do my .json files go?](/docs/MakingModels/placing_the_files.md)
+* [What's a RenderState?](/docs/Concepts/Rendering/renderstates.mdx)
 * [What's changed since GeckoLib4?](/docs/Updating/introduction.md)
 * [Contributing to the Wiki](/docs/contributing.md)
