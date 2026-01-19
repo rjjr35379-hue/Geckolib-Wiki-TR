@@ -4,3 +4,65 @@ sidebar_label: RenderStates
 title: RenderStates
 ---
 
+`RenderStates` are a concept Mojang introduced to Minecraft in the 1.21.x versions, used to hold information about how
+the world should be rendered.
+
+## Overview
+With Mojang's move to separate the rendering thread from the game thread, some changes were needed to the way rendering
+took place.
+
+Previously, renderers were given the entire object they were rendering (such as the entity), and they held onto it the entire
+time they were performing their rendering.
+This posed a problem, however, because the object could be modified by the game thread while the renderer was performing
+its rendering.
+This meant that moving rendering off to another thread was not possible, and so some changes had to be made.
+
+### Enter: RenderStates
+To solve this, Mojang introduced the concept of `RenderStates`.<br/>
+These are objects that hold information about how the world should be rendered, created at the start of the render pass.
+
+GeckoLib extends on these objects with its own interface: `GeoRenderState`. This allows for extensible data management
+through the use of [DataTickets](#datatickets).
+GeckoLib then passes this object around to everywhere GeckoLib allows developers to interface with the library, contained
+within the [RenderPassInfo](renderpassinfo.mdx).
+
+## Usage
+When rendering, if you need to access any data from your animatable object at the time of rendering, you will have to
+store that data in the `RenderState` instance, using a [DataTicket](#datatickets).
+
+GeckoLib provides a number of places where you can store data in a `RenderState`:
+- In your `GeoRenderer`: `#addRenderData`
+- In your `GeoModel`: `#addAdditionalStateData`
+- In a `GeoRenderLayer`: `#addRenderData`
+
+:::note
+You are encouraged to add the data in the place that is closest to where you will be <i>using</i> it.
+:::
+
+### Example Usage
+<details>
+    <summary>Example Usage</summary>
+
+    Below we add some data to the render state for entity in our `GeoEntityRenderer`:
+    ```java
+    @Override
+    public void addRenderData(MyEntity animatable, Void relatedObject, R renderState, float partialTick) {
+        renderState.addGeckoLibData(ModDataTickets.IS_TAMED, animatable.hasOwner());
+    }
+    ```
+
+    Then, we can use it when rendering:
+    ```java
+    @Override
+    public void adjustModelBonesForRender(RenderPassInfo<R> renderPassInfo, BoneSnapshots snapshots) {
+        final boolean isTamed = renderPassInfo.getGeckolibData(ModDataTickets.IS_TAMED);
+        //...
+    }
+    ```
+</details>
+
+
+### DataTickets
+GeckoLib allows developers to attach and retrieve arbitrary data on `RenderStates` using `DataTickets`.
+
+See the [DataTickets](datatickets.mdx) page for more information.
