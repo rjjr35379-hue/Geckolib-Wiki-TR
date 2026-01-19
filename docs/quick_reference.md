@@ -30,6 +30,7 @@ Not sure where to go? This page contains a number of quick links for various com
 * [Animating Bones in Code/Hiding Bones](/docs/Concepts/GeoBones/bone_updaters.mdx)
 * [Using GeoModels](/docs/Concepts/GeoModels/geomodels_overview.mdx)
 * [Glowmasks/Emissive Rendering](/docs/Miscellaneous/glowmasks.md)
+* [DataTickets](/docs/Concepts/Rendering/renderstates.mdx#datatickets)
 
 ### Miscellaneous
 * [Placing the files/Where do my .json files go?](/docs/MakingModels/placing_the_files.md)
