@@ -20,4 +20,4 @@ required to render that object.
 ## More Information
 Going forward, all rendering data will be handled through `RenderStates`, and you will need to know how to use them.
 
-For more information, see the [RenderStates](/Concepts/Rendering/renderstates.mdx) page.
+For more information, see the [RenderStates](/docs/Concepts/Rendering/renderstates.mdx) page.
