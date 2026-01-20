@@ -18,4 +18,37 @@ The README contains instructions on how to set up the wiki locally.
 - [React Typescript](https://react.dev/learn/typescript) - Typescript React documentation for dynamic content
 
 ## Contribution Guidelines
-###
+### Submissions
+- Keep each new page to its own commit, even if bundling multiple pages into a PR.
+- Changes to existing pages should be bundled into a single commit, grouped by change relevance.
+
+### Formatting
+- All document pages must be `.mdx` files
+- All document pages must explicitly define three properties at a minimum
+    - `sidebar_position`
+    - `sidebar_label`
+    - `title`
+- All code samples must be surrounded in a typed code block
+- \`Backticks\ must surround all class names`
+- Use **bold text** to denote important text
+- References to other pages on the wiki must not be repeated within the same page space to avoid overuse.
+- Paragraphs should be broken down into smaller chunks to ensure readability, ideally no more than two contiguous sentences.
+- Line-break `<br/>` are acceptable for a single-line break, but not for content whitespace.
+
+### Content Style
+- All content must use objective language, using direct references and avoiding personal speech.
+- Anecdotes, culture references, or other non-informational content should be avoided.
+
+### Code Samples
+- The default language for all code samples is `java`
+- Code samples that add-on to samples prior on the same page should use [line-highlighting](https://docusaurus.io/docs/markdown-features/code-blocks#line-highlighting)
+to denote changed lines.
+
+#### Code Style
+- All code samples must be indented with four spaces
+- All instance-fields must be referenced with `this.`
+- Instance methods should <b>NOT</b> be referenced with `this.`
+- Open-braces on the same line as the method declaration
+- Close-braces on a new line
+- If-clauses with only a single-line execution may be written without curly braces, on the next line
+- All other if-clauses must use curly braces
