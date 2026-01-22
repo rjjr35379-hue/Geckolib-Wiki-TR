@@ -1,0 +1,278 @@
+---
+sidebar_position: 4
+sidebar_label: Molang
+title: Molang
+---
+
+Molang is a power expression-based language that can be used to make complex and impressive animations.
+It does require surpassing a small learning curve to initially pick up, but once learned it becomes intuitive and a very useful tool.
+
+## What is it exactly?
+Molang allows you to type directly write mathematical expressions into your animation keyframe,
+allowing you to dynamic animations with minimal effort.<br/>
+For example, instead of typing `20` into your keyframe animation value, you could type `5 * 4`, which would automatically evaluate to `20`.
+
+That doesn't seem very useful at face value, but when you add in the ability to use mathematical functions and queries,
+it becomes much more powerful.<br/>
+For example, you could use the `math.cos` function to automatically calculate the cosine of a value: `math.cos(5)`.
+
+Or you can use queries, which are a way to retrieve in-game values as doubles for direct magic use in your expressions.<br/>
+For example, you could use the `query.anim_time` query to base your animation off the time in seconds the animation has been running:<br/>
+`math.cos(query.anim_time)` would cause your animation to automatically move back and forth smoothly, without any further effort
+
+You can start to see from here where this is going. When you allow for both queries and functions, and full mathematical expression,
+it becomes obvious how powerful this can be, especially when you start to consider more complex expressions.
+
+E.G.<br/>
+`((-0.2 + 1.5 * (math.abs(math.mod(query.ground_speed, 13) - 6.5) - 3.25) / 3.25) * query.ground_speed) * 57.3`
+
+## More Info
+You can read more information on Molang [here](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/molangreference/examples/molangconcepts/molangintroduction?view=minecraft-bedrock-stable).<br/>
+Note that GeckoLib's implementation of Molang is slightly different to Microsoft's, in that some queries or functions
+may take slightly different arguments, or some may be added or missing.
+
+## Expressions
+GeckoLib supports most basic logical and mathematical operators, as well as most standard queries and functions,
+which can be combined in any sensible way. See below for supported feature components in GeckoLib
+
+### Operators
+Operators are expression symbols that represent an action to take in the expression.
+
+<details>
+    <summary>Supported Operators</summary>
+
+    | Operator  | Function                      | Description                                                                                                                                                           |
+    |:---------:|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `+`       | Addition                      | Adds two values together                                                                                                                                              |
+    | `-`       | Subtraction                   | Subtracts one value from another                                                                                                                                      |
+    | `*`       | Multiplication                | Multiplies one value by another                                                                                                                                       |
+    | `/`       | Division                      | Divides one value by another                                                                                                                                          |
+    | `%`       | Modulus                       | Returns the modulo (remainder) when dividing one number by another                                                                                                    |
+    | `^`       | Exponent                      | Raise one value to the power of another                                                                                                                               |
+    | `&&`      | Logical AND                   | Returns 1 if both conditions return a non-zero value, otherwise 0                                                                                                     |
+    | `\|\|`    | Logical OR                    | Returns 1 if either condition returns a non-zero value, otherwise 0                                                                                                   |
+    | `!`       | Logical NOT                   | Returns 1 if the following value returns 0, otherwise 1                                                                                                               |
+    | `<`       | Less Than                     | Returns 1 if the left value is smaller than the right value, otherwise 0                                                                                              |
+    | `<=`      | Less Than or Equal            | Returns 1 if the left value is smaller than or equal to the right value, otherwise 0                                                                                  |
+    | `>`       | Greater Than                  | Returns 1 if the left value is larger than the right value, otherwise 0                                                                                               |
+    | `>=`      | Greater Than or Equal         | Returns 1 if the left value is larger than or equal to the right value, otherwise 0                                                                                   |
+    | `==`      | Equal                         | Returns 1 if the left value is equal to the right value, otherwise 0                                                                                                  |
+    | `!=`      | Not Equal                     | Returns 1 if the left value is not equal to the right value, otherwise 0                                                                                              |
+    | `=`       | Variable Assignment           | Sets a user-determined variable to the given value, for arbitrary use elsewhere                                                                                       |
+    | `? :`     | Ternary                       | Evaluates the left expression. If a non-zero value given, return the middle expression, otherwise return the right expression                                         |
+    | `()`      | Brackets                      | Evaluates the expression inside the brackets before exposing it to outside expression conditions                                                                      |
+    | `;`       | Compound Expression Separator | Delimiter to split your expression into multiple expressions that run in order before returning the final expression's value. Typically used for variable assignments |
+</details>
+
+### Functions
+Functions are expression components that allow the provision of one or more numerical parameters to generate a resultant value.
+
+<details>
+    <summary>Supported Functions</summary>
+
+    | Name                    | Function                        | Description                                                                                                                                                            | Parameters                                       |
+    |:-----------------------:|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+    | `math.abs`              | Absolute                        | Returns the absolute (non-negative) equivalent of the input value                                                                                                      | `input`                                          |
+    | `math.acos`             | Arc-cosine                      | Returns the arc-cosine of the input value angle, with the input angle converted to radians                                                                             | `input` (degrees)                                |
+    | `math.asin`             | Arc-sine                        | Returns the arc-sine of the input value angle, with the input angle converted to radians                                                                               | `input` (degrees)                                |
+    | `math.atan`             | Arc-tangent                     | Returns the arc-tangent of the input value angle, with the input angle converted to radians                                                                            | `input` (degrees)                                |
+    | `math.atan2`            | Arc-tangent (theta)             | Returns the arc-tangent theta of the input rectangular coordinate values (y,x), with the output converted to degrees                                                   | `y`, `x`                                         |
+    | `math.ceil`             | Ceiling                         | Returns the smallest value that is greater than or equal to the input value and is equal to an integer                                                                 | `input`                                          |
+    | `math.clamp`            | Clamp                           | Returns the first input value if is larger than the second input value and less than the third input value; or else returns the nearest of the second two input values | `value`, `min`, `max`                            |
+    | `math.cos`              | Cosine                          | Returns the cosine of the input value angle, with the input angle converted to radians                                                                                 | `input` (degrees)                                |
+    | `math.die_roll`         | Dice Roll                       | Returns a random value determined by the sum of `n` random values generated within in a given range, optionally seeded                                                 | `rolls`, `minroll`, `maxroll`, `seed` (Optional) |
+    | `math.die_roll_integer` | Dice Roll (Integer)             | Returns a random value determined by the sum of `n` random values generated within in a given range, optionally seeded, with the resultant value being an integer      | `rolls`, `minroll`, `maxroll`, `seed` (Optional) |
+    | `math.exp`              | Euler's Exponent                | Returns euler's number raised to the power of the input value                                                                                                          | `input`                                          |
+    | `math.floor`            | Floor                           | Returns the largest value that is less than or equal to the input value and is equal to an integer                                                                     | `input`                                          |
+    | `math.hermite_blend`    | Hermite Interpolation           | Returns the [Hermite Polynomial](https://en.wikipedia.org/wiki/Hermite_polynomials) (basis `3t^2 - 2t^3`) curve interpolation value based on the input value           | `input`                                          |
+    | `math.lerp`             | Linear-Interpolate              | Returns the first value plus the difference between the first and second input values multiplied by the third input value                                              | `min`, `max`, `delta`                            |
+    | `math.lerprotate`       | Rotational Linear-Interpolation | Returns the first value plus the difference between the first and second input values multiplied by the third input value, wrapping the end result as a degrees value  | `min`, `max`, `delta`                            |
+    | `math.ln`               | Euler-Logarithmic               | Returns the log value (euler base) of the input value                                                                                                                  | `input`                                          |
+    | `math.max`              | Max                             | Returns the greater of the two input values                                                                                                                            | `inputA`, `inputB`                               |
+    | `math.min`              | Min                             | Returns the lesser of the two input values                                                                                                                             | `inputA`, `inputB`                               |
+    | `math.mod`              | Modulus                         | Returns the remainder value of the input value when modulo'd by the modulus value                                                                                      | `input`, `modulus`                               |
+    | `math.pi`               | PI                              | Returns PI (π)                                                                                                                                                         | None                                             |
+    | `math.pow`              | Exponent                        | Returns the input value raised to the power of the second input value                                                                                                  | `input`, `exponent`                              |
+    | `math.random`           | Random                          | Returns a random value between 0 and `inputA`, or between `inputA` and `inputB`, optionally seeded                                                                     | `inputA`, `inputB` (Optional), `seed` (Optional) |
+    | `math.random_integer`   | Random Integer                  | Returns a random value between 0 and `inputA`, or between `inputA` and `inputB`, optionally seeded, with the resultant value being an integer                          | `inputA`, `inputB` (Optional), `seed` (Optional) |
+    | `math.round`            | Round                           | Returns the closest integer value to the input value                                                                                                                   | `input`                                          |
+    | `math.sin`              | Sine                            | Returns the sine of the input value angle, with the input angle converted to radians                                                                                   | `input` (degrees)                                |
+    | `math.sqrt`             | Square-root                     | Returns the square root of the input value                                                                                                                             | `input`                                          |
+    | `math.to_deg`           | Radians-to-Degrees              | Converts the input radians value to degrees                                                                                                                            | `input` (radians)                                |
+    | `math.to_rad`           | Degrees-to-Radians              | Converts the input degrees value to radians                                                                                                                            | `input` (degrees)                                |
+    | `math.trunc`            | Truncate                        | Returns the closest value that is equal to the input value or closer to zero, and is equal to an integer                                                               | `input`                                          |
+</details>
+
+### Custom Functions
+GeckoLib supports users adding their own functions for use in Molang expressions.
+This is done via `MathParser#registerFunction`
+
+Custom functions **must** be registered in your mod constructor.
+
+### Queries
+Queries are expression components that allow for in-code values to be provided to animations dynamically at runtime, allowing for expressions to take advantage of live data
+Note that some queries only apply to certain animatable types, and attempting to use them on an incompatible animatable will return 0 and error in the log.
+
+All expressions below have their values automatically provided by GeckoLib.
+
+<details>
+    <summary>Supported Queries</summary>
+
+    | Name                                | Query                           | Description                                                                                                                      | Applies To     |
+    |:-----------------------------------:|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------|:--------------:|
+    | `query.actor_count`                 | Actor Count                     | Number of rendered entities in the last render pass                                                                              | Global         |
+    | `query.anim_time`                   | Animation Time                  | Time (in seconds) that the current animation has been running for                                                                | Any animatable |
+    | `query.block_state`                 | Blockstate Index                | The index of the current blockstate variant                                                                                      | BlockEntity    |
+    | `query.blocking`                    | Blocking                        | Returns 1 if the entity is blocking, otherwise 0                                                                                 | LivingEntity   |
+    | `query.body_x_rotation`             | X Body Rotation                 | The pitch rotation of the entity                                                                                                 | Entity         |
+    | `query.body_y_rotation`             | Y Body Rotation                 | The yaw rotation of the entity                                                                                                   | Entity         |
+    | `query.can_climb`                   | Can Climb                       | Returns 1 if the entity doesn't have its AI disabled and uses WallClimberNavigation, otherwise 0                                 | Mob            |
+    | `query.can_fly`                     | Can Fly                         | Returns 1 if the entity doesn't have its AI disabled and uses FlyingPathNavigation, otherwise 0                                  | Mob            |
+    | `query.can_swim`                    | Can Swim                        | Returns 1 if the entity doesn't have its AI disabled and uses WaterBoundPathNavigation or AmphibiousPathNavigation, otherwise 0  | Mob            |
+    | `query.can_walk`                    | Can Walk                        | Returns 1 if the entity doesn't have its AI disabled and uses GroundPathNavigation or AmphibiousPathNavigation, otherwise 0      | Mob            |
+    | `query.cardinal_facing`             | Entity Facing Direction         | The direction the entity is facing, as an ordinal (0=Down, 1=Up, 2=North, 3=South, 4=West, 5=East)                               | Entity         |
+    | `query.cardinal_facing_2d`          | Entity Lateral Facing Direction | The direction the entity is facing, as an ordinal, ignoring vertical directions (2=North, 3=South, 4=West, 5=East, 6=Down, 6=Up) | Entity         |
+    | `query.cardinal_player_facing`      | Player Facing Direction         | The direction the client player is facing, as an ordinal (0=Down, 1=Up, 2=North, 3=South, 4=West, 5=East)                        | Global         |
+    | `query.controller_speed`            | Controller Speed                | The current speed multiplier for the controller this animation is on (1 = default, 2 = 2x speed)                                 | Any animatable |
+    | `query.day`                         | Day Number                      | The current day of the world, as a non-integer                                                                                   | Global         |
+    | `query.death_ticks`                 | Death Time                      | Amount of time (in ticks) that the entity has been dead                                                                          | LivingEntity   |
+    | `query.distance_from_camera`        | Distance From Camera            | The distance in blocks the center of the entity is from the camera                                                               | Entity         |
+    | `query.equipment_count`             | Equipment Count                 | Number of worn items (not including items in mainhand or offhand)                                                                | LivingEntity   |
+    | `query.frame_alpha`                 | Partial Tick                    | Returns the fraction of a tick that has passed since the last tick (partialtick)                                                 | Any animatable |
+    | `query.get_actor_info_id`           | Entity ID                       | The numerical ID of the entity                                                                                                   | Entity         |
+    | `query.ground_speed`                | Lateral Speed                   | The current lateral velocity of the entity in blocks/tick                                                                        | LivingEntity   |
+    | `query.has_cape`                    | Player Has Cape                 | Returns 1 if the client player has a cape, otherwise 0                                                                           | Global         |
+    | `query.has_collision`               | Has Collision                   | Returns 1 if the entity has noclip enabled (no collisions), otherwise 0                                                          | Entity         |
+    | `query.has_gravity`                 | Has Gravity                     | Returns 1 if the entity has gravity enabled, otherwise 0                                                                         | Entity         |
+    | `query.has_head_gear`               | Has Headgear                    | Returns 1 if the entity is currently wearing something on its head, otherwise 0                                                  | LivingEntity   |
+    | `query.has_owner`                   | Has Owner                       | Returns 1 if the entity is an OwnableEntity and has an owner, otherwise 0                                                        | Entity         |
+    | `query.has_player_rider`            | Has Player Passenger            | Returns 1 if the entity has a passenger riding it that is a player, otherwise 0                                                  | Entity         |
+    | `query.has_rider`                   | Has Passenger                   | Returns 1 if the entity has a passenger riding it, otherwise 0                                                                   | Entity         |
+    | `query.head_x_rotation`             | X Head Rotation                 | The lerped pitch of the entity's head                                                                                            | LivingEntity   |
+    | `query.head_y_rotation`             | Y Head Rotation                 | The lerped yaw of the entity's head                                                                                              | LivingEntity   |
+    | `query.health`                      | Health                          | The current health of the entity                                                                                                 | LivingEntity   |
+    | `query.hurt_time`                   | Hurt Time                       | Amount of time (in ticks) the entity has remaining on its hurt overlay                                                           | LivingEntity   |
+    | `query.invulnerable_ticks`          | Invulnerable Time               | Amount of time (in ticks) the entity has remaining of invulnerability after taking damage                                        | LivingEntity   |
+    | `query.is_alive`                    | Is Alive                        | Returns 1 if the entity is alive, otherwise 0                                                                                    | Entity         |
+    | `query.is_angry`                    | Is Angry                        | Returns 1 if the entity is a NeutralMob and is angry, otherwise 0                                                                | Entity         |
+    | `query.is_baby`                     | Is Baby                         | Returns 1 if the entity is a baby, otherwise 0                                                                                   | LivingEntity   |
+    | `query.is_breathing`                | Is Breathing                    | Returns 1 if the entity has full air, otherwise 0                                                                                | Entity         |
+    | `query.is_enchanted`                | Is Enchanted                    | Returns 1 if the itemstack has any enchantments, otherwise 0                                                                     | Item           |
+    | `query.is_fire_immune`              | Is Fire Immune                  | Returns 1 if the entity's type is immune to fire, otherwise 0                                                                    | Entity         |
+    | `query.is_first_person`             | Is in First Person              | Returns 1 if the client player is in first person perspective, otherwise 0                                                       | Global         |
+    | `query.is_in_contact_with_water`    | Is Contact With Water           | Returns 1 if the entity is in water, rain, or a bubble column, otherwise 0                                                       | Entity         |
+    | `query.is_in_lava`                  | In Lava                         | Returns 1 if the entity is in lava, otherwise 0                                                                                  | Entity         |
+    | `query.is_in_water`                 | In Water                        | Returns 1 if the entity is in water, otherwise 0                                                                                 | Entity         |
+    | `query.is_in_water_or_rain`         | In Water Or Rain                | Returns 1 if the entity is in water or rain, otherwise 0                                                                         | Entity         |
+    | `query.is_invisible`                | Is Invisible                    | Returns 1 if the entity is invisible, otherwise 0                                                                                | Entity         |
+    | `query.is_leashed`                  | Is Leashed                      | Returns 1 if the entity is Leashable and currently has a leash, otherwise 0                                                      | Entity         |
+    | `query.is_moving`                   | Is Moving                       | Returns 1 if the entity is currently moving, otherwise 0                                                                         | Entity         |
+    | `query.is_on_fire`                  | Is On Fire                      | Returns 1 if the entity is on fire, otherwise 0                                                                                  | Entity         |
+    | `query.is_on_ground`                | Is On Ground                    | Returns 1 if the entity is on the ground, otherwise 0                                                                            | Entity         |
+    | `query.is_riding`                   | Is Riding                       | Returns 1 if the entity is currently a passenger, otherwise 0                                                                    | Entity         |
+    | `query.is_saddled`                  | Is Saddled                      | Returns 1 if the entity is Saddleable and is saddled, otherwise 0                                                                | Entity         |
+    | `query.is_silent`                   | Is Silent                       | Returns 1 if the entity is marked as silent, otherwise 0                                                                         | Entity         |
+    | `query.is_sleeping`                 | Is Sleeping                     | Returns 1 if the entity is sleeping, otherwise 0                                                                                 | LivingEntity   |
+    | `query.is_sneaking`                 | Is Sneaking                     | Returns 1 if the entity is crouching, otherwise 0                                                                                | Entity         |
+    | `query.is_sprinting`                | Is Sprinting                    | Returns 1 if the entity is sprinting, otherwise 0                                                                                | Entity         |
+    | `query.is_stackable`                | Is Stackable                    | Returns 1 if the itemstack is stackable, otherwise 0                                                                             | Item           |
+    | `query.is_swimming`                 | Is Swimming                     | Returns 1 if the entity is swimming, otherwise 0                                                                                 | Entity         |
+    | `query.is_using_item`               | Is Using Item                   | Returns 1 if the entity is current using an item, otherwise 0                                                                    | LivingEntity   |
+    | `query.is_wall_climbing`            | Is Wall Climbing                | Returns 1 if the entity is currently on a climbable block, otherwise 0                                                           | LivingEntity   |
+    | `query.item_max_use_duration`       | Max Use Duration                | The number of ticks the item can be used for at a maximum                                                                        | Item           |
+    | `query.life_time`                   | Rendering Time                  | The amount of time (in seconds) that the entity has been rendering for since the game started                                    | Any animatable |
+    | `query.limb_swing`                  | Walk Animation Swing            | The position in the 'walk animation' cycle that vanilla uses for walking animations                                              | LivingEntity   |
+    | `query.limb_swing_amount`           | Walk Animation Swing Speed      | The current speed of vanilla's walk animation handler (based on current velocity)                                                | LivingEntity   |
+    | `query.main_hand_item_max_duration` | Mainhand Item Max Duration      | The number of ticks the entity's mainhand item can be used for at a maximum, or 0 if not holding an item                         | LivingEntity   |
+    | `query.main_hand_item_use_duration` | Mainhand Item Use Duration      | The number of ticks the entity's mainhand item has been in use, or 0 if not using an item                                        | LivingEntity   |
+    | `query.max_durability`              | Max Durability                  | Returns the maximum durability of the itemstack                                                                                  | Item           |
+    | `query.max_health`                  | Max Health                      | The max health of the entity                                                                                                     | LivingEntity   |
+    | `query.moon_brightness`             | Moon Brightness                 | The brightness value of the moon's current phase, in 0.25 increments, with full moon as 1                                        | Global         |
+    | `query.moon_phase`                  | Moon Phase                      | The ordinal value of the moon's current phase (0->7 inclusive)                                                                   | Global         |
+    | `query.movement_direction`          | Direction Moving                | The direction ordinal closest to the entity's velocity (0=Down, 1=Up, 2=North, 3=South, 4=West, 5=East)                          | Entity         |
+    | `query.player_level`                | XP Level                        | The client player's current XP level                                                                                             | Global         |
+    | `query.remaining_durability`        | Remaining Durability            | Returns the amount of durability remaining before breaking, or 1 if the item isn't breakable                                     | Item           |
+    | `query.rider_body_x_rotation`       | Passenger X Body Rotation       | The pitch of the entity's rider if it is a non-living entity, otherwise 0                                                        | Entity         |
+    | `query.rider_body_y_rotation`       | Passenger Y Body Rotation       | The yaw of the entity's rider, otherwise 0                                                                                       | Entity         |
+    | `query.rider_head_x_rotation`       | Passenger X Head Rotation       | The head pitch of the entity's rider if it is a LivingEntity, otherwise 0                                                        | Entity         |
+    | `query.rider_head_y_rotation`       | Passenger Y Head Rotation       | The head yaw of the entity's rider if it is a LivingEntity otherwise 0                                                           | Entity         |
+    | `query.scale`                       | Scale                           | The scale attribute value of the entity                                                                                          | LivingEntity   |
+    | `query.sleep_rotation`              | Sleep Rotation                  | The current Y rotation of the entity based on the bed it is sleeping in, or 0 if not sleeping                                    | LivingEntity   |
+    | `query.time_of_day`                 | Time of Day                     | The fraction of the day that the client player's level is currently in (0->1 inclusive)                                          | Global         |
+    | `query.time_stamp`                  | Game Time                       | The total tick count of the client player's world                                                                                | Global         |
+    | `query.vertical_speed`              | Vertical Velocity               | The entity's current vertical velocity                                                                                           | Entity         |
+    | `query.yaw_speed`                   | Yaw Rotation Speed              | The entity's current yaw rotation delta                                                                                          | Entity         |
+</details>
+
+### Custom Queries
+GeckoLib supports users adding their own queries for use in Molang expressions.
+
+#### Query Name
+Default GeckoLib variables are typically named `query.variable_name`.
+
+When registering your own variable, however, it's recommended that you name your variable to include your modid or something similar,
+to prevent clashes with other mods also registering variables
+
+E.G. `query.mymod_variable_name`
+
+#### Standard Variable
+Registering your custom variable only requires a single line of code, put in your mod's constructor, or client entrypoint.
+
+To do this, we use the `MolangQueries#setActorVariable` method.
+
+This takes a generic (which should be your animatable's base type), the query name, and a function that returns the variables value.
+
+<details>
+    <summary>Example Query Registration</summary>
+
+    This example registers a variable called "query.mymod_entity_bouncing" for an animatable of type `MyAnimatable`,
+    using the `MyAnimatable#getBouncing` method to determine its value.
+
+    ```java
+    MolangQueries.<MyAnimatable>setActorVariable("query.mymod_entity_bouncing", actor -> actor.animatable.getBouncing());
+    ```
+</details>
+
+#### Multi-type Variable
+If your variable is used across multiple types of animatables, and they can't share a parent class that provides the value, then you will need to register a generic variable instead.
+
+This is done via `MathParser#registerVariable`, using a default value of `0`.
+
+<details>
+    <summary>Example Generic Query Registration</summary>
+
+    This example registers a variable called "query.mymod_entity_bouncing", with its value to be set manually later.
+
+    ```java
+    MathParser.registerVariable(new Variable("query.mymod_entity_bouncing", 0))
+    ```
+</details>
+
+Custom queries **must** be registered in your mod constructor, and you do not need to keep the `Variable` instance you create here,
+since it'll be automatically retrieved later when setting the value.
+
+Once you have registered your query, you must provide its value during runtime, via overriding `GeoModel#applyMolangQueries`
+in the relevant model, and setting the value via `MathParser#setVariable`.<br/>
+`setVariable` takes the same query name as your registered variable, and a supplier of the value the query should be.
+
+E.G.<br/>
+`MathParser.setVariable("query.mymod_entity_bouncing", () -> myEntity.getBouncing())`
+
+### Compound Expressions
+Compound expressions are a Molang feature that allows you to evaluate multiple expressions in a single animation keyframe.
+This is mostly useful for setting and getting variable whilst still returning an animation value.
+
+To perform compound expressions, split your expressions with the `;` delimiter.<br/>
+Each split will be evaluated as its own expression in order, with the last expression returning the value for the animation.
+
+E.G.<br/>
+`v.is_animating_walk = 1;math.sin(query.anim_time)`
+
+This will result in a 2-part compound expression with the first part setting a local variable `is_animating_walk` to `1`, and then returning `math.sin(query.anim_time)` from the expression
+
+#### Variables
+Variables are an expression component that allow you to store arbitrary data from within an expression, to retrieve it in a further animation or keyframe.
+This is useful in compound expressions, where you may need to evaluate some data in sequence before utilising it, or for otherwise temporarily storing data.
+
+Note that variables are <u>global</u> in GeckoLib, so any variable you store will be shared with all other animatables using the same variable.
+Keep this in mind when designing your variable usage, either using unique names, or by only using the variables within the same animation frame pass.
