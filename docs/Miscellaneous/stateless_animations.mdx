@@ -1,0 +1,83 @@
+---
+sidebar_position: 4
+sidebar_label: Stateless Animations
+title: Stateless Animations
+---
+
+Stateless Animations are an alternative to [AnimationController](/docs/Concepts/Animation/Controller/overview.mds)s for handling animations for GeckoLib animatables.
+
+## Overview
+Stateless Animations exist for those who prefer to implement their animations in a way that doesn't 'force' you to use a
+singular point of entry for animations (the `AnimationController`).
+
+Ultimately, it's a less efficient and less responsive method of handling animations, but it's still an option for those
+who prefer to handle it this way.
+It doesn't offer any functional benefits over the controller-based approach, so it's mostly a personal preference.
+
+## Usage
+### The Animatable Class
+Instead of implementing the default animatable interface, implement its stateless equivalent:
+
+|     Animatable Class     |       Stateless Equivalent        |
+|:------------------------:|:---------------------------------:|
+|     `GeoBlockEntity`     |     `StatelessGeoBlockEntity`     |
+|       `GeoEntity`        |       `StatelessGeoEntity`        |
+|        `GeoItem`         | `StatelessGeoSingletonAnimatable` |
+|   `GeoReplacedEntity`    |   `StatelessGeoReplacedEntity`    |
+| `SingletonGeoAnimatable` | `StatelessGeoSingletonAnimatable` |
+
+<details>
+    <summary>Example Implementation</summary>
+
+    ```java
+    //highlight-next-line
+    public class ExampleEntity extends PathfinderMob implements StatelessGeoEntity {
+        //...
+    }
+    ```
+</details>
+
+## Animations
+Once you have implemented the appropriate stateless animatable interface, you can use any of the methods available in `StatelessAnimatable`
+to animate your entity at any time, from either client or server side.
+
+Using one of the `play` methods tells the animatable to play an animation until it ends.
+If the animation loops, then it will continue to play until a `stop` method is called.
+
+Each animation will be considered its own independent thing by GeckoLib, allowing you to play multiple animations at once
+simply by telling each one to play.
+This means it is your responsibility to ensure that conflicting animations do not run at the same time by telling one to stop when the other is playing.
+
+### Example
+
+<details>
+    <summary>Example Stateless Entity</summary>
+
+    ```java
+    public class ExampleEntity extends PathfinderMob implements StatelessGeoEntity {
+        //...
+
+        @Override
+        public void tick() {
+            super.tick();
+
+            // Preference the client side unless you need the server side for some reason. The code is the same either way.
+            if (level().isClientSide()) {
+                // Just play the living animation all the time
+                playAnimation(DefaultAnimations.LIVING);
+
+                if (getDeltaMovement().horizontalDistanceSqr() > 0.01) {
+                    // Play the walking animation if we're moving, and stop the idle animation
+                    playAnimation(DefaultAnimations.WALK);
+                    stopAnimation(DefaultAnimations.IDLE);
+                }
+                else {
+                    // Play the idle animation if we're not moving, and stop the walking animation
+                    playAnimation(DefaultAnimations.IDLE);
+                    stopAnimation(DefaultAnimations.WALK);
+                }
+            }
+        }
+    }
+```
+</details>

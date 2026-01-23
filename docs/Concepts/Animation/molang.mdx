@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 sidebar_label: Molang
 title: Molang
 ---
@@ -107,7 +107,9 @@ Functions are expression components that allow the provision of one or more nume
 GeckoLib supports users adding their own functions for use in Molang expressions.
 This is done via `MathParser#registerFunction`
 
+:::warning
 Custom functions **must** be registered in your mod constructor.
+:::
 
 ### Queries
 Queries are expression components that allow for in-code values to be provided to animations dynamically at runtime, allowing for expressions to take advantage of live data
