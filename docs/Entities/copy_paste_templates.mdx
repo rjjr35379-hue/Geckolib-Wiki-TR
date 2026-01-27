@@ -4,6 +4,9 @@ sidebar_label: Copy-Paste Templates
 title: Copy-Paste Templates
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Just looking for some template code to copy-paste?<br/>
 See below for some existing code you can use to get you started.
 
@@ -29,10 +32,36 @@ public class ExampleEntity extends PathfinderMob implements GeoEntity {
 ```
 
 ## Entity Renderer
-```java
-public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
-    public ExampleEntityRenderer(EntityRendererProvider.Context context, EntityType<ExampleEntity> entityType) {
-        super(context, entityType);
-    }
-}
-```
+<Tabs groupId="renderer" queryString="renderer">
+    <TabItem value="simple" label="Simple">
+        <Tabs groupId="modloader" queryString="modloader">
+            <TabItem value="fabric" label="Fabric">
+                ```java
+                // Registering the renderer
+                context -> new GeoEntityRenderer<>(context, EntityRegistry.EXAMPLE_ENTITY);
+                ```
+            </TabItem>
+            <TabItem value="forge" label="Forge">
+                ```java
+                // Registering the renderer
+                context -> new GeoEntityRenderer<>(context, EntityRegistry.EXAMPLE_ENTITY.get());
+                ```
+            </TabItem>
+            <TabItem value="neoforge" label="NeoForge" default>
+                ```java
+                // Registering the renderer
+                context -> new GeoEntityRenderer<>(context, EntityRegistry.EXAMPLE_ENTITY.get());
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="advanced" label="Advanced">
+        ```java
+        public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+            public ExampleEntityRenderer(EntityRendererProvider.Context context, EntityType<ExampleEntity> entityType) {
+                super(context, entityType);
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>

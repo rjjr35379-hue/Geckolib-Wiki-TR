@@ -10,40 +10,78 @@ import TabItem from '@theme/TabItem';
 Once you've made your entity class and registered your `EntityType`, you can now create the renderer and register it.
 
 ## Making the class
-:::note
-All code snippets in this section add onto the previous code snippets, using a step-by-step approach to build the complete class.
-:::
+<Tabs groupId="renderer" queryString="renderer">
+    <TabItem value="simple" label="Simple">
+        ### Simple Renderer Class
+        By default, GeckoLib does not require a custom renderer class, and you can instead just pass a new instance of
+        `GeoEntityRenderer` when registering your renderer.
 
-To begin, let's create a renderer class that extends `GeoEntityRenderer`:
+        If you do not require any custom handling of your entity's rendering, this is the recommended approach.
 
-```java
-public class ExampleEntityRenderer extends GeoEntityRenderer {
-}
-```
+        E.G.
+        <Tabs groupId="modloader" queryString="modloader">
+            <TabItem value="fabric" label="Fabric">
+                ```java
+                // Registering the renderer
+                context -> new GeoEntityRenderer<>(context, EntityRegistry.EXAMPLE_ENTITY);
+                ```
+            </TabItem>
+            <TabItem value="forge" label="Forge">
+                ```java
+                // Registering the renderer
+                context -> new GeoEntityRenderer<>(context, EntityRegistry.EXAMPLE_ENTITY.get());
+                ```
+            </TabItem>
+            <TabItem value="neoforge" label="NeoForge" default>
+                ```java
+                // Registering the renderer
+                context -> new GeoEntityRenderer<>(context, EntityRegistry.EXAMPLE_ENTITY.get());
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="advanced" label="Advanced">
+        ### Advanced Renderer Class
+        This option is for creating a standalone renderer class that can override methods for additional handling.
 
-Then, we'll need to add in the [generic types](https://www.baeldung.com/java-generics) that the renderer requires:
+        :::note
+        All code snippets in this section add onto the previous code snippets, using a step-by-step approach to build the complete class.
+        :::
 
-For more information on this, see [The generic types](#the-generic-types) section.
+        To begin, let's create a renderer class that extends `GeoEntityRenderer`:
 
-```java
-//highlight-next-line
-public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
-}
-```
+        ```java
+        public class ExampleEntityRenderer extends GeoEntityRenderer {
 
-And then we add in the constructor, passing in the `EntityType` to automatically create the GeoModel:
+        }
+        ```
 
-```java
-public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
-    //highlight-start
-    public ExampleEntityRenderer(EntityRendererProvider.Context context, EntityType<ExampleEntity> entityType) {
-        super(context, entityType);
-    }
-    //highlight-end
-}
-```
+        Then, we'll need to add in the [generic types](https://www.baeldung.com/java-generics) that the renderer requires:
 
-That's it! Now you just need to register it.
+        For more information on this, see [The generic types](#the-generic-types) section.
+
+        ```java
+        //highlight-next-line
+        public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+
+        }
+        ```
+
+        And then we add in the constructor, passing in the `EntityType` to automatically create the GeoModel:
+
+        ```java
+        public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+            //highlight-start
+            public ExampleEntityRenderer(EntityRendererProvider.Context context, EntityType<ExampleEntity> entityType) {
+                super(context, entityType);
+            }
+            //highlight-end
+        }
+        ```
+
+        That's it! Now you just need to register it.
+    </TabItem>
+</Tabs>
 
 ## Registering the renderer
 Once you have created your renderer class, you then need to register it.
@@ -64,6 +102,20 @@ Select your loader below for a link to that loader's documentation for registeri
         [https://docs.neoforged.net/docs/entities/renderer/#creating-an-entity-renderer](https://docs.neoforged.net/docs/entities/renderer/#creating-an-entity-renderer)
     </TabItem>
 </Tabs>
+
+## The asset files
+If you followed the above instructions, GeckoLib will be looking for your asset files (`.geo.json`, `.animation.json`, `.png`)
+in the `/entity/` subdirectory, named the same as your entity's registered id.
+
+For example, if your `EntityType` was registered as `example_entity`, your files should be:
+
+> - Model: `resources/assets/<mod_id>/geckolib/models/entity/example_entity.geo.json`
+> - Model: `resources/assets/<mod_id>/geckolib/animations/entity/example_entity.animation.json`
+> - Model: `resources/assets/<mod_id>/textures/entity/example_entity.png`
+
+Where `<mod_id>` is the id of your mod.
+
+See the [Placing the Files](/docs/MakingModels/placing_the_files.mdx) page for more information on where to place these files.
 
 ## The generic types
 In the [Making the class](#making-the-class) section, we added in the generic types that the renderer requires in step 2.
