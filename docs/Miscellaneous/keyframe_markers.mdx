@@ -50,6 +50,18 @@ Then, in your animation JSON, you can use either of the two below formats for yo
 1. `namespace:soundid`<br/>
 2. `namespace:soundid|volume|pitch`
 
+<details>
+    <summary>Example Implementation</summary>
+
+    ```java
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(animTest -> PlayState.STOP)
+            .setSoundKeyframeHandler(new AutoPlayingSoundKeyframeHandler()));
+    }
+    ```
+</details>
+
 #### Particle Keyframes
 To handle particle keyframe callbacks, you add an instance of `KeyframeEventHandler` to your `AnimationController` via `setParticleKeyframeHandler`.
 This listener will then be called at the appropriate time as marked by the keyframe in the animation JSON.

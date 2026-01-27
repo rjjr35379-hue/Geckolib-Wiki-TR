@@ -85,6 +85,23 @@ When using triggered animations, you may find you need/want to *stop* an animati
 This is possible in much the same way that triggered animations work, but instead of calling `triggerAnim`, you call
 `stopTriggeredAnim`, using the same arguments you did to start it.
 
+## Trigger-Only AnimationController
+If you are using triggered animations and find yourself only needing a controller to trigger animations, GeckoLib provides the
+`DefaultAnimations#triggerOnlyController` factory, which will create a controller that doesn't have any native animations,
+with the name `Actions`.
+
+<details>
+    <summary>Example Implementation</summary>
+
+    ```java
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.triggerOnlyController()
+            .triggerableAnim("Bite", DefaultAnimations.ATTACK_BITE));
+    }
+    ```
+</details>
+
 ## Use Cases
 There are a few common use-cases for triggered animations, in case you're having trouble figuring out how to best use them.
 
@@ -102,3 +119,25 @@ This can get very complicated when trying to keep track of the various transitio
 Instead, we can have the controller just handle the walking and sitting, depending on which the animatable should be doing.
 Then, when we want to switch between the two, we can use a triggered animation for 'standing up' or 'sitting down'
 which will automatically disguise the swap.
+
+<details>
+    <summary>Example Implementation</summary>
+
+    Below we have an example of an animation transition controller, disguising a transition between walking and sitting.
+
+    ```java
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController(animTest -> {
+            // This check is made up for this example, to simplify it
+            // Be in sitting pose if sitting
+            if (checkIsSitting())
+                return animTest.setAndContinue(MY_SITTING_ANIM);
+
+            // Walk or idle if not sitting
+            return animTest.isMoving() ? animTest.setAndContinue(DefaultAnimations.WALK) : animTest.setAndContinue(DefaultAnimations.IDLE);
+        }).triggerableAnim("Sit", SIT_DOWN_ANIM) // Triggerable anim to 'stand up'
+            .triggerableAnim("Stand", STAND_UP_ANIM)) // Triggerable anim to 'sit down'
+    }
+    ```
+</details>
