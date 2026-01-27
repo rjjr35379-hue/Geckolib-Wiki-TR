@@ -4,10 +4,17 @@ sidebar_label: AnimationTimeline
 title: AnimationTimeline
 ---
 
-The AnimationTimeline is an object each [AnimationController](./animationcontroller.mdx) keeps when it has an active animation.
+The AnimationTimeline is an object each [AnimationController](Controller/overview.mdx) keeps when it has an active animation.
 
 ## What is it?
-When an `AnimationController` starts an animation, it takes the `RawAnimation` object and creates a new `AnimationTimeline` object.
-
+When an `AnimationController` starts an animation, it takes the `RawAnimation` object and creates a new `AnimationTimeline` object.<br/>
 This timeline represents the entire `RawAnimation`, including any transition periods into, out of, and between each stage.
-The `AnimationController`.
+
+You can think of the `AnimationTimeline` as the 'track' a `RawAnimation` plays along as it animates.
+
+## How do I use it?
+Typically, you wouldn't interact with an `AnimationTimeline` directly. Instead, GeckoLib interacts with it as part of its
+normal animation handling operations.
+
+There are a few information-getter methods on the timeline object, but the controller usually provides its own returns
+for those values anyway.
