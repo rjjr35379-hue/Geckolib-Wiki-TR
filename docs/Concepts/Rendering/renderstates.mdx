@@ -4,6 +4,8 @@ sidebar_label: RenderStates
 title: RenderStates
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 `RenderStates` are a concept Mojang introduced to Minecraft in the 1.21.x versions, used to hold information about how
 the world should be rendered.
 
@@ -35,14 +37,12 @@ GeckoLib provides a number of places where you can store data in a `RenderState`
 - In your `GeoModel`: `#addAdditionalStateData`
 - In a `GeoRenderLayer`: `#addRenderData`
 
-:::note
+:::info
 You are encouraged to add the data in the place that is closest to where you will be <i>using</i> it.
 :::
 
 ### Example Usage
-<details>
-    <summary>Example Usage</summary>
-
+<Collapsible title="Example Usage">
     Below we add some data to the render state for entity in our `GeoEntityRenderer`:
     ```java
     @Override
@@ -59,8 +59,7 @@ You are encouraged to add the data in the place that is closest to where you wil
         //...
     }
     ```
-</details>
-
+</Collapsible>
 
 ### DataTickets
 GeckoLib allows developers to attach and retrieve arbitrary data on `RenderStates` using `DataTickets`.

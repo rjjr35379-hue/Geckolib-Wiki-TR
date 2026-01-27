@@ -4,6 +4,8 @@ sidebar_label: Molang
 title: Molang
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 Molang is a powerful expression-based language that can be used to make complex and impressive animations.
 It does require surpassing a small learning curve to initially pick up, but once learned, it becomes intuitive and a very useful tool.
 
@@ -38,9 +40,7 @@ which can be combined in any sensible way. See below for supported feature compo
 ### Operators
 Operators are expression symbols that represent an action to take in the expression.
 
-<details>
-    <summary>Supported Operators</summary>
-
+<Collapsible title="Supported Operators">
     | Operator  | Function                      | Description                                                                                                                                                           |
     |:---------:|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
     | `+`       | Addition                      | Adds two values together                                                                                                                                              |
@@ -62,14 +62,12 @@ Operators are expression symbols that represent an action to take in the express
     | `? :`     | Ternary                       | Evaluates the left expression. If a non-zero value given, return the middle expression, otherwise return the right expression                                         |
     | `()`      | Brackets                      | Evaluates the expression inside the brackets before exposing it to outside expression conditions                                                                      |
     | `;`       | Compound Expression Separator | Delimiter to split your expression into multiple expressions that run in order before returning the final expression's value. Typically used for variable assignments |
-</details>
+</Collapsible>
 
 ### Functions
 Functions are expression components that allow the provision of one or more numerical parameters to generate a resultant value.
 
-<details>
-    <summary>Supported Functions</summary>
-
+<Collapsible title="Supported Functions">
     | Name                    | Function                        | Description                                                                                                                                                            | Parameters                                       |
     |:-----------------------:|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
     | `math.abs`              | Absolute                        | Returns the absolute (non-negative) equivalent of the input value                                                                                                      | `input`                                          |
@@ -101,7 +99,7 @@ Functions are expression components that allow the provision of one or more nume
     | `math.to_deg`           | Radians-to-Degrees              | Converts the input radians value to degrees                                                                                                                            | `input` (radians)                                |
     | `math.to_rad`           | Degrees-to-Radians              | Converts the input degrees value to radians                                                                                                                            | `input` (degrees)                                |
     | `math.trunc`            | Truncate                        | Returns the closest value that is equal to the input value or closer to zero, and is equal to an integer                                                               | `input`                                          |
-</details>
+</Collapsible>
 
 ### Custom Functions
 GeckoLib supports users adding their own functions for use in Molang expressions.
@@ -117,9 +115,7 @@ Note that some queries only apply to certain animatable types, and attempting to
 
 All expressions below have their values automatically provided by GeckoLib.
 
-<details>
-    <summary>Supported Queries</summary>
-
+<Collapsible title="Supported Queries">
     | Name                                | Query                           | Description                                                                                                                      | Applies To     |
     |:-----------------------------------:|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------|:--------------:|
     | `query.actor_count`                 | Actor Count                     | Number of rendered entities in the last render pass                                                                              | Global         |
@@ -204,7 +200,7 @@ All expressions below have their values automatically provided by GeckoLib.
     | `query.time_stamp`                  | Game Time                       | The total tick count of the client player's world                                                                                | Global         |
     | `query.vertical_speed`              | Vertical Velocity               | The entity's current vertical velocity                                                                                           | Entity         |
     | `query.yaw_speed`                   | Yaw Rotation Speed              | The entity's current yaw rotation delta                                                                                          | Entity         |
-</details>
+</Collapsible>
 
 ### Custom Queries
 GeckoLib supports users adding their own queries for use in Molang expressions.
@@ -224,31 +220,27 @@ To do this, we use the `MolangQueries#setActorVariable` method.
 
 This takes a generic (which should be your animatable's base type), the query name, and a function that returns the variables value.
 
-<details>
-    <summary>Example Query Registration</summary>
-
+<Collapsible title="Example Query Registration">
     This example registers a variable called "query.mymod_entity_bouncing" for an animatable of type `MyAnimatable`,
     using the `MyAnimatable#getBouncing` method to determine its value.
 
     ```java
     MolangQueries.<MyAnimatable>setActorVariable("query.mymod_entity_bouncing", actor -> actor.animatable.getBouncing());
     ```
-</details>
+</Collapsible>
 
 #### Multi-type Variable
 If your variable is used across multiple types of animatables, and they can't share a parent class that provides the value, then you will need to register a generic variable instead.
 
 This is done via `MathParser#registerVariable`, using a default value of `0`.
 
-<details>
-    <summary>Example Generic Query Registration</summary>
-
+<Collapsible title="Example Generic Query Registration">
     This example registers a variable called "query.mymod_entity_bouncing", with its value to be set manually later.
 
     ```java
     MathParser.registerVariable(new Variable("query.mymod_entity_bouncing", 0))
     ```
-</details>
+</Collapsible>
 
 Custom queries **must** be registered in your mod constructor, and you do not need to keep the `Variable` instance you create here,
 since it'll be automatically retrieved later when setting the value.

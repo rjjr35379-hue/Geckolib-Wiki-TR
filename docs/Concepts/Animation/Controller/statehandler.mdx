@@ -4,6 +4,8 @@ sidebar_label: StateHandler/AnimationTest
 title: StateHandler/AnimationTest
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 The StateHandler is the predicate that you provide to the controller when creating it.
 
 ## Overview
@@ -21,9 +23,7 @@ See below for some examples of how you can use the `AnimationTest` instance to c
 
 Note that most or all of these examples are already built into GeckoLib, using [DefaultAnimations](/docs/Concepts/Animation/Controller/defaultanimations.mdx).
 
-<details>
-    <summary>Example 1 - Walk</summary>
-
+<Collapsible title="Example 1 - Walk">
     In the example below, we have a controller that checks if the entity is currently moving.<br/>
     If it is, it tells the controller to start or continue a walk animation, but if it isn't, stop animating.
 
@@ -40,10 +40,8 @@ Note that most or all of these examples are already built into GeckoLib, using [
         }));
     }
     ```
-</details>
-<details>
-    <summary>Example 2 - Walk/Idle</summary>
-
+</Collapsible>
+<Collapsible title="Example 2 - Walk/Idle">
     In this example, we take the walking controller from the first example, and change it so that instead of stopping,
     the controller instead switches to an idle animation when the entity isn't walking.
 
@@ -58,10 +56,8 @@ Note that most or all of these examples are already built into GeckoLib, using [
         }));
     }
     ```
-</details>
-<details>
-    <summary>Example 3 - Spawning</summary>
-
+</Collapsible>
+<Collapsible title="Example 3 - Spawning">
     In this example, we want to play an animation whenever the entity first appears, as a sort of 'spawning' animation.<br/>
     We do this by checking if the entity's `tickCount` is less than or equal to the length of the animation, and if so, play it.
 
@@ -76,10 +72,8 @@ Note that most or all of these examples are already built into GeckoLib, using [
         }));
     }
     ```
-</details>
-<details>
-    <summary>Example 4 - Attacking</summary>
-
+</Collapsible>
+<Collapsible title="Example 4 - Attacking">
     In this example, we want to play an attack animation if the entity is swinging.<br/>
     We do this by checking the entity's swinging state, and telling the controller to play the attack animation if it is,
     or stop if it is not
@@ -96,13 +90,13 @@ Note that most or all of these examples are already built into GeckoLib, using [
     }
     ```
 
-    :::note
+    :::info
     The `swinging` boolean exists on all entities in vanilla, however Minecraft is particular in how it uses it.<br/>
     See the [#using the `swinging` boolean](#using-the-swinging-boolean) section for more information.
     :::
-</details>
+</Collapsible>
 
-:::note
+:::tip
 It's perfectly fine to repeatedly set an animation with every pass if it's already playing. GeckoLib will simply ignore it.
 :::
 

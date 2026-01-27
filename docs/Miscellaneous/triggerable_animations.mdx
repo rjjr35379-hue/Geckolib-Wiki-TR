@@ -4,6 +4,8 @@ sidebar_label: Triggerable Animations
 title: Triggerable Animations
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 GeckoLib supports 'one-shot' animations that can be triggered at any time.
 
 ## Overview
@@ -90,9 +92,7 @@ If you are using triggered animations and find yourself only needing a controlle
 `DefaultAnimations#triggerOnlyController` factory, which will create a controller that doesn't have any native animations,
 with the name `Actions`.
 
-<details>
-    <summary>Example Implementation</summary>
-
+<Collapsible title="Example Implementation">
     ```java
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
@@ -100,7 +100,7 @@ with the name `Actions`.
             .triggerableAnim("Bite", DefaultAnimations.ATTACK_BITE));
     }
     ```
-</details>
+</Collapsible>
 
 ## Use Cases
 There are a few common use-cases for triggered animations, in case you're having trouble figuring out how to best use them.
@@ -120,9 +120,7 @@ Instead, we can have the controller just handle the walking and sitting, dependi
 Then, when we want to switch between the two, we can use a triggered animation for 'standing up' or 'sitting down'
 which will automatically disguise the swap.
 
-<details>
-    <summary>Example Implementation</summary>
-
+<Collapsible title="Example Implementation">
     Below we have an example of an animation transition controller, disguising a transition between walking and sitting.
 
     ```java
@@ -140,4 +138,4 @@ which will automatically disguise the swap.
             .triggerableAnim("Stand", STAND_UP_ANIM)) // Triggerable anim to 'sit down'
     }
     ```
-</details>
+</Collapsible>

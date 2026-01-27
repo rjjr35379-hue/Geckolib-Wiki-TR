@@ -4,6 +4,8 @@ sidebar_label: Basic GeoModels
 title: Basic GeoModels
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 Basic GeoModels are the base way of referring to your asset files. They offer more flexibility than `DefaultedGeoModels`,
 but require you to manually specify the resource paths for your assets.
 
@@ -17,8 +19,7 @@ Ideally, you would cache the Identifiers returned by these methods, so they're n
 
 See below for an example of a basic `GeoModel` class.
 
-<details>
-    <summary>Example GeoModel class</summary>
+<Collapsible title="Example GeoModel class">
     ```java
     public class ExampleGeoModel extends GeoModel<ExampleEntity> {
         // Looks for a model file at '/assets/examplemod/geckolib/models/example_entity.geo.json'
@@ -44,4 +45,4 @@ See below for an example of a basic `GeoModel` class.
         }
     }
     ```
-</details>
+</Collapsible>

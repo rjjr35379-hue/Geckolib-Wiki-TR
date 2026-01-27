@@ -4,17 +4,17 @@ sidebar_label: The Entity Class
 title: Creating the Entity Class
 ---
 
+import AdditiveCodeHeader from "@site/src/components/AdditiveCodeHeader";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import Collapsible from "@site/src/components/Collapsible";
 
 The first step in making a GeckoLib entity is to create the entity class itself.
 
 ## Quick Summary
 Just looking for a quick summary? Expand the section below!
 
-<details>
-    <summary>Click to expand</summary>
-
+<Collapsible title="Click to expand">
     Here are the quick steps required to create a GeckoLib entity class:
 
     1. Create a new class extending one of the `Entity` subclasses
@@ -25,13 +25,10 @@ Just looking for a quick summary? Expand the section below!
     6. Add any animation controllers you want to use in `registerControllers`
 
     You now have a working GeckoLib entity!
-
-</details>
+</Collapsible>
 
 ## Making the class
-:::note
-All code snippets in this section add onto the previous code snippets, using a step-by-step approach to build the complete class.
-:::
+<AdditiveCodeHeader />
 
 First, we will make the base entity class:
 
@@ -43,7 +40,7 @@ public class ExampleEntity extends PathfinderMob {
 }
 ```
 
-Then, we will implement the `GeoEntity` interface and override the `getAnimatableInstanceCache` and `registerController` methods:
+Then, we will implement the `GeoEntity` interface and override the `getAnimatableInstanceCache` and `registerControllers` methods:
 
 ```java
 //highlight-next-line
@@ -107,7 +104,7 @@ Select your loader below for a link to that loader's documentation for registeri
         [https://wiki.fabricmc.net/tutorial:entity#creating_registering_an_entity](https://wiki.fabricmc.net/tutorial:entity#creating_registering_an_entity)
     </TabItem>
     <TabItem value="forge" label="Forge">
-        [https://docs.minecraftforge.net/en/1.20.x/concepts/registries/#methods-for-registering](https://docs.minecraftforge.net/en/1.20.x/concepts/registries/#methods-for-registering)
+        [https://docs.minecraftforge.net/en/latest/concepts/registries/#methods-for-registering](https://docs.minecraftforge.net/en/latest/concepts/registries/#methods-for-registering)
     </TabItem>
     <TabItem value="neoforge" label="NeoForge" default>
         [https://docs.neoforged.net/docs/entities/#entitytype](https://docs.neoforged.net/docs/entities/#entitytype)

@@ -4,6 +4,8 @@ sidebar_label: Plugin Usage
 title: How to use the Blockbench plugin
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 With the GeckoLib plugin installed in Blockbench, you can create GeckoLib-type models and animations.
 
 ## Making a model
@@ -18,9 +20,7 @@ These properties can also be changed at any time by going to `File` -> `Project`
 
 ![GeckoLib Model Properties](/img/blockbench_model_properties.png)
 
-<details>
-    <summary>Available Properties – Click to expand</summary>
-    
+<Collapsible title="Available Properties – Click to expand">
     The following properties are available for GeckoLib models:
     
     | Property                | Description                                                                                                                    |
@@ -31,7 +31,7 @@ These properties can also be changed at any time by going to `File` -> `Project`
     | Mod ID (Optional)       | The `modid` of the mod this model is for. This will be used to calculate asset export paths for your mod to use, if needed     |
     | Default UV Mode         | The default UV mode your model cubes will use for UV mapping. Leave this as default unless you know what you are doing         |
     | Default Texture Size    | The default pixel size of the texture your model will use. Leave this as default unless you know what you are doing            |
-</details>
+</Collapsible>
 
 ### Video Tutorials
 See below for some in-depth video tutorials on how to use Blockbench to make GeckoLib models.
@@ -52,7 +52,7 @@ If you have an existing Blockbench model that you want to convert to GeckoLib, B
 
 To convert your model, open your existing model in Blockbench, then go to `File` -> `Convert Project`, and select `GeckoLib Animated Model` from the dropdown.
 
-:::note
+:::info
 After converting the model, it is recommended that you check and adjust the model properties of your newly converted model to ensure it's correct.<br/>
 See the [Model Properties](#model-properties) section for more information.
 :::

@@ -4,6 +4,8 @@ sidebar_label: Defaulted GeoModels
 title: Defaulted GeoModels
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 `DefaultedGeoModels` are the next best option for implementing `GeoModels` if letting the renderer do it automatically doesn't give you enough control.
 
 ## How do they work?
@@ -22,8 +24,7 @@ GeckoLib has three existing implementations of Defaulted GeoModels:
 - `DefaultedItemGeoModel`
 
 #### Examples
-<details>
-    <summary>Example DefaultedItemGeoModel Usage</summary>
+<Collapsible title="Example DefaultedItemGeoModel Usage">
     ```java
     new DefaultedItemGeoModel(Identifier.fromNamespaceAndPath(ExampleMod.MOD_ID, "example_item"));
     ```
@@ -43,9 +44,8 @@ GeckoLib has three existing implementations of Defaulted GeoModels:
         </tr>
         </tbody>
     </table>
-</details>
-<details>
-    <summary>Example DefaultedEntityGeoModel Usage</summary>
+</Collapsible>
+<Collapsible title="Example DefaultedEntityGeoModel Usage">
     ```java
     new DefaultedEntityGeoModel(Identifier.fromNamespaceAndPath(ExampleMod.MOD_ID, "animal/example_animal"));
     ```
@@ -65,7 +65,7 @@ GeckoLib has three existing implementations of Defaulted GeoModels:
         </tr>
         </tbody>
     </table>
-</details>
+</Collapsible>
 
 
 ### Creating a custom Defaulted GeoModel
@@ -73,8 +73,7 @@ If the existing implementations don't fit your needs, you can create your own, b
 
 You will then need to override the `subtype` method to return the 'type' of object your type is for, which will automatically act as a subfolder name for your asset paths.
 
-<details>
-    <summary>Example DefaultedGeoModel Usage</summary>
+<Collapsible title="Example DefaultedGeoModel Usage">
     ```java
     public class ExampleCustomDefaultedGeoModel extends DefaultedGeoModel {
         public ExampleCustomDefaultedGeoModel(Identifier identifier) {
@@ -87,4 +86,4 @@ You will then need to override the `subtype` method to return the 'type' of obje
         }
     }
     ```
-</details>
+</Collapsible>

@@ -4,17 +4,15 @@ sidebar_label: The GeoReplacedEntity Class
 title: Creating the GeoReplacedEntity Class
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import AdditiveCodeHeader from "@site/src/components/AdditiveCodeHeader";
+import Collapsible from "@site/src/components/Collapsible";
 
 The first step in making a GeckoLib replaced entity is to create the entity class itself.
 
 ## Quick Summary
 Just looking for a quick summary? Expand the section below!
 
-<details>
-    <summary>Click to expand</summary>
-
+<Collapsible title="Click to expand">
     Here are the quick steps required to create a GeckoLib entity class:
 
     1. Create a new class implementing `GeoReplacedEntity`
@@ -25,17 +23,14 @@ Just looking for a quick summary? Expand the section below!
     6. Add any animation controllers you want to use in `registerControllers`
 
     You now have a working GeckoLib replaced entity!
-
-</details>
+</Collapsible>
 
 ## Making the class
 :::warning
 This example replaces the vanilla `CREEPER` entity, as an example.<br/>
 You will need to replace this with the `EntityType` you're replacing.
 :::
-:::note
-All code snippets in this section add onto the previous code snippets, using a step-by-step approach to build the complete class.
-:::
+<AdditiveCodeHeader />
 
 First, we will make the base replaced entity class:
 
@@ -58,7 +53,7 @@ public class ExampleReplacedEntity implements GeoReplacedEntity {
 }
 ```
 
-Then, we will override the `getAnimatableInstanceCache` and `registerController` methods:
+Then, we will override the `getAnimatableInstanceCache` and `registerControllers` methods:
 
 ```java
 public class ExampleReplacedEntity implements GeoReplacedEntity {

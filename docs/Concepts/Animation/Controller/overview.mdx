@@ -4,6 +4,8 @@ sidebar_label: Overview
 title: Overview
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 The `AnimationController` is the class that handles the logic of animations for GeckoLib animatables.<br/>
 This is the object that you will use to tell GeckoLib when and how to play animations.
 
@@ -49,9 +51,7 @@ When creating your controller, you may also want to configure some additional pr
 
 `AnimationController` comes with several additional factory methods you can append to your constructor.
 
-<details>
-    <summary>Available Properties</summary>
-
+<Collapsible title="Available Properties">
     | Method                                | Description                                                                                                                                                                       |
     |---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
     | `setSoundKeyframeHandler`             | Register the sound keyframe handler for this controller. See [here](/docs/Miscellaneous/keyframe_markers.mdx) for more info                                                       |
@@ -63,7 +63,7 @@ When creating your controller, you may also want to configure some additional pr
     | `additiveAnimations`                  | Mark this controller as additive. See [here](/docs/Concepts/Animation/Controller/ordering#additive-controllers) for more info                                                     |
     | `receiveTriggeredAnimations`          | Mark this controller as wanting to handle triggered animations in your [StateHandler](statehandler.mdx). See [here](/docs/Miscellaneous/triggerable_animations.mdx) for more info |
     | `triggerableAnim`                     | Register a triggerable animation for this controller. See [here](/docs/Miscellaneous/triggerable_animations.mdx) for more info.                                                   |
-</details>
+</Collapsible>
 
 ## Stateless Animations
 GeckoLib also offers an alternative approach to animations for those who do not like the controller system.

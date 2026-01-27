@@ -4,6 +4,8 @@ sidebar_label: Stateless Animations
 title: Stateless Animations
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 Stateless Animations are an alternative to [AnimationController](/docs/Concepts/Animation/Controller/overview.mds)s for handling animations for GeckoLib animatables.
 
 ## Overview
@@ -26,16 +28,14 @@ Instead of implementing the default animatable interface, implement its stateles
 |   `GeoReplacedEntity`    |   `StatelessGeoReplacedEntity`    |
 | `SingletonGeoAnimatable` | `StatelessGeoSingletonAnimatable` |
 
-<details>
-    <summary>Example Implementation</summary>
-
+<Collapsible title="Example Implementation">
     ```java
     //highlight-next-line
     public class ExampleEntity extends PathfinderMob implements StatelessGeoEntity {
         //...
     }
     ```
-</details>
+</Collapsible>
 
 ## Animations
 Once you have implemented the appropriate stateless animatable interface, you can use any of the methods available in `StatelessAnimatable`
@@ -50,9 +50,7 @@ This means it is your responsibility to ensure that conflicting animations do no
 
 ### Example
 
-<details>
-    <summary>Example Stateless Entity</summary>
-
+<Collapsible title="Example Stateless Entity">
     ```java
     public class ExampleEntity extends PathfinderMob implements StatelessGeoEntity {
         //...
@@ -80,4 +78,4 @@ This means it is your responsibility to ensure that conflicting animations do no
         }
     }
 ```
-</details>
+</Collapsible>

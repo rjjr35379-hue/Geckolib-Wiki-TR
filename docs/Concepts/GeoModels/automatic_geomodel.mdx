@@ -4,15 +4,15 @@ sidebar_label: Automatic GeoModels
 title: Automatic GeoModels
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 Automatic GeoModels are the easiest way to implement GeoModels. They're so easy to use that you don't even need to make one!
 
 Instead, when instantiating your GeckoLib renderer, you can simply pass the registered object to the renderer's constructor, and it will automatically generate a `GeoModel` instance for you.
 
 See below for an example of this
 
-<details>
-    <summary>Example Implementation</summary>
-
+<Collapsible title="Example Implementation">
     ```java
     new GeoEntityRenderer(context, EntityRegistry.EXAMPLE_ENTITY);
     ```
@@ -34,10 +34,8 @@ See below for an example of this
             </tr>
         </tbody>
     </table>
-</details>
-<details>
-    <summary>Another Example Implementation</summary>
-
+</Collapsible>
+<Collapsible title="Another Example Implementation">
     ```java
     new GeoItemRenderer(context, ItemRegistry.EXAMPLE_ITEM);
     ```
@@ -59,7 +57,7 @@ See below for an example of this
             </tr>
         </tbody>
     </table>
-</details>
+</Collapsible>
 
 The drawback to this approach is that you miss out on the ability to dynamically return values or manage subfolders in your GeoModel.
 

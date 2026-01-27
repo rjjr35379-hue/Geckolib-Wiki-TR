@@ -1,9 +1,10 @@
 ---
 sidebar_position: 3
 sidebar_label: The Renderer
-title: Creating the Renderer
+title: Creating & Registering the Renderer
 ---
 
+import AdditiveCodeHeader from "@site/src/components/AdditiveCodeHeader";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -44,9 +45,7 @@ Once you've made your entity class and registered your `EntityType`, you can now
         ### Advanced Renderer Class
         This option is for creating a standalone renderer class that can override methods for additional handling.
 
-        :::note
-        All code snippets in this section add onto the previous code snippets, using a step-by-step approach to build the complete class.
-        :::
+        <AdditiveCodeHeader />
 
         To begin, let's create a renderer class that extends `GeoEntityRenderer`:
 
@@ -67,7 +66,7 @@ Once you've made your entity class and registered your `EntityType`, you can now
         }
         ```
 
-        And then we add in the constructor, passing in the `EntityType` to automatically create the GeoModel:
+        And then we add in the constructor, passing in the `EntityType` to automatically create the `GeoModel`:
 
         ```java
         public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
@@ -87,7 +86,7 @@ Once you've made your entity class and registered your `EntityType`, you can now
         But what are these generic types?
 
         - `R` - This is the `RenderState` type. By default, GeckoLib uses vanilla's `LivingEntityRenderState`, combined with GeckoLib's `GeoRenderState`.
-        For more information on RenderStates, see the [RenderStates](/docs/Concepts/Rendering/renderstates.mdx) page.
+            For more information on RenderStates, see the [RenderStates](/docs/Concepts/Rendering/renderstates.mdx) page.
         - `ExampleEntity` - This is your entity! Replace this with your entity's class name.
     </TabItem>
 </Tabs>

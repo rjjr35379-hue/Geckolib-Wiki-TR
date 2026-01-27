@@ -4,6 +4,8 @@ sidebar_label: Bone Snapshots
 title: Bone Snapshots
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 `BoneSnapshot`s are GeckoLib's method of storing bone transformations for animations.
 
 ## Overview
@@ -37,9 +39,7 @@ public void adjustModelBonesForRender(RenderPassInfo<R> renderPassInfo, BoneSnap
 The `BoneSnapshots` object is provided to provide users access to the bones for animating.<br/>
 See below for an example of animating a bone manually using `BoneSnapshots`.
 
-<details>
-    <summary>Example Usage</summary>
-
+<Collapsible title="Example Usage">
     Below, we animate the bone named "MyBoneName" by rotating it 45 degrees.
     ```java
     @Override
@@ -51,9 +51,9 @@ See below for an example of animating a bone manually using `BoneSnapshots`.
         //highlight-end
     }
     ```
-</details>
+</Collapsible>
 
-:::note
+:::info
 It is generally recommended to avoid using manual bone manipulation via `BoneSnapshots`, and instead incorporate it into
 Molang variables and do it via JSON animations.
 :::

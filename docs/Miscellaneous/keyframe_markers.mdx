@@ -4,6 +4,8 @@ sidebar_label: Keyframe Markers/Triggers
 title: Keyframe Markers/Triggers
 ---
 
+import Collapsible from "@site/src/components/Collapsible";
+
 GeckoLib supports custom callbacks from animations via keyframe handlers.
 This allows for your animation to define certain additional effects such as particles, sounds, or just about anything else.
 
@@ -22,9 +24,7 @@ This is split into three types in GeckoLib:
 To handle sound keyframe callbacks, you add an instance of `KeyframeEventHandler` to your `AnimationController` via `setSoundKeyframeHandler`.
 This listener will then be called at the appropriate time as marked by the keyframe in the animation JSON.
 
-<details>
-    <summary>Example Implementation</summary>
-
+<Collapsible title="Example Implementation">
     ```java
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
@@ -38,7 +38,7 @@ This listener will then be called at the appropriate time as marked by the keyfr
             }));
     }
     ```
-</details>
+</Collapsible>
 
 ##### AutoPlayingSoundKeyframeHandler
 GeckoLib has a builtin `SoundKeyframeHandler` that allows you to skip the boilerplate of handling basic sound playing yourself.
@@ -50,9 +50,7 @@ Then, in your animation JSON, you can use either of the two below formats for yo
 1. `namespace:soundid`<br/>
 2. `namespace:soundid|volume|pitch`
 
-<details>
-    <summary>Example Implementation</summary>
-
+<Collapsible title="Example Implementation">
     ```java
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
@@ -60,7 +58,7 @@ Then, in your animation JSON, you can use either of the two below formats for yo
             .setSoundKeyframeHandler(new AutoPlayingSoundKeyframeHandler()));
     }
     ```
-</details>
+</Collapsible>
 
 #### Particle Keyframes
 To handle particle keyframe callbacks, you add an instance of `KeyframeEventHandler` to your `AnimationController` via `setParticleKeyframeHandler`.

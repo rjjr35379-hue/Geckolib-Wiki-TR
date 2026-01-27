@@ -1,0 +1,124 @@
+---
+sidebar_position: 5
+sidebar_label: The Renderer
+title: Creating & Registering the Renderer
+---
+
+import AdditiveCodeHeader from "@site/src/components/AdditiveCodeHeader";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Once you've made your `BlockEntity` class and registered your `BlockEntityType`, you can now create the renderer and register it.
+
+## Making the class
+<Tabs groupId="renderer" queryString="renderer">
+    <TabItem value="simple" label="Simple">
+        ### Simple Renderer Class
+        By default, GeckoLib does not require a custom renderer class, and you can instead just pass a new instance of
+        `GeoBlockRenderer` when registering your renderer.
+
+        If you do not require any custom handling of your block's rendering, this is the recommended approach.
+
+        E.G.
+        <Tabs groupId="modloader" queryString="modloader">
+            <TabItem value="fabric" label="Fabric">
+                ```java
+                // Registering the renderer
+                context -> new GeoBlockRenderer<>(context, BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY);
+                ```
+            </TabItem>
+            <TabItem value="forge" label="Forge">
+                ```java
+                // Registering the renderer
+                context -> new GeoBlockRenderer<>(context, BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get());
+                ```
+            </TabItem>
+            <TabItem value="neoforge" label="NeoForge" default>
+                ```java
+                // Registering the renderer
+                context -> new GeoBlockRenderer<>(context, BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get());
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="advanced" label="Advanced">
+        ### Advanced Renderer Class
+        This option is for creating a standalone renderer class that can override methods for additional handling.
+
+        <AdditiveCodeHeader />
+
+        To begin, let's create a renderer class that extends `GeoBlockRenderer`:
+
+        ```java
+        public class ExampleBlockRenderer extends GeoBlockRenderer {
+
+        }
+        ```
+
+        Then, we'll need to add in the [generic types](https://www.baeldung.com/java-generics) that the renderer requires:
+
+        For more information on this, see [The generic types](#the-generic-types) section.
+
+        ```java
+        //highlight-next-line
+        public class ExampleBlockRenderer<R extends BlockEntityRenderState & GeoRenderState> extends GeoBlockRenderer<ExampleBlockEntity, R> {
+
+        }
+        ```
+
+        And then we add in the constructor, passing in the `BlockEntityType` to automatically create the `GeoModel`:
+
+        ```java
+        public class ExampleBlockRenderer<R extends BlockEntityRenderState & GeoRenderState> extends GeoBlockRenderer<ExampleBlockEntity, R> {
+            //highlight-start
+            public ExampleBlockRenderer(BlockEntityType<ExampleBlockEntity> blockEntityType) {
+                super(blockEntityType);
+            }
+            //highlight-end
+        }
+        ```
+
+        That's it! Now you need to register it.
+
+        #### The generic types
+        In step 2, we added in the generic types that the renderer requires.
+
+        But what are these generic types?
+
+        - `R` - This is the `BlockEntityRenderState` type.
+            For more information on RenderStates, see the [RenderStates](/docs/Concepts/Rendering/renderstates.mdx) page.
+        - `ExampleBlockEntity` - This is your `BlockEntity`! Replace this with your `BlockEntity`'s class name.
+    </TabItem>
+</Tabs>
+
+## Registering the renderer
+Once you have created your renderer class, you then need to register it.
+This differs depending on the modloader you are using.
+
+Select your loader below for a link to that loader's documentation for registering `BlockEntity` renderers.
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        [https://docs.fabricmc.net/develop/blocks/block-entity-renderer#creating-a-blockentityrenderer](https://docs.fabricmc.net/develop/blocks/block-entity-renderer#creating-a-blockentityrenderer)
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        [https://docs.minecraftforge.net/en/latest/blockentities/ber/](https://docs.minecraftforge.net/en/latest/blockentities/ber/)
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge" default>
+        [https://docs.neoforged.net/docs/blockentities/ber/](https://docs.neoforged.net/docs/blockentities/ber/)
+    </TabItem>
+</Tabs>
+
+## The asset files
+If you followed the above instructions, GeckoLib will be looking for your asset files (`.geo.json`, `.animation.json`, `.png`)
+in the `/block/` subdirectory, named the same as your `BlockEntity`'s registered id.
+
+For example, if your `BlockEntityType` was registered as `example_block`, your files should be:
+
+> - Model: `resources/assets/<mod_id>/geckolib/models/block/example_block.geo.json`
+> - Animations: `resources/assets/<mod_id>/geckolib/animations/block/example_block.animation.json`
+> - Texture: `resources/assets/<mod_id>/textures/block/example_block.png`
+
+Where `<mod_id>` is the id of your mod.
+
+See the [Placing the Files](/docs/MakingModels/placing_the_files.mdx) page for more information on where to place these files.
