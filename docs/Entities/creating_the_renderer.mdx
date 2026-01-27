@@ -79,7 +79,16 @@ Once you've made your entity class and registered your `EntityType`, you can now
         }
         ```
 
-        That's it! Now you just need to register it.
+        That's it! Now you need to register it.
+
+        #### The generic types
+        In step 2, we added in the generic types that the renderer requires.
+
+        But what are these generic types?
+
+        - `R` - This is the `RenderState` type. By default, GeckoLib uses vanilla's `LivingEntityRenderState`, combined with GeckoLib's `GeoRenderState`.
+        For more information on RenderStates, see the [RenderStates](/docs/Concepts/Rendering/renderstates.mdx) page.
+        - `ExampleEntity` - This is your entity! Replace this with your entity's class name.
     </TabItem>
 </Tabs>
 
@@ -110,18 +119,9 @@ in the `/entity/` subdirectory, named the same as your entity's registered id.
 For example, if your `EntityType` was registered as `example_entity`, your files should be:
 
 > - Model: `resources/assets/<mod_id>/geckolib/models/entity/example_entity.geo.json`
-> - Model: `resources/assets/<mod_id>/geckolib/animations/entity/example_entity.animation.json`
-> - Model: `resources/assets/<mod_id>/textures/entity/example_entity.png`
+> - Animations: `resources/assets/<mod_id>/geckolib/animations/entity/example_entity.animation.json`
+> - Texture: `resources/assets/<mod_id>/textures/entity/example_entity.png`
 
 Where `<mod_id>` is the id of your mod.
 
 See the [Placing the Files](/docs/MakingModels/placing_the_files.mdx) page for more information on where to place these files.
-
-## The generic types
-In the [Making the class](#making-the-class) section, we added in the generic types that the renderer requires in step 2.
-
-But what are these generic types?
-
-- `R` - This is the `RenderState` type. By default, GeckoLib uses vanilla's `LivingEntityRenderState`, combined with GeckoLib's `GeoRenderState`.
-    For more information on RenderStates, see the [RenderStates](/docs/Concepts/Rendering/renderstates.mdx) page.
-- `ExampleEntity` - This is your entity! Replace this with your entity's class name.

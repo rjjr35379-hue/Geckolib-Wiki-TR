@@ -1,0 +1,57 @@
+---
+sidebar_position: 5
+sidebar_label: Copy-Paste Templates
+title: Copy-Paste Templates
+---
+
+Just looking for some template code to copy-paste?<br/>
+See below for some existing code you can use to get you started.
+
+:::warning
+The below examples are targeted at replacing a vanilla Creeper.<br/>
+Lines have been highlighted in green to show you where you will need to replace code for your own target entity
+:::
+
+## GeoReplacedEntity Class
+```java
+public class ExampleReplacedEntity implements GeoReplacedEntity {
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    @Override
+    public EntityType<?> getReplacingEntityType() {
+        //highlight-next-line
+        return EntityType.CREEPER;
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.geoCache;
+    }
+}
+```
+
+## GeoModel
+```java
+public class ExampleReplacedEntityGeoModel extends DefaultedEntityGeoModel<ExampleReplacedEntity> {
+    public ExampleReplacedEntityGeoModel() {
+        super(Identifier.fromNamespaceAndPath(ExampleMod.MOD_ID, "example_replaced_entity"));
+    }
+}
+```
+
+## Entity Renderer
+```java
+//highlight-next-line
+public class ExampleReplacedEntityRenderer<R extends CreeperRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleReplacedEntity, Creeper, R> {
+    public ExampleReplacedEntityRenderer(EntityRendererProvider.Context context) {
+        super(context, new ExampleReplacedEntityGeoModel(), new ExampleReplacedEntity();
+    }
+
+
+}
+```

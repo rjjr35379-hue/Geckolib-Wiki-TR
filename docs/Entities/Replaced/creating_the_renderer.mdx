@@ -1,0 +1,107 @@
+---
+sidebar_position: 4
+sidebar_label: The Renderer
+title: Creating the Renderer
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Once you've made your replaced entity class, you can now create the renderer and register it.
+
+## Making the class
+:::note
+All code snippets in this section add onto the previous code snippets, using a step-by-step approach to build the complete class.
+:::
+
+To begin, let's create a renderer class that extends `GeoReplacedEntityRenderer`:
+
+```java
+public class ExampleReplacedEntityRenderer extends GeoReplacedEntityRenderer {
+
+}
+```
+
+Then, we'll need to add in the [generic types](https://www.baeldung.com/java-generics) that the renderer requires:
+
+For more information on this, see [The generic types](#the-generic-types) section.
+
+```java
+//highlight-next-line
+public class ExampleReplacedEntityRenderer<R extends CreeperRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleReplacedEntity, Creeper, R> {
+
+}
+```
+
+And then we add in the constructor, passing in the `GeoModel` and `GeoReplacedEntity` instance:
+
+```java
+public class ExampleReplacedEntityRenderer<R extends CreeperRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleReplacedEntity, Creeper, R> {
+    //highlight-start
+    public ExampleReplacedEntityRenderer(EntityRendererProvider.Context context) {
+        super(context, new ExampleReplacedEntityGeoModel(), new ExampleReplacedEntity();
+    }
+    //highlight-end
+}
+```
+
+That's it! Now you need to register it.
+
+### Extra Bits
+GeckoLib strongly recommends that you additionally override `createRenderState(T, E)`
+and return a new instance of the target entity's normal `RenderState` class, as well as `extractRenderState`, adding the
+target entity's normal `RenderState` values.
+
+For example, if you're replacing a Creeper:
+```java
+@Override
+public R createRenderState(ExampleReplacedEntity animatable, Creeper relatedObject) {
+    return (R)new CreeperRenderState();
+}
+
+@Override
+public void extractRenderState(Creeper entity, R renderState, float partialTick) {
+    super.extractRenderState(entity, renderState, partialTick);
+
+    renderState.swelling = entity.getSwelling(partialTick);
+    renderState.isPowered = entity.isPowered();
+}
+```
+
+You may also want to override other parts of the renderer to better match the target entity, if applicable.
+
+:::warning
+The above example is for replacing a Creeper. If you are replacing a different entity, you will need to check your
+target entity's normal renderer and use those values instead.
+:::
+
+## Registering the renderer
+Once you have created your renderer class, you then need to register it.
+This differs depending on the modloader you are using.
+
+Select your loader below for a link to that loader's documentation for registering entity renderers.
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        [https://wiki.fabricmc.net/tutorial:entity#registering_entity_renderer](https://wiki.fabricmc.net/tutorial:entity#registering_entity_renderer)
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        None exists :(
+
+        See the NeoForge tab for similar instructions
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge" default>
+        [https://docs.neoforged.net/docs/entities/renderer/#creating-an-entity-renderer](https://docs.neoforged.net/docs/entities/renderer/#creating-an-entity-renderer)
+    </TabItem>
+</Tabs>
+
+## The generic types
+In the [Making the class](#making-the-class) section, we added in the generic types that the renderer requires in step 3.
+
+But what are these generic types?
+
+- `R` - This is the `RenderState` type. By default, GeckoLib uses vanilla's `LivingEntityRenderState`, combined with GeckoLib's `GeoRenderState`,
+    but it is strongly recommended you use the `RenderState` your replaced entity uses (such as `CreeperRenderState` for Creepers).<br/>
+    For more information on RenderStates, see the [RenderStates](/docs/Concepts/Rendering/renderstates.mdx) page.
+- `Creeper` - This is the entity class of the entity you're replacing. Replace this with your target entity's class name.
+- `ExampleReplacedEntity` - This is your `ReplacedGeoEntity`! Replace this with your replaced entity's class name.
