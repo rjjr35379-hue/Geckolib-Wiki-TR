@@ -50,9 +50,8 @@ Lastly, we extend `newBlockEntity` to return a new instance of our custom block 
             }
 
             //highlight-start
-            @Nullable
             @Override
-            public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
                 return BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.create(pos, state);
             }
             //highlight-end
@@ -67,9 +66,8 @@ Lastly, we extend `newBlockEntity` to return a new instance of our custom block 
             }
 
             //highlight-start
-            @Nullable
             @Override
-            public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
                 return BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get().create(pos, state);
             }
             //highlight-end
@@ -84,9 +82,8 @@ Lastly, we extend `newBlockEntity` to return a new instance of our custom block 
             }
 
             //highlight-start
-            @Nullable
             @Override
-            public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
                 return BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get().create(pos, state);
             }
             //highlight-end
