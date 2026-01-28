@@ -91,6 +91,8 @@ For information on adding animation controllers, see the [Animation Controllers]
 
     ```java
     public class ExampleItem extends Item implements GeoItem {
+        private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
         public ExampleItem(Properties properties) {
             super(properties);
 
@@ -112,6 +114,8 @@ For information on adding animation controllers, see the [Animation Controllers]
 
     ```java
     public class ExampleItem extends Item implements GeoItem {
+        private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
         public ExampleItem(Properties properties) {
             super(properties);
         }
