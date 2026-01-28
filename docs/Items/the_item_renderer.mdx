@@ -8,38 +8,22 @@ import AdditiveCodeHeader from "@site/src/components/AdditiveCodeHeader";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Once you've made your item class and registered your item, you can now create the renderer and register it.
+Once you've made your item class and registered your item, you can now create the renderer and apply it.
 
 ## Making the class
 <Tabs groupId="renderer" queryString="renderer">
     <TabItem value="simple" label="Simple">
         ### Simple Renderer Class
         By default, GeckoLib does not require a custom renderer class, and you can instead just pass a new instance of
-        `GeoItemRenderer` when registering your renderer.
+        `GeoItemRenderer` when apply your renderer.
 
         If you do not require any custom handling of your item's rendering, this is the recommended approach.
 
         E.G.
-        <Tabs groupId="modloader" queryString="modloader">
-            <TabItem value="fabric" label="Fabric">
-                ```java
-                // Registering the renderer
-                () -> new GeoItemRenderer<>(ItemRegistry.EXAMPLE_ITEM);
-                ```
-            </TabItem>
-            <TabItem value="forge" label="Forge">
-                ```java
-                // Registering the renderer
-                () -> new GeoItemRenderer<>(ItemRegistry.EXAMPLE_ITEM.get());
-                ```
-            </TabItem>
-            <TabItem value="neoforge" label="NeoForge" default>
-                ```java
-                // Registering the renderer
-                () -> new GeoItemRenderer<>(ItemRegistry.EXAMPLE_ITEM.get());
-                ```
-            </TabItem>
-        </Tabs>
+        ```java
+        // Applying the renderer
+        () -> new GeoItemRenderer<>(ExampleItem.this);
+        ```
     </TabItem>
     <TabItem value="advanced" label="Advanced">
         ### Advanced Renderer Class

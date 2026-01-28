@@ -8,7 +8,7 @@ import AdditiveCodeHeader from "@site/src/components/AdditiveCodeHeader";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Once you've made your item class and its associated renderer, you need to apply it to your item.
+Once you've made your item class and its associated armor renderer, you need to apply it to your item class.
 
 ## Adjusting Your Item Class
 To apply the `GeoItemRenderer` to your item, you'll need to add in a small section to your item class.
@@ -18,7 +18,7 @@ To apply the `GeoItemRenderer` to your item, you'll need to add in a small secti
 First, we override `createGeoRenderer` in our item class:
 
 ```java
-public class ExampleItem extends Item implements GeoItem {
+public class ExampleArmorItem extends Item implements GeoItem {
 
     // ...
 
@@ -34,7 +34,7 @@ public class ExampleItem extends Item implements GeoItem {
 Then we provide the `Consumer` with a new GeoRenderProvider instance:
 
 ```java
-public class ExampleItem extends Item implements GeoItem {
+public class ExampleArmorItem extends Item implements GeoItem {
 
     // ...
 
@@ -52,7 +52,7 @@ public class ExampleItem extends Item implements GeoItem {
 Next, we create a cached supplier of your renderer, so that you're not creating a new one every render pass:
 
 ```java
-public class ExampleItem extends Item implements GeoItem {
+public class ExampleArmorItem extends Item implements GeoItem {
 
     // ...
 
@@ -60,7 +60,7 @@ public class ExampleItem extends Item implements GeoItem {
     public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
         consumer.accept(new GeoRenderProvider() {
             //highlight-next-line
-            private final Supplier<GeoItemRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoItemRenderer<>(ExampleItem.this));
+            private final Supplier<GeoArmorRenderer<ExampleArmorItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ExampleArmorItem.this));
 
 
         });
@@ -68,21 +68,21 @@ public class ExampleItem extends Item implements GeoItem {
 }
 ```
 
-And finally, we override `getGeoItemRenderer` and return our renderer:
+And finally, we override `getGeoArmorRenderer` and return our renderer:
 
 ```java
-public class ExampleItem extends Item implements GeoItem {
+public class ExampleArmorItem extends Item implements GeoItem {
 
     // ...
 
     @Override
     public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
         consumer.accept(new GeoRenderProvider() {
-            private final Supplier<GeoItemRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoItemRenderer<>(ExampleItem.this));
+            private final Supplier<GeoArmorRenderer<ExampleArmorItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ExampleArmorItem.this));
 
             //highlight-start
             @Override
-            public @Nullable GeoItemRenderer<ExampleItem> getGeoItemRenderer() {
+            public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
                 return this.renderer.get();
             }
             //highlight-end
@@ -101,13 +101,13 @@ since your IDE won't be able to find the renderer class while working in your it
 First, we'll need to put a `MutableObject` in your item class so it can hold the `GeoRenderProvider`:
 
 ```java
-public class ExampleItem extends Item implements GeoItem {
+public class ExampleArmorItem extends Item implements GeoItem {
     //highlight-next-line
     public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-    public ExampleItem(Properties properties) {
-        super(properties);
+    public ExampleArmorItem(ArmorMaterial material, ArmorType type, Properties properties) {
+        super(properties.humanoidArmor(material, type));
     }
 
     // ...
@@ -117,7 +117,7 @@ public class ExampleItem extends Item implements GeoItem {
 Then, we'll need to provide that to the `GeoRenderProvider` consumer, instead of directly passing it:
 
 ```java
-public class ExampleItem extends Item implements GeoItem {
+public class ExampleArmorItem extends Item implements GeoItem {
     public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
 
     // ...
@@ -140,11 +140,11 @@ See the [Adjusting Your Item Class](#adjusting-your-item-class) section to see h
         ```java
         @Override
         public void onInitializeClient() {
-            ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
-                private final Supplier<GeoItemRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoItemRenderer<>(ItemRegistry.EXAMPLE_ITEM));
+            ItemRegistry.EXAMPLE_ARMOR_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM));
 
                 @Override
-                public @Nullable GeoItemRenderer<ExampleItem> getGeoItemRenderer() {
+                public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
                     return this.renderer.get();
                 }
             });
@@ -155,11 +155,11 @@ See the [Adjusting Your Item Class](#adjusting-your-item-class) section to see h
         ```java
         @SubscribeEvent
         public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-            ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
-                private final Supplier<GeoItemRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoItemRenderer<>(ItemRegistry.EXAMPLE_ITEM.get()));
+            ItemRegistry.EXAMPLE_ARMOR_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
 
                 @Override
-                public @Nullable GeoItemRenderer<ExampleItem> getGeoItemRenderer() {
+                public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
                     return this.renderer.get();
                 }
             });
@@ -170,11 +170,11 @@ See the [Adjusting Your Item Class](#adjusting-your-item-class) section to see h
         ```java
         @SubscribeEvent
         public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-            ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
-                private final Supplier<GeoItemRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoItemRenderer<>(ItemRegistry.EXAMPLE_ITEM.get()));
+            ItemRegistry.EXAMPLE_ARMOR_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
 
                 @Override
-                public @Nullable GeoItemRenderer<ExampleItem> getGeoItemRenderer() {
+                public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
                     return this.renderer.get();
                 }
             });
