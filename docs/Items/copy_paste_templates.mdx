@@ -1,0 +1,217 @@
+---
+sidebar_position: 7
+sidebar_label: Copy-Paste Templates
+title: Copy-Paste Templates
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Just looking for some template code to copy-paste?<br/>
+See below for some existing code you can use to get you started.
+
+## Item Class
+<Tabs groupId="splitsources" queryString="splitsources">
+    <TabItem value="combined" label="Combined Sources">
+        ```java
+        public class ExampleItem extends Item implements GeoItem {
+            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+            public ExampleItem(Properties properties) {
+                super(properties);
+
+                // Uncomment the below line to enable triggered animations
+                //GeoItem.registerSyncedAnimatable(this);
+            }
+
+            @Override
+            public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+                consumer.accept(new GeoRenderProvider() {
+                    private final Supplier<GeoItemRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoItemRenderer<>(ExampleItem.this));
+
+                    @Override
+                    public @Nullable GeoItemRenderer<ExampleItem> getGeoItemRenderer() {
+                        return this.renderer.get();
+                    }
+                });
+            }
+
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+            }
+
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                return this.geoCache;
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="split" label="Split Sources">
+        ```java title="Item Class"
+        public class ExampleItem extends Item implements GeoItem {
+            public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
+            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+            public ExampleItem(Properties properties) {
+                super(properties);
+
+                // Uncomment the below line to enable triggered animations
+                //GeoItem.registerSyncedAnimatable(this);
+            }
+
+            @Override
+            public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+                consumer.accept(this.geoRenderProvider.getValue());
+            }
+
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+            }
+
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                return this.geoCache;
+            }
+        }
+        ```
+
+        <Tabs groupId="modloader" queryString="modloader">
+            <TabItem value="fabric" label="Fabric">
+                ```java title="Client Setup"
+                @Override
+                public void onInitializeClient() {
+                    ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                        private final Supplier<GeoItemRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoItemRenderer<>(ExampleItem.this));
+
+                        @Override
+                        public @Nullable GeoItemRenderer<ExampleItem> getGeoItemRenderer() {
+                            return this.renderer.get();
+                        }
+                    });
+                }
+                ```
+            </TabItem>
+            <TabItem value="forge" label="Forge" default>
+                ```java title="Client Setup"
+                @SubscribeEvent
+                public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+                    ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                        private final Supplier<GeoItemRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoItemRenderer<>(ExampleItem.this));
+
+                        @Override
+                        public @Nullable GeoItemRenderer<ExampleItem> getGeoItemRenderer() {
+                            return this.renderer.get();
+                        }
+                    });
+                }
+                ```
+            </TabItem>
+            <TabItem value="neoforge" label="NeoForge" default>
+                ```java title="Client Setup"
+                @SubscribeEvent
+                public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+                    ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                        private final Supplier<GeoItemRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoItemRenderer<>(ExampleItem.this));
+
+                        @Override
+                        public @Nullable GeoItemRenderer<ExampleItem> getGeoItemRenderer() {
+                            return this.renderer.get();
+                        }
+                    });
+                }
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+</Tabs>
+
+## Item Renderer
+<Tabs groupId="renderer" queryString="renderer">
+    <TabItem value="simple" label="Simple">
+        <Tabs groupId="modloader" queryString="modloader">
+            <TabItem value="fabric" label="Fabric">
+                ```java
+                // Registering the renderer
+                () -> new GeoItemRenderer<>(ItemRegistry.EXAMPLE_ITEM);
+                ```
+            </TabItem>
+            <TabItem value="forge" label="Forge">
+                ```java
+                // Registering the renderer
+                () -> new GeoItemRenderer<>(ItemRegistry.EXAMPLE_ITEM.get());
+                ```
+            </TabItem>
+            <TabItem value="neoforge" label="NeoForge" default>
+                ```java
+                // Registering the renderer
+                () -> new GeoItemRenderer<>(ItemRegistry.EXAMPLE_ITEM.get());
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="advanced" label="Advanced">
+        <Tabs groupId="modloader" queryString="modloader">
+            <TabItem value="fabric" label="Fabric" default>
+                ```java
+                public class ExampleItemRenderer extends GeoItemRenderer<ExampleItem> {
+                    public ExampleItemRenderer() {
+                        super(ItemRegistry.EXAMPLE_ITEM);
+                    }
+                }
+                ```
+            </TabItem>
+            <TabItem value="forge" label="Forge" default>
+                ```java
+                public class ExampleItemRenderer extends GeoItemRenderer<ExampleItem> {
+                    public ExampleItemRenderer() {
+                        super(ItemRegistry.EXAMPLE_ITEM.get());
+                    }
+                }
+                ```
+            </TabItem>
+            <TabItem value="neoforge" label="NeoForge" default>
+                ```java
+                public class ExampleItemRenderer extends GeoItemRenderer<ExampleItem> {
+                    public ExampleItemRenderer() {
+                        super(ItemRegistry.EXAMPLE_ITEM.get());
+                    }
+                }
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+</Tabs>
+
+## Item JSON
+```json title="/assets/<modid>/items/<item_id>.json"
+{
+    "model": {
+        "type": "minecraft:special",
+            "base": "<modid>:item/<item_id>",
+            "model": {
+            "type": "geckolib:geckolib"
+        }
+    }
+}
+```
+
+:::danger
+Don't forget to change the `<modid>` and `<item_id>` values to match your mod and item!
+:::
+
+## Item Display JSON
+```json title="/assets/<modid>/models/item/<item_id>.json"
+{
+    "parent": "builtin/entity",
+    "textures": {
+        "particle": "<modid>:item/<item_id>"
+    }
+}
+```
+
+:::danger
+Don't forget to change the `<modid>` and `<item_id>` values to match your mod and item!
+:::
