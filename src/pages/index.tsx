@@ -25,7 +25,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Documentation for the GeckoLib Minecraft Java mod for developer usage">
+      description="Official Wiki for GeckoLib - The Minecraft mod for animation, rendering, and more.">
       <HomepageHeader />
       <main>
         <VersionSelect />
