@@ -22,12 +22,22 @@ The README contains instructions on how to set up the wiki locally.
 - Keep each new page to its own commit, even if bundling multiple pages into a PR.
 - Changes to existing pages should be bundled into a single commit, grouped by change relevance.
 
-### Formatting
+### New Folders
+New URL subdirectories (folders under /docs/) must abide by the following format rules:
+- Only lowercase letters and hyphens are allowed
+- Each folder must contain a `_category_.json` file denoting the folder's ordinal in the sidebar, and its display name
+- Code-reference words (E.G. `GeoModel`, `AnimationController`) must remain as lowercase, one-word names in file names
+
+### New Pages
 - All document pages must be `.mdx` files
+- All document page names must be named in lowercase with hyphens as word separators
+- Code-reference words (E.G. `GeoModel`, `AnimationController`) must remain as lowercase, one-word names in file names
 - All document pages must explicitly define three properties at a minimum
-    - `sidebar_position`
-    - `sidebar_label`
-    - `title`
+  - `sidebar_position`
+  - `sidebar_label`
+  - `title`
+
+### Formatting
 - All code samples must be surrounded in a typed code block
 - \`Backticks\` must surround all specific notable references:
     - Class names
