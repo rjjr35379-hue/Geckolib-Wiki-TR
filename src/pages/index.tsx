@@ -2,10 +2,10 @@ import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import VersionSelect from '@site/src/components/VersionSelect';
+import VersionSelect from '@site/src/components/version-select';
 
 import styles from './index.module.css';
-import BannerImage from "@site/src/components/BannerImage";
+import BannerImage from "@site/src/components/banner-image";
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();

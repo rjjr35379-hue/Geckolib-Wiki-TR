@@ -1,0 +1,88 @@
+---
+sidebar_position: 3
+sidebar_label: The Renderer
+title: Creating the Renderer
+---
+
+import AdditiveCodeHeader from "@site/src/components/additive-code-header";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Once you've made your item class and registered your item, you can now create the renderer and apply it.
+
+## Making the class
+<Tabs groupId="renderer" queryString="renderer">
+    <TabItem value="simple" label="Simple">
+        ### Simple Renderer Class
+        By default, GeckoLib does not require a custom renderer class, and you can instead just pass a new instance of
+        `GeoItemRenderer` when apply your renderer.
+
+        If you do not require any custom handling of your item's rendering, this is the recommended approach.
+
+        E.G.
+        ```java
+        // Applying the renderer
+        () -> new GeoItemRenderer<>(ExampleItem.this);
+        ```
+    </TabItem>
+    <TabItem value="advanced" label="Advanced">
+        ### Advanced Renderer Class
+        This option is for creating a standalone renderer class that can override methods for additional handling.
+
+        <AdditiveCodeHeader />
+
+        To begin, let's create a renderer class that extends `GeoItemRenderer`:
+
+        ```java
+        public class ExampleItemRenderer extends GeoItemRenderer {
+
+        }
+        ```
+
+        Then, we'll need to add in the [generic types](https://www.baeldung.com/java-generics) that the renderer requires:
+
+        For more information on this, see [The generic types](#the-generic-types) section.
+
+        ```java
+        //highlight-next-line
+        public class ExampleItemRenderer extends GeoItemRenderer<ExampleItem> {
+
+        }
+        ```
+
+        And then we add in the constructor, passing in the `EntityType` to automatically create the `GeoModel`:
+
+        ```java
+        public class ExampleItemRenderer extends GeoItemRenderer<ExampleItem> {
+            //highlight-start
+            public ExampleItemRenderer() {
+                super(ItemRegistry.EXAMPLE_ITEM);
+            }
+            //highlight-end
+        }
+        ```
+
+        That's it! Now you need to apply it to the item.
+
+        #### The generic types
+        In step 2, we added in the generic type that the renderer requires.
+
+        But what is this generic type?
+
+        - `ExampleItem` - This is your item! Replace this with your item's class name.
+    </TabItem>
+</Tabs>
+
+## The asset files
+If you followed the above instructions, GeckoLib will be looking for your asset files (`.geo.json`, `.animation.json`, `.png`)
+in the `/item/` subdirectory, named the same as your item's registered id.
+
+For example, if your item was registered as `example_item`, your files should be:
+
+> - Model: `resources/assets/<mod_id>/geckolib/models/item/example_item.geo.json`
+> - Animations: `resources/assets/<mod_id>/geckolib/animations/item/example_item.animation.json`
+> - Texture: `resources/assets/<mod_id>/textures/item/example_item.png`
+
+Where `<mod_id>` is the id of your mod.
+
+See the [Placing the Files](/docs/making-models/placing-the-files.mdx) page for more information on where to place these files.

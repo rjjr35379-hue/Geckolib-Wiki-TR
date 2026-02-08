@@ -1,0 +1,71 @@
+---
+sidebar_position: 5
+sidebar_label: Keyframe Markers/Triggers
+title: Keyframe Markers/Triggers
+---
+
+import Collapsible from "@site/src/components/collapsible";
+
+GeckoLib supports custom callbacks from animations via keyframe handlers.
+This allows for your animation to define certain additional effects such as particles, sounds, or just about anything else.
+
+## Usage
+### BlockBench
+To use this feature in BlockBench, click `Animation` -> `Animate Effects`.<br/>
+You'll see a new animation panel pop up in the animator. From here, you can add global keyframes to your model.
+
+This is split into three types in GeckoLib:
+* Sounds
+* Particles
+* Custom Instructions
+
+### In Code
+#### Sound Keyframes
+To handle sound keyframe callbacks, you add an instance of `KeyframeEventHandler` to your `AnimationController` via `setSoundKeyframeHandler`.
+This listener will then be called at the appropriate time as marked by the keyframe in the animation JSON.
+
+<Collapsible title="Example Implementation">
+    ```java
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(animTest -> PlayState.STOP)
+            .setSoundKeyframeHandler(state -> {
+                // Use helper method to avoid client-code in common class
+                Player player = ClientUtil.getClientPlayer();
+
+                if (player != null)
+                    player.playSound(SoundRegistry.EXAMPLE_SOUND.get(), 1, 1);
+            }));
+    }
+    ```
+</Collapsible>
+
+##### AutoPlayingSoundKeyframeHandler
+GeckoLib has a builtin `SoundKeyframeHandler` that allows you to skip the boilerplate of handling basic sound playing yourself.
+
+To use this, add a `SoundKeyframeHandler` like normal, but instead of your own, just pass a new instance of `AutoPlayingSoundKeyframeHandler`
+
+Then, in your animation JSON, you can use either of the two below formats for your keyframe instructions to have the handler auto-handle the sound for you:
+
+1. `namespace:soundid`<br/>
+2. `namespace:soundid|volume|pitch`
+
+<Collapsible title="Example Implementation">
+    ```java
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(animTest -> PlayState.STOP)
+            .setSoundKeyframeHandler(new AutoPlayingSoundKeyframeHandler()));
+    }
+    ```
+</Collapsible>
+
+#### Particle Keyframes
+To handle particle keyframe callbacks, you add an instance of `KeyframeEventHandler` to your `AnimationController` via `setParticleKeyframeHandler`.
+This listener will then be called at the appropriate time as marked by the keyframe in the animation JSON.
+
+#### Custom Instruction Keyframes
+Custom instructions are helpful for non-sound and non-particle things you want to do to your entity at a specific time in your keyframe.
+
+To handle custom keyframe callbacks, you add an instance of `KeyframeEventHandler` to your `AnimationController` via `setCustomInstructionKeyframeHandler`.
+This listener will then be called at the appropriate time as marked by the keyframe in the animation JSON.

@@ -1,0 +1,126 @@
+---
+sidebar_position: 3
+sidebar_label: The Renderer
+title: Creating & Registering the Renderer
+---
+
+import AdditiveCodeHeader from "@site/src/components/additive-code-header";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Once you've made your entity class and registered your `EntityType`, you can now create the renderer and register it.
+
+## Making the class
+<Tabs groupId="renderer" queryString="renderer">
+    <TabItem value="simple" label="Simple">
+        ### Simple Renderer Class
+        By default, GeckoLib does not require a custom renderer class, and you can instead just pass a new instance of
+        `GeoEntityRenderer` when registering your renderer.
+
+        If you do not require any custom handling of your entity's rendering, this is the recommended approach.
+
+        E.G.
+        <Tabs groupId="modloader" queryString="modloader">
+            <TabItem value="fabric" label="Fabric">
+                ```java
+                // Registering the renderer
+                context -> new GeoEntityRenderer<>(context, EntityRegistry.EXAMPLE_ENTITY);
+                ```
+            </TabItem>
+            <TabItem value="forge" label="Forge">
+                ```java
+                // Registering the renderer
+                context -> new GeoEntityRenderer<>(context, EntityRegistry.EXAMPLE_ENTITY.get());
+                ```
+            </TabItem>
+            <TabItem value="neoforge" label="NeoForge" default>
+                ```java
+                // Registering the renderer
+                context -> new GeoEntityRenderer<>(context, EntityRegistry.EXAMPLE_ENTITY.get());
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="advanced" label="Advanced">
+        ### Advanced Renderer Class
+        This option is for creating a standalone renderer class that can override methods for additional handling.
+
+        <AdditiveCodeHeader />
+
+        To begin, let's create a renderer class that extends `GeoEntityRenderer`:
+
+        ```java
+        public class ExampleEntityRenderer extends GeoEntityRenderer {
+
+        }
+        ```
+
+        Then, we'll need to add in the [generic types](https://www.baeldung.com/java-generics) that the renderer requires:
+
+        For more information on this, see [The generic types](#the-generic-types) section.
+
+        ```java
+        //highlight-next-line
+        public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+
+        }
+        ```
+
+        And then we add in the constructor, passing in the `EntityType` to automatically create the `GeoModel`:
+
+        ```java
+        public class ExampleEntityRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleEntity, R> {
+            //highlight-start
+            public ExampleEntityRenderer(EntityRendererProvider.Context context, EntityType<ExampleEntity> entityType) {
+                super(context, entityType);
+            }
+            //highlight-end
+        }
+        ```
+
+        That's it! Now you need to register it.
+
+        #### The generic types
+        In step 2, we added in the generic types that the renderer requires.
+
+        But what are these generic types?
+
+        - `R` - This is the `RenderState` type. By default, GeckoLib uses vanilla's `LivingEntityRenderState`, combined with GeckoLib's `GeoRenderState`.
+            For more information on RenderStates, see the [RenderStates](/docs/concepts/rendering/renderstates.mdx) page.
+        - `ExampleEntity` - This is your entity! Replace this with your entity's class name.
+    </TabItem>
+</Tabs>
+
+## Registering the renderer
+Once you have created your renderer class, you then need to register it.
+This differs depending on the modloader you are using.
+
+Select your loader below for a link to that loader's documentation for registering entity renderers.
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        [https://wiki.fabricmc.net/tutorial:entity#registering_entity_renderer](https://wiki.fabricmc.net/tutorial:entity#registering_entity_renderer)
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        None exists :(
+
+        See the NeoForge tab for similar instructions
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge" default>
+        [https://docs.neoforged.net/docs/entities/renderer/#creating-an-entity-renderer](https://docs.neoforged.net/docs/entities/renderer/#creating-an-entity-renderer)
+    </TabItem>
+</Tabs>
+
+## The asset files
+If you followed the above instructions, GeckoLib will be looking for your asset files (`.geo.json`, `.animation.json`, `.png`)
+in the `/entity/` subdirectory, named the same as your entity's registered id.
+
+For example, if your `EntityType` was registered as `example_entity`, your files should be:
+
+> - Model: `resources/assets/<mod_id>/geckolib/models/entity/example_entity.geo.json`
+> - Animations: `resources/assets/<mod_id>/geckolib/animations/entity/example_entity.animation.json`
+> - Texture: `resources/assets/<mod_id>/textures/entity/example_entity.png`
+
+Where `<mod_id>` is the id of your mod.
+
+See the [Placing the Files](/docs/making-models/placing-the-files.mdx) page for more information on where to place these files.

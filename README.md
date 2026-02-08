@@ -55,7 +55,7 @@ title: Armor
 
 ## Adding a Minecraft Version
 When a new Minecraft version comes out, we'll want to add it to the list of available versions for users to select from.
-This is done by editing the [VersionSelect](src/components/VersionSelect/index.tsx) file and adding the new version to the `versions` array
+This is done by editing the [VersionSelect](src/components/version-select/index.tsx) file and adding the new version to the `versions` array
 in the same format as the other versions.
 
 ## Working on a specific version

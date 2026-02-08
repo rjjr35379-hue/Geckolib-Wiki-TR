@@ -1,0 +1,97 @@
+---
+sidebar_position: 2
+sidebar_label: The Block Class
+title: The Block Class
+---
+
+import AdditiveCodeHeader from "@site/src/components/additive-code-header";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+To have a GeckoLib block, you first need to have a block class.
+
+:::note
+This tutorial is specifically for GeckoLib implementation. For information on general-modding block features, seek
+a tutorial or community support.
+:::
+
+## Creating the class
+<AdditiveCodeHeader />
+
+First, we create the base block class and implement the base constructor:
+
+```java
+public class ExampleBlock extends Block {
+    public ExampleBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+    }
+}
+```
+
+Then we implement the `EntityBlock` interface:
+
+```java
+//highlight-next-line
+public class ExampleBlock extends Block implements EntityBlock {
+    public ExampleBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+    }
+}
+```
+
+Lastly, we extend `newBlockEntity` to return a new instance of our custom block entity:
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        ```java
+        public class ExampleBlock extends Block implements EntityBlock {
+            public ExampleBlock(BlockBehaviour.Properties properties) {
+                super(properties);
+            }
+
+            //highlight-start
+            @Override
+            public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+                return BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.create(pos, state);
+            }
+            //highlight-end
+        }
+        ```
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        ```java
+        public class ExampleBlock extends Block implements EntityBlock {
+            public ExampleBlock(BlockBehaviour.Properties properties) {
+                super(properties);
+            }
+
+            //highlight-start
+            @Override
+            public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+                return BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get().create(pos, state);
+            }
+            //highlight-end
+        }
+        ```
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge">
+        ```java
+        public class ExampleBlock extends Block implements EntityBlock {
+            public ExampleBlock(BlockBehaviour.Properties properties) {
+                super(properties);
+            }
+
+            //highlight-start
+            @Override
+            public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+                return BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get().create(pos, state);
+            }
+            //highlight-end
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+And that's it!
+
+Now we move onto the `BlockEntity` class.

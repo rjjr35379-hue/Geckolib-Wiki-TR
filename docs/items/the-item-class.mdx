@@ -1,0 +1,153 @@
+---
+sidebar_position: 2
+sidebar_label: The Item Class
+title: The Item Class
+---
+
+import Collapsible from "@site/src/components/collapsible";
+import AdditiveCodeHeader from "@site/src/components/additive-code-header";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+To have a GeckoLib item, you first need to have an item class.
+
+:::note
+This tutorial is specifically for GeckoLib implementation. For information on general-modding item features, seek
+a tutorial or community support.
+:::
+
+## Creating the class
+<AdditiveCodeHeader />
+
+First, we create the base item class and implement the base constructor:
+
+```java
+public class ExampleItem extends Item {
+    public ExampleItem(Properties properties) {
+        super(properties);
+    }
+}
+```
+
+Then, we will implement the `GeoItem` interface and override the `getAnimatableInstanceCache` and `registerControllers` methods:
+
+```java
+//highlight-next-line
+public class ExampleItem extends Item implements GeoItem {
+    public ExampleItem(Properties properties) {
+        super(properties);
+    }
+
+    //highlight-start
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        // We can fill this in later
+    }
+    //highlight-end
+
+    //highlight-start
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return null;
+    }
+    //highlight-end
+}
+```
+
+Next, let's instantiate an `AnimatableInstanceCache` in a `final` field at the top of our class, and return it in `getAnimatableInstanceCache`:
+
+```java
+public class ExampleItem extends Item implements GeoItem {
+    //highlight-next-line
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    public ExampleItem(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        // We can fill this in later
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        //highlight-next-line
+        return this.geoCache;
+    }
+}
+```
+
+And you're done!
+
+For information on adding animation controllers, see the [Animation Controllers](/docs/concepts/animation/controller/overview.mdx) page.
+
+## Extra Bits
+### I want to use triggered animations on this item
+<Collapsible title="Click to Expand">
+    To prepare your item class for using triggered animations, you'll need to register the item as a synced animatable.<br/>
+    This is done in the constructor, like so:
+
+    ```java
+    public class ExampleItem extends Item implements GeoItem {
+        private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+        public ExampleItem(Properties properties) {
+            super(properties);
+
+            //highlight-next-line
+            GeoItem.registerSyncedAnimatable(this);
+        }
+
+        // ...
+    }
+    ```
+
+    See the [Triggered Animations](/docs/miscellaneous/triggerable-animations.mdx) section for more information on triggered animations and how to use them
+</Collapsible>
+
+### I want to have my animations only play in my hand, but not in GUI (or vice versa)
+<Collapsible title="Click to Expand">
+    If you want to handle animations differently depending on the render perspective, you'll need to mark the item as perspective-aware.<br/>
+    This is done by adding a method to your item's class, like so:
+
+    ```java
+    public class ExampleItem extends Item implements GeoItem {
+        private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+        public ExampleItem(Properties properties) {
+            super(properties);
+        }
+
+        // ...
+
+        //highlight-start
+        @Override
+        public boolean isPerspectiveAware() {
+            return true;
+        }
+        //highlight-end
+    }
+    ```
+
+    See the [Perspective-Aware Animations](/docs/items/the-item-class#i-want-to-have-my-animations-only-play-in-my-hand-but-not-in-gui-or-vice-versa) section for more information on this feature and how to use it.
+</Collapsible>
+
+
+## Registering the item
+Once you have created your item class, you then need to register it.
+This differs depending on the modloader you are using.
+
+Select your loader below for a link to that loader's documentation for registering entities.
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        [https://docs.fabricmc.net/develop/items/first-item#registering-an-item](https://docs.fabricmc.net/develop/items/first-item#registering-an-item)
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        [https://docs.minecraftforge.net/en/latest/concepts/registries/#methods-for-registering](https://docs.minecraftforge.net/en/latest/concepts/registries/#methods-for-registering)
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge" default>
+        [https://docs.neoforged.net/docs/items/#deferredregisteritems](https://docs.neoforged.net/docs/items/#deferredregisteritems)
+    </TabItem>
+</Tabs>

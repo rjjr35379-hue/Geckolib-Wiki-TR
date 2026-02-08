@@ -1,0 +1,17 @@
+---
+sidebar_position: 2
+sidebar_label: AnimationPoints
+title: AnimationPoints
+---
+
+`AnimationPoint`s are snapshots of a single [AnimationController](controller/overview.mdx)'s state.
+
+## What are they?
+Each render pass, an `AnimationController` with an active animation updates its current animation time, then tells its
+[AnimationTimeline](./animationtimeline.mdx) to create a new `AnimationPoint`.
+
+This object holds information about the keyframes this specific stage of the animation uses, interpolation information,
+and more.
+
+The controller then submits this to `AnimationProcessor`, to create the actual [BoneSnapshots](/concepts/geobones/bone-snapshots.mdx)
+that GeckoLib uses to animate bones in rendering.

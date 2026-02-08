@@ -1,0 +1,42 @@
+---
+sidebar_position: 4
+sidebar_label: DefaultAnimations
+title: DefaultAnimations
+---
+
+GeckoLib provides numerous built-in [AnimationController](/docs/concepts/animation/controller/overview.mdx)s for common animations.
+
+## Overview
+GeckoLib holds a collection of default animation utilities for developers to use in the `DefaultAnimations` class.<br/>
+This class contains both pre-built `AnimationController`s and `RawAnimation` instances for commonly used animations.
+
+It is strongly recommended to use the pre-built `AnimationController`s instead of manually creating controllers whenever possible.
+
+## Usage
+To use `DefaultAnimations` built-in controllers, you simply call one of the static methods when registering your controllers in your animatable.
+
+```java
+@Override
+public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    //highlight-next-line
+    controllers.add(DefaultAnimations.genericWalkIdleController());
+}
+```
+
+If you do not want to use a pre-built controller, you are still encouraged to use the pre-built `RawAnimation` instances in your own controller.
+
+### Animation Names
+Because `DefaultAnimations` pre-builds the `RawAnimation` instances for you, it expects that you have used proper animation
+naming conventions when creating your animation JSON files.
+
+Below are some example expected animation names. More can be found in the `DefaultAnimations` class.
+
+- `misc.idle`
+- `misc.die`
+- `misc.spawn`
+- `move.walk`
+- `move.run`
+- `move.fly`
+- `attack.swing`
+- `attack.bite`
+- `attack.shoot`
