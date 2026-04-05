@@ -39,7 +39,7 @@ In your `build.gradle` file:
                         url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
                     }
                 }
-                filter { includeGroupAndSubgroups('software.bernie.geckolib') }
+                filter { includeGroupAndSubgroups('com.geckolib') }
             }
         }
         ```
@@ -54,7 +54,7 @@ In your `build.gradle` file:
                         url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
                     }
                 }
-                filter { includeGroupAndSubgroups("software.bernie.geckolib") }
+                filter { includeGroupAndSubgroups("com.geckolib") }
             }
         }
         ```
@@ -69,12 +69,12 @@ In your `build.gradle` file:
         <Tabs groupId="dsl" queryString="dsl">
             <TabItem value="groovy" label="Groovy">
                 ```groovy
-                implementation "software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}"
+                implementation "com.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}"
                 ```
             </TabItem>
             <TabItem value="kotlin" label="Kotlin">
                 ```kotlin
-                implementation("software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}")
+                implementation("com.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}")
                 ```
             </TabItem>
         </Tabs>
@@ -83,7 +83,7 @@ In your `build.gradle` file:
         In your `libs.versions.toml`, under the `[libraries]` section:
 
         ```groovy
-        geckolib = { group = "software.bernie.geckolib", name = "geckolib-neoforge-26.1", version.ref = "geckolib" }
+        geckolib = { group = "com.geckolib", name = "geckolib-neoforge-26.1", version.ref = "geckolib" }
         ```
 
         :::info
@@ -113,12 +113,12 @@ In your `build.gradle` file:
         <Tabs groupId="dsl" queryString="dsl">
             <TabItem value="groovy" label="Groovy">
                 ```groovy
-                interfaceInjectionData "software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}"
+                interfaceInjectionData "com.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}"
                 ```
             </TabItem>
             <TabItem value="kotlin" label="Kotlin">
                 ```kotlin
-                interfaceInjectionData("software.bernie.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}")
+                interfaceInjectionData("com.geckolib:geckolib-neoforge-${minecraftVersion}:${geckolibVersion}")
                 ```
             </TabItem>
         </Tabs>
