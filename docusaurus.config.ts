@@ -12,6 +12,7 @@ const config: Config = {
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
     v4: true,
+    faster: true,
   },
 
   // Deployment settings
