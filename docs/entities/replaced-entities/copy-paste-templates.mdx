@@ -18,12 +18,6 @@ public class ExampleReplacedEntity implements GeoReplacedEntity {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     @Override
-    public EntityType<?> getReplacingEntityType() {
-        //highlight-next-line
-        return EntityType.CREEPER;
-    }
-
-    @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
 
     }
@@ -46,12 +40,9 @@ public class ExampleReplacedEntityGeoModel extends DefaultedEntityGeoModel<Examp
 
 ## Entity Renderer
 ```java
-//highlight-next-line
 public class ExampleReplacedEntityRenderer<R extends CreeperRenderState & GeoRenderState> extends GeoEntityRenderer<ExampleReplacedEntity, Creeper, R> {
     public ExampleReplacedEntityRenderer(EntityRendererProvider.Context context) {
         super(context, new ExampleReplacedEntityGeoModel(), new ExampleReplacedEntity();
     }
-
-
 }
 ```

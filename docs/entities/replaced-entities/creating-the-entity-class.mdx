@@ -40,28 +40,10 @@ public class ExampleReplacedEntity implements GeoReplacedEntity {
 }
 ```
 
-Then, we will implement the `getReplacingEntityType` interface and return the `EntityType` we're replacing:
-
-```java
-public class ExampleReplacedEntity implements GeoReplacedEntity {
-    //highlight-start
-    @Override
-    public EntityType<?> getReplacingEntityType() {
-        return EntityType.CREEPER;
-    }
-    //highlight-end
-}
-```
-
 Then, we will override the `getAnimatableInstanceCache` and `registerControllers` methods:
 
 ```java
 public class ExampleReplacedEntity implements GeoReplacedEntity {
-    @Override
-    public EntityType<?> getReplacingEntityType() {
-        return EntityType.CREEPER;
-    }
-
     //highlight-start
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
@@ -84,11 +66,6 @@ Next, let's instantiate an `AnimatableInstanceCache` in a `final` field at the t
 public class ExampleReplacedEntity implements GeoReplacedEntity {
     //highlight-next-line
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-
-    @Override
-    public EntityType<?> getReplacingEntityType() {
-        return EntityType.CREEPER;
-    }
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
