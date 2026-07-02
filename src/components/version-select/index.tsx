@@ -9,6 +9,7 @@ type Version = {
 
 // Master version list
 const Versions: Version[] = [
+    {mcVersion: "26.2", modVersion: "5"},
     {mcVersion: "26.1.2", modVersion: "5"},
     {mcVersion: "26.1", modVersion: "5"},
     {mcVersion: "1.21.11", modVersion: "5"},
