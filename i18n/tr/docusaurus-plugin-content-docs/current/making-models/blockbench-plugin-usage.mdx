@@ -1,65 +1,65 @@
 ---
 sidebar_position: 1
-sidebar_label: Plugin Usage
-title: How to use the Blockbench plugin
+sidebar_label: Eklenti(Plugin) Kullanımı
+title: Blockbench Eklentisi Nasıl kullanılır
 ---
 
 import Collapsible from "@site/src/components/collapsible";
 
-With the GeckoLib plugin installed in Blockbench, you can create GeckoLib-type models and animations.
+Blockbench'te GeckoLib eklentisi yüklüyken, GeckoLib türünde modeller ve animasyonlar oluşturabilirsiniz.
 
-## Making a Model
-Creating a new GeckoLib model in Blockbench is the same as creating any other model; Click `File` -> `New Project` and select `GeckoLib Animated Model` from the dropdown.
+## Model Oluşturma
+Blockbench'te yeni bir GeckoLib modeli oluşturmak, diğer herhangi bir modeli oluşturmakla aynıdır; `File` -> `New Project` seçeneğine tıklayın ve açılır menüden `GeckoLib Animated Model`i seçin.
 
 ![GeckoLib Animated Model](/img/blockbench_new_model_select.png)
 
-### Making an Armor Model
-If you're making a GeckoLib armor model, when you select the `Model Type` in the new project popup window, select `Armor`.
+### Zırh Modeli Yapımı
+Bir GeckoLib zırh modeli oluşturuyorsanız, yeni proje açılır penceresinde `Model Type` (Model Türü) kısmından `Armor` (Zırh) seçeneğini belirleyin.
 
-This will create a new GeckoLib armor model template with the correct bone positions and names.<br/>
-From there, ensure you **__ONLY__** add bones and cubes into the `armor` prefixed bones.
+Bu işlem, doğru kemik konumları ve isimlerine sahip yeni bir GeckoLib zırh modeli şablonu oluşturacaktır.<br/>
+Ardından, kemikleri ve küpleri **__SADECE__** `armor` ön ekine sahip kemiklerin içine eklediğinizden emin olun..
 
 ![GeckoLib Armor Model Bones](/img/blockbench_armor_model_bones.png)
 
-### Model Properties
-When creating a new model, you are presented with a popup window where you can set the model's properties.
-These properties can also be changed at any time by going to `File` -> `Project`.
+### Model Özellikleri
+Yeni bir model oluştururken, modelin özelliklerini ayarlayabileceğiniz bir açılır pencereyle karşılaşırsınız.
+Bu özellikler, `File` -> `Project` yolu izlenerek istenildiği zaman değiştirilebilir.
 
 ![GeckoLib Model Properties](/img/blockbench_model_properties.png)
 
-<Collapsible title="Available Properties – Click to expand">
-    The following properties are available for GeckoLib models:
+<Collapsible title="Mevcut Özellikler – Genişletmek için tıklayın">
+GeckoLib modelleri için aşağıdaki özellikler mevcuttur:
     
-    | Property                | Description                                                                                                                    |
+    | Özellik Adı               | Açıklaması                                                                                                                    |
     |-------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-    | Model Type              | The type of model this project is for. Determines initial project setup and some additional properties                         |
-    | Project Name (Optional) | The name of this model project. Used to help Blockbench suggest file names for you when saving. E.G., `Green Gecko`            |
-    | Object ID (Optional)    | The id of the object this model is for. Used to help Blockbench suggest file names for you when exporting. E.G., `green_gecko` |
-    | Mod ID (Optional)       | The `modid` of the mod this model is for. This will be used to calculate asset export paths for your mod to use, if needed     |
-    | Default UV Mode         | The default UV mode your model cubes will use for UV mapping. Leave this as default unless you know what you are doing         |
-    | Default Texture Size    | The default pixel size of the texture your model will use. Leave this as default unless you know what you are doing            |
+    | Model Tipi(Model Type)              | Bu projenin yönelik olduğu model türü. İlk proje kurulumunu ve bazı ek özellikleri belirler.                         |
+    | Proje Adı(Project Name) (opsiyonel) | Bu model projesinin adı. Kayıt sırasında Blockbench'in sizin için dosya adları önermesine yardımcı olmak amacıyla kullanılır. Örn.: `Green Gecko``            |
+    | Nesne Kimliği(Object ID) (opsiyonel)    | Bu modelin ait olduğu nesnenin kimliği (ID). Dışa aktarma sırasında Blockbench'in sizin için dosya adları önermesine yardımcı olmak amacıyla kullanılır. Örn.: `green_gecko` |
+    | Mod Kimliği(Mod ID) (opsiyonel)       | Bu modelin ait olduğu modun `modid` değeri. Bu değer, gerekirse modunuzun kullanacağı varlık dışa aktarma yollarını hesaplamak için kullanılacaktır.     |
+    | Varsayılan UV Modu (Default UV Mode)         | Model küplerinizin UV haritalama için kullanacağı varsayılan UV modu. Ne yaptığınızı bilmiyorsanız bunu varsayılan ayarda bırakın.        |
+    | Varsayılan Texture Boyutu(Default Texture Size)    | Modelinizin kullanacağı dokunun varsayılan piksel boyutu. Ne yaptığınızı bilmiyorsanız bunu varsayılan değerde bırakın           |
 </Collapsible>
 
-### Video Tutorials
-See below for some in-depth video tutorials on how to use Blockbench to make GeckoLib models.
+### Videolu Eğitimler
+GeckoLib modelleri oluşturmak için Blockbench'in nasıl kullanılacağına dair kapsamlı video eğitimlerine aşağıdan göz atabilirsiniz.
 
-Blockbench also has a [Wiki](https://www.blockbench.net/wiki/) with more detailed tutorials and guides.
+Blockbench'in ayrıca daha ayrıntılı eğitimler ve rehberler içeren bir [Wiki](https://www.blockbench.net/wiki/) sayfası da bulunuyor.
 
-#### Blockbench Basics
+#### Blockbench Temelleri
 <a href="https://www.youtube.com/watch?v=dsax5p4brN8"><img src="http://img.youtube.com/vi/dsax5p4brN8/0.jpg" width="220" alt="Blockbench Basics"></img></a>
 
-#### GeckoLib Model Basics
+#### GeckoLib Model Temelleri
 <a href="http://www.youtube.com/watch?v=VlUwLXkwb2c"><img src="http://img.youtube.com/vi/VlUwLXkwb2c/0.jpg" width="220" alt="Modelling a new entity with GeckoLib"></img></a>
 <a href="http://www.youtube.com/watch?v=lR4Mhd90Wj4"><img src="http://img.youtube.com/vi/lR4Mhd90Wj4/0.jpg" width="220" alt="Texturing new entity with GeckoLib"></img></a>
 <a href="http://www.youtube.com/watch?v=3srLEdFTgVI"><img src="http://img.youtube.com/vi/3srLEdFTgVI/0.jpg" width="220" alt="Animations in Blockbench with GeckoLib"></img></a>
 <a href="http://www.youtube.com/watch?v=95ds1eltUwU"><img src="http://img.youtube.com/vi/95ds1eltUwU/0.jpg" width="220" alt="Attack animtions with GeckoLib"></img></a>
 
-## Converting an existing model
-If you have an existing Blockbench model that you want to convert to GeckoLib, Blockbench supports model conversion.
+## Mevcut bir modeli dönüştürme
+GeckoLib'e dönüştürmek istediğiniz mevcut bir Blockbench modeliniz varsa, Blockbench model dönüştürmeyi destekler.
 
-To convert your model, open your existing model in Blockbench, then go to `File` -> `Convert Project`, and select `GeckoLib Animated Model` from the dropdown.
+Modelinizi dönüştürmek için mevcut modelinizi Blockbench'te açın, ardından `File` -> `Convert Project` yolunu izleyin ve açılır menüden `GeckoLib Animated Model` seçeneğini belirleyin.
 
 :::info
-After converting the model, it is recommended that you check and adjust the model properties of your newly converted model to ensure it's correct.<br/>
-See the [Model Properties](#model-properties) section for more information.
+Modeli dönüştürdükten sonra, doğruluğundan emin olmak için yeni dönüştürülen modelin özelliklerini kontrol etmeniz ve ayarlamanız önerilir.<br/>
+Daha fazla bilgi için [Model Özellikleri](#model-özellikleri) bölümüne bakın.
 :::

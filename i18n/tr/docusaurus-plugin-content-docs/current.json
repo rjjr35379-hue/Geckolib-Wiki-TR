@@ -4,7 +4,7 @@
     "description": "The label for version current"
   },
   "sidebar.defaultSidebar.category.Project Setup": {
-    "message": "Project Setup",
+    "message": "Proje Kurulumu",
     "description": "The label for category 'Project Setup' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Blockbench": {
@@ -24,27 +24,27 @@
     "description": "The label for category 'NeoForge' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Updating From GeckoLib4": {
-    "message": "Updating From GeckoLib4",
+    "message": "Geckolib4'ten updateleme",
     "description": "The label for category 'Updating From GeckoLib4' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Important": {
-    "message": "Important",
+    "message": "Önemli",
     "description": "The label for category 'Important' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Noteworthy": {
-    "message": "Noteworthy",
+    "message": "Kayda Değer",
     "description": "The label for category 'Noteworthy' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.GeckoLib Concepts": {
-    "message": "GeckoLib Concepts",
+    "message": "GeckoLib Kavramları",
     "description": "The label for category 'GeckoLib Concepts' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Animation": {
-    "message": "Animation",
+    "message": "Animasyon",
     "description": "The label for category 'Animation' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Animation Controller": {
-    "message": "Animation Controller",
+    "message": "Animasyon kontrolör'ü",
     "description": "The label for category 'Animation Controller' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.GeoBones": {
@@ -60,35 +60,35 @@
     "description": "The label for category 'Rendering' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Making the Models": {
-    "message": "Making the Models",
+    "message": "Modelleri Oluşturma",
     "description": "The label for category 'Making the Models' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Entities": {
-    "message": "Entities",
+    "message": "Entity'ler",
     "description": "The label for category 'Entities' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Replaced Entities": {
-    "message": "Replaced Entities",
+    "message": "Değiştirilmiş Entity'ler",
     "description": "The label for category 'Replaced Entities' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Blocks": {
-    "message": "Blocks",
+    "message": "Blok'lars",
     "description": "The label for category 'Blocks' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Items": {
-    "message": "Items",
+    "message": "Item'ler",
     "description": "The label for category 'Items' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Armor": {
-    "message": "Armor",
+    "message": "Zırh'lar",
     "description": "The label for category 'Armor' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Miscellaneous": {
-    "message": "Miscellaneous",
+    "message": "Ekstralar",
     "description": "The label for category 'Miscellaneous' in sidebar 'defaultSidebar'"
   },
   "sidebar.defaultSidebar.category.Examples": {
-    "message": "Examples",
+    "message": "Örnekler",
     "description": "The label for category 'Examples' in sidebar 'defaultSidebar'"
   }
 }

@@ -1,38 +1,38 @@
 ---
 sidebar_position: 3
-sidebar_label: Placing the Files
-title: Placing the asset files
+sidebar_label: Dosyaları Yerleştirme
+title: Asset dosyalarını yerleştirme
 ---
 
-For GeckoLib to be able to find your files, they need to be put in the correct location.
+GeckoLib'in dosyalarınızı bulabilmesi için, bu dosyaların doğru konuma yerleştirilmesi gerekir.
 
-Once the files have been placed, you will use a `GeoModel` instance in code to reference them.<br/>
-See the pages on [GeoModels](/concepts/geomodels/overview.mdx) for more information
+Dosyalar yerleştirildikten sonra, bunlara kod içinde başvurmak için bir `GeoModel` örneği kullanılır.<br/>
+Daha fazla bilgi için [GeoModels](/concepts/geomodels/overview.mdx) Sayfasına bakın
 
-## File Locations
-### Model Files
-In GeckoLib5, model files (`.geo.json`) are placed in the `assets/<modid>/geckolib/models/` folder.
+## Dosya Konumları
+### Model Dosyaları
+GeckoLib5'te model dosyaları (`.geo.json`) `assets/<modid>/geckolib/models/` Dosyasına yerleştirilir.
 
-![Models Folder](/img/geckolib_models_folder.png)
+![Model dosyalarını](/img/geckolib_models_folder.png)
 
-You may use subfolders to organize your models, and some GeckoLib features (such as the `DefaultedGeoModel` classes) will automatically use subfolders.
+Modellerinizi düzenlemek için alt klasörler kullanabilirsiniz; ayrıca bazı GeckoLib özellikleri (örneğin `DefaultedGeoModel` sınıfları) alt klasörleri otomatik olarak kullanacaktır.
 
 :::tip
-The `.geo` portion of the filename is optional.
+'.geo' uzantısı tamamen opsiyonel'dir 
 :::
 
 ### Animation Files
-In GeckoLib5, animation files (`.animation.json`) are placed in the `assets/<modid>/geckolib/animations/` folder.
+GeckoLib5'te animasyon dosyaları (`.animation.json`) `assets/<modid>/geckolib/animations/` Dosyasına yerleştirilir.
 
-![Animations Folder](/img/geckolib_animations_folder.png)
+![Animasyon Dosyaları](/img/geckolib_animations_folder.png)
 
-You may use subfolders to organize your animations, and some GeckoLib features (such as the `DefaultedGeoModel` classes) will automatically use subfolders.
+Animasyonlarınızı düzenlemek için alt klasörler kullanabilirsiniz; ayrıca bazı GeckoLib özellikleri (örneğin `DefaultedGeoModel` sınıfları) alt klasörleri otomatik olarak kullanacaktır.
 
 :::tip
-The `.animation` portion of the filename is optional.
+'.animation' uzantısı tamamen opsiyonel'dir 
 :::
 
 ### Texture Files
-In GeckoLib5, texture files are placed in the `assets/<modid>/textures/` folder, like you would for any other texture.
+Geckolib5'te, texture dosyaları `assets/<modid>/textures/` Dosyasına konulması lazımdır, farkı bir texture'a yapcağın şekilde aynı yapılması lazımdır.
 
-You may use subfolders to organize your textures, and some GeckoLib features (such as the `DefaultedGeoModel` classes) will automatically use subfolders.
+Texturelarınızı düzenlemek için alt klasörler kullanabilirsiniz; ayrıca bazı GeckoLib özellikleri (örneğin `DefaultedGeoModel` sınıfları) alt klasörleri otomatik olarak kullanacaktır.
