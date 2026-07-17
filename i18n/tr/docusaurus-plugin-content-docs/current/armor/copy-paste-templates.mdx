@@ -1,0 +1,150 @@
+---
+sidebar_position: 7
+sidebar_label: Kopyala-Yapıştır Şablonları
+title: Kopyala-Yapıştır Şablonları
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Sadece kopyalayıp yapıştırabileceğiniz şablon kod mu arıyorsunuz?<br/>
+Başlamanız için kullanabileceğiniz mevcut kodlar için aşağıya bakın.
+
+## Item Sınıfı
+<Tabs groupId="splitsources" queryString="splitsources">
+    <TabItem value="combined" label="Combined Sources">
+        ```java
+        public class ExampleArmorItem extends Item implements GeoItem {
+            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+            public ExampleArmorItem(ArmorMaterial material, ArmorType type, Properties properties) {
+                super(properties.humanoidArmor(material, type));
+
+                // Uncomment the below line to enable triggered animations
+                //GeoItem.registerSyncedAnimatable(this);
+            }
+
+            @Override
+            public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+                consumer.accept(new GeoRenderProvider() {
+                    private final Supplier<GeoArmorRenderer<ExampleArmorItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ExampleArmorItem.this));
+
+                    @Override
+                    public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
+                        return this.renderer.get();
+                    }
+                });
+            }
+
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+            }
+
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                return this.geoCache;
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="split" label="Split Sources">
+        ```java title="Item Class"
+        public class ExampleArmorItem extends Item implements GeoItem {
+            public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
+            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+            public ExampleArmorItem(ArmorMaterial material, ArmorType type, Properties properties) {
+                super(properties.humanoidArmor(material, type));
+
+                // Uncomment the below line to enable triggered animations
+                //GeoItem.registerSyncedAnimatable(this);
+            }
+
+            @Override
+            public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+                consumer.accept(this.geoRenderProvider.getValue());
+            }
+
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+            }
+
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                return this.geoCache;
+            }
+        }
+        ```
+
+        <Tabs groupId="modloader" queryString="modloader">
+            <TabItem value="fabric" label="Fabric">
+                ```java title="Client Setup"
+                @Override
+                public void onInitializeClient() {
+                    ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                        private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM));
+
+                        @Override
+                        public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
+                            return this.renderer.get();
+                        }
+                    });
+                }
+                ```
+            </TabItem>
+            <TabItem value="forge" label="Forge" default>
+                ```java title="Client Setup"
+                @SubscribeEvent
+                public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+                    ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                        private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
+
+                        @Override
+                        public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
+                            return this.renderer.get();
+                        }
+                    });
+                }
+                ```
+            </TabItem>
+            <TabItem value="neoforge" label="NeoForge" default>
+                ```java title="Client Setup"
+                @SubscribeEvent
+                public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+                    ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                        private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
+
+                        @Override
+                        public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
+                            return this.renderer.get();
+                        }
+                    });
+                }
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+</Tabs>
+
+## Armor Renderer
+<Tabs groupId="renderer" queryString="renderer">
+    <TabItem value="simple" label="Simple">
+        ```java
+        // Applying the renderer
+        () -> new GeoArmorRenderer<>(ExampleArmorItem.this);
+        ```
+    </TabItem>
+    <TabItem value="advanced" label="Advanced">
+        ```java
+        public class ExampleArmorRenderer<R extends HumanoidRenderState & GeoRenderState> extends GeoArmorRenderer<ExampleArmorItem, R> {
+            //highlight-start
+            public ExampleArmorRenderer(Item item) {
+                super(item);
+            }
+            //highlight-end
+        }
+        ```
+    </TabItem>
+</Tabs>

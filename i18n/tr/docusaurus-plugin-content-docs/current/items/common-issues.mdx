@@ -1,0 +1,16 @@
+---
+sidebar_position: 7
+sidebar_label: Common Issues
+title: Common Issues
+---
+
+## My item is just a black and purple square
+You haven't created an item JSON (the one in `assets/<modid>/items/` folder). **All** items must have an item JSON.
+
+See [here](the-item-json-files.mdx) for instructions on creating and placing the item JSON file.
+
+## My item is completely invisible
+You forgot to apply the `GeoItemRenderer` to your class. GeckoLib can't render your item if you haven't told it how!
+
+See [here](applying-the-item-renderer.mdx) for instructions on applying the item renderer, or
+[here](the-item-renderer.mdx) for instructions on creating one.

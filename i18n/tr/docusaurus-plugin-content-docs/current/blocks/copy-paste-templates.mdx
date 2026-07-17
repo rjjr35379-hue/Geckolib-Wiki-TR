@@ -1,0 +1,181 @@
+---
+sidebar_position: 8
+sidebar_label: Copy-Paste Templates
+title: Copy-Paste Templates
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Just looking for some template code to copy-paste?<br/>
+See below for some existing code you can use to get you started.
+
+## Block Class
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        ```java
+        public class ExampleBlock extends Block implements EntityBlock {
+            public ExampleBlock(BlockBehaviour.Properties properties) {
+                super(properties);
+            }
+
+            @Override
+            public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+                return BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.create(pos, state);
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        ```java
+        public class ExampleBlock extends Block implements EntityBlock {
+            public ExampleBlock(BlockBehaviour.Properties properties) {
+                super(properties);
+            }
+
+            @Nullable
+            @Override
+            public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+                return BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get().create(pos, state);
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge">
+        ```java
+        public class ExampleBlock extends Block implements EntityBlock {
+            public ExampleBlock(BlockBehaviour.Properties properties) {
+                super(properties);
+            }
+
+            @Nullable
+            @Override
+            public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+                return BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get().create(pos, state);
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+## BlockEntity Class
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        ```java
+        public class ExampleBlockEntity extends BlockEntity {
+            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+            public ExampleBlockEntity(BlockPos pos, BlockState state) {
+                super(BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY, pos, state);
+            }
+
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+            }
+
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                return this.geoCache;
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        ```java
+        public class ExampleBlockEntity extends BlockEntity {
+            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+            public ExampleBlockEntity(BlockPos pos, BlockState state) {
+                super(BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get(), pos, state);
+            }
+
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+            }
+
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                return this.geoCache;
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge">
+        ```java
+        public class ExampleBlockEntity extends BlockEntity {
+            private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+            public ExampleBlockEntity(BlockPos pos, BlockState state) {
+                super(BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get(), pos, state);
+            }
+
+            @Override
+            public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+
+            }
+
+            @Override
+            public AnimatableInstanceCache getAnimatableInstanceCache() {
+                return this.geoCache;
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+## BlockEntity Renderer
+<Tabs groupId="renderer" queryString="renderer">
+    <TabItem value="simple" label="Simple">
+        <Tabs groupId="modloader" queryString="modloader">
+            <TabItem value="fabric" label="Fabric">
+                ```java
+                // Registering the renderer
+                context -> new GeoBlockRenderer<>(context, BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY);
+                ```
+            </TabItem>
+            <TabItem value="forge" label="Forge">
+                ```java
+                // Registering the renderer
+                context -> new GeoBlockRenderer<>(context, BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get());
+                ```
+            </TabItem>
+            <TabItem value="neoforge" label="NeoForge" default>
+                ```java
+                // Registering the renderer
+                context -> new GeoBlockRenderer<>(context, BlockEntityRegistry.EXAMPLE_BLOCK_ENTITY.get());
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="advanced" label="Advanced">
+        ```java
+        public class ExampleBlockRenderer<R extends BlockEntityRenderState & GeoRenderState> extends GeoBlockRenderer<ExampleBlockEntity, R> {
+            public ExampleBlockRenderer(BlockEntityType<ExampleBlockEntity> blockEntityType) {
+                super(blockEntityType);
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+## Blockstate JSON
+```json
+{
+    "variants": {
+        "": {
+            "model": "examplemod:block/example_block"
+        }
+    }
+}
+```
+
+## Block Model JSON
+```json
+{
+    "textures": {
+        "particle": "examplemod:block/example_block"
+    }
+}
+```

@@ -1,0 +1,16 @@
+---
+sidebar_position: 6
+sidebar_label: Yaygın Sorunlar
+title: Yaygın Sorunlar
+---
+
+## `HumanoidModel not found` hatası alıyorum
+Client kodunuzun geri kalan kodunuzdan özellikle ayrıldığı, split sources kullanan bir geliştirme ortamınız var.
+`GeoArmorRenderer`'ınız ve ilişkili kodu, common'da değil client kaynaklarınızda olmalıdır.
+
+Item sınıfınızı split-sources için ayarlama talimatları için [buraya](the-armor-renderer.mdx#split_sources) bakın.
+
+## Modeli nasıl yapacağımı çözemiyorum!
+GeckoLib zırh modelleri kullanmak için belirli bir şablon gerektirir.
+
+Bir GeckoLib zırh modeli kurma talimatları için [buraya](/docs/making-models/blockbench-plugin-usage.mdx#making-an-armor-model) bakın.

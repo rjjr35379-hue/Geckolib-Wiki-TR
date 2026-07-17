@@ -1,0 +1,54 @@
+---
+sidebar_position: 3
+sidebar_label: The GeoModel
+title: Creating the GeoModel
+---
+
+import AdditiveCodeHeader from "@site/src/components/additive-code-header";
+
+For GeckoLib to work out where your replaced entity's asset files are, you need to create a `GeoModel` for the renderer.
+
+## Creating the class
+<AdditiveCodeHeader />
+
+First, we create the model class itself:
+```java
+public class ExampleReplacedEntityGeoModel {
+
+}
+```
+
+Then we extend `DefaultedEntityGeoModel`, including our `GeoReplacedEntity` class as the generic type:
+```java
+//highlight-next-line
+public class ExampleReplacedEntityGeoModel extends DefaultedEntityGeoModel<ExampleReplacedEntity> {
+
+}
+```
+
+Next, we add the constructor and pass in the id of the asset files we want to use:
+
+```java
+public class ExampleReplacedEntityGeoModel extends DefaultedEntityGeoModel<ExampleReplacedEntity> {
+    //highlight-start
+    public ExampleReplacedEntityGeoModel() {
+        super(Identifier.fromNamespaceAndPath(ExampleMod.MOD_ID, "example_replaced_entity"));
+    }
+    //highlight-end
+}
+```
+
+That's it!
+
+## The asset files
+If you followed the above instructions, GeckoLib will be looking for your asset files (`.geo.json`, `.animation.json`, `.png`)
+in the `/entity/` subdirectory, named the same as your target id.
+
+For example, if your target id was registered as `example_replaced_entity`, your files should be:
+
+> - Model: `resources/assets/<mod_id>/geckolib/models/entity/example_replaced_entity.geo.json`
+> - Animations: `resources/assets/<mod_id>/geckolib/animations/entity/example_replaced_entity.animation.json`
+> - Texture: `resources/assets/<mod_id>/textures/entity/example_replaced_entity.png`
+
+## Additional Information
+For more information on `GeoModels` and how to use them, see the [GeoModels](/docs/concepts/geomodels/overview.mdx) pages.

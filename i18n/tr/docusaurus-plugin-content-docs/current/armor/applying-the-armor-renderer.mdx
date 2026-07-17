@@ -1,0 +1,184 @@
+---
+sidebar_position: 4
+sidebar_label: Renderer'ı Uygulama
+title: Renderer'ı Uygulama
+---
+
+import AdditiveCodeHeader from "@site/src/components/additive-code-header";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Item sınıfınızı ve ilişkili zırh renderer'ınızı oluşturduktan sonra, bunu item sınıfınıza uygulamanız gerekir.
+
+## Item Sınıfınızı Ayarlama
+`GeoItemRenderer`'ı item'ınıza uygulamak için, item sınıfınıza küçük bir bölüm eklemeniz gerekecek.
+
+<AdditiveCodeHeader />
+
+İlk olarak, item sınıfımızda `createGeoRenderer`'ı override ediyoruz:
+
+```java
+public class ExampleArmorItem extends Item implements GeoItem {
+
+    // ...
+
+    //highlight-start
+    @Override
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+
+    }
+    //highlight-end
+}
+```
+
+Ardından `Consumer`'a yeni bir GeoRenderProvider örneği sağlıyoruz:
+
+```java
+public class ExampleArmorItem extends Item implements GeoItem {
+
+    // ...
+
+    @Override
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        //highlight-start
+        consumer.accept(new GeoRenderProvider() {
+
+        });
+        //highlight-end
+    }
+}
+```
+
+Sonra, her render geçişinde yeni bir tane oluşturmamak için renderer'ınızın önbelleğe alınmış bir supplier'ını oluşturuyoruz:
+
+```java
+public class ExampleArmorItem extends Item implements GeoItem {
+
+    // ...
+
+    @Override
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        consumer.accept(new GeoRenderProvider() {
+            //highlight-next-line
+            private final Supplier<GeoArmorRenderer<ExampleArmorItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ExampleArmorItem.this));
+
+
+        });
+    }
+}
+```
+
+Ve son olarak, `getGeoArmorRenderer`'ı override ediyoruz ve renderer'ımızı döndürüyoruz:
+
+```java
+public class ExampleArmorItem extends Item implements GeoItem {
+
+    // ...
+
+    @Override
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        consumer.accept(new GeoRenderProvider() {
+            private final Supplier<GeoArmorRenderer<ExampleArmorItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ExampleArmorItem.this));
+
+            //highlight-start
+            @Override
+            public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
+                return this.renderer.get();
+            }
+            //highlight-end
+        });
+    }
+}
+```
+
+## Split Sources
+Client-server split sources kullanıyorsanız, renderer'ınızın çalışması için birkaç ek adım daha yapmanız gerekecek,
+çünkü IDE'niz item'ınız üzerinde çalışırken renderer sınıfını bulamayacaktır.
+
+### Item Sınıfı
+<AdditiveCodeHeader />
+
+İlk olarak, `GeoRenderProvider`'ı tutabilmesi için item sınıfınıza bir `MutableObject` koymamız gerekecek:
+
+```java
+public class ExampleArmorItem extends Item implements GeoItem {
+    //highlight-next-line
+    public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    public ExampleArmorItem(ArmorMaterial material, ArmorType type, Properties properties) {
+        super(properties.humanoidArmor(material, type));
+    }
+
+    // ...
+}
+```
+
+Ardından, bunu doğrudan geçirmek yerine `GeoRenderProvider` consumer'ına sağlamamız gerekecek:
+
+```java
+public class ExampleArmorItem extends Item implements GeoItem {
+    public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
+
+    // ...
+
+    @Override
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        //highlight-next-line
+        consumer.accept(this.geoRenderProvider.getValue());
+    }
+    // ...
+}
+```
+
+### Client Kurulum Sınıfı
+Son olarak, modunuzun client kurulumunda, item'ınızın örneğindeki `geoRenderProvider`'ı ayarlamanız gerekecek.
+`GeoRenderProvider` örneğini nasıl oluşturacağınızı görmek için [Item Sınıfınızı Ayarlama](#adjusting-your-item-class) bölümüne bakın.
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+```java
+        @Override
+        public void onInitializeClient() {
+            ItemRegistry.EXAMPLE_ARMOR_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM));
+
+                @Override
+                public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
+                    return this.renderer.get();
+                }
+            });
+        }
+```
+    </TabItem>
+    <TabItem value="forge" label="Forge" default>
+```java
+        @SubscribeEvent
+        public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+            ItemRegistry.EXAMPLE_ARMOR_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
+
+                @Override
+                public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
+                    return this.renderer.get();
+                }
+            });
+        }
+```
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge" default>
+```java
+        @SubscribeEvent
+        public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+            ItemRegistry.EXAMPLE_ARMOR_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
+                private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
+
+                @Override
+                public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
+                    return this.renderer.get();
+                }
+            });
+        }
+```
+    </TabItem>
+</Tabs>

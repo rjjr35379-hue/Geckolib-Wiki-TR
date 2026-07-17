@@ -1,0 +1,47 @@
+---
+sidebar_position: 3
+sidebar_label: Animated Textures
+title: Animated Textures
+---
+
+GeckoLib supports animated textures on <u>all</u> animatable types.
+
+## Usage
+GeckoLib automatically handles texture animation for you, all you need to do is set up the animated texture itself.
+
+Conveniently, GeckoLib fully supports the `.mcmeta` format for animated textures.<br/>
+This means that you set up an animated texture for GeckoLib in the exact same way you would do so for a vanilla block or
+item animated texture.
+
+### Resources
+Minecraft provides a wiki page for this format [here](https://minecraft.wiki/w/Resource_pack#Texture_animation).
+
+#### Videos
+<a href="https://www.youtube.com/shorts/GDeO0m88bMY"><img src="http://img.youtube.com/vi/GDeO0m88bMY/0.jpg" width="220" alt="Animated textures tutorial short"></img></a>
+<a href="https://www.youtube.com/watch?v=TCm-_a9OvHM"><img src="http://img.youtube.com/vi/TCm-_a9OvHM/0.jpg" width="220" alt="Detailed animated textures tutorial"></img></a>
+
+### Quick-Copy
+Already have an animated texture and just want the `.mcmeta` file?
+
+Copy-paste this into a new `.png.mcmeta` file named after your texture:
+```json
+{
+  "animation": {
+
+  }
+}
+```
+
+For example, if your texture is named `my_texture.png`, you would name your `.mcmeta` file `my_texture.png.mcmeta`.
+
+> - `my_texture.png`
+> - `my_texture.png.mcmeta`
+
+## Common Mistakes
+### My texture isn't animated at all and just looks stretched out across the whole thing!
+You forgot to make your `.png.mcmeta` file, misnamed it, or you put it in the wrong location
+
+### My texture is now animated, but it doesn't line up with the model anymore/looks squished/has gaps in it
+You probably have a non-square animated texture.<br/>
+To fix this, add a `"width": 64` and `"height": 64` to your `"animation"` section in your `.png.mcmeta`, replacing each `64`
+with the pixel-dimensions of a single animation frame for your texture.

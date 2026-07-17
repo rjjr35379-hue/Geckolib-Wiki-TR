@@ -1,0 +1,131 @@
+---
+sidebar_position: 2
+sidebar_label: Item Sınıfı
+title: Item Sınıfı
+---
+
+import Collapsible from "@site/src/components/collapsible";
+import AdditiveCodeHeader from "@site/src/components/additive-code-header";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+GeckoLib zırhına sahip olmak için önce bir item sınıfına ihtiyacınız var.
+
+:::note
+Bu eğitim özellikle GeckoLib implementasyonu içindir. Genel modding zırh özellikleri hakkında bilgi için
+bir eğitim veya topluluk desteği arayın.
+:::
+
+## Sınıfı oluşturma
+<AdditiveCodeHeader />
+
+İlk olarak, temel item sınıfını oluşturuyoruz ve temel constructor'ı implement ediyoruz:
+
+```java
+public class ExampleArmorItem extends Item {
+    public ExampleArmorItem(ArmorMaterial material, ArmorType type, Properties properties) {
+        super(properties.humanoidArmor(material, type));
+    }
+}
+```
+
+Ardından, `GeoItem` arayüzünü implement edeceğiz ve `getAnimatableInstanceCache` ile `registerControllers` metotlarını override edeceğiz:
+
+```java
+//highlight-next-line
+public class ExampleArmorItem extends Item implements GeoItem {
+    public ExampleArmorItem(ArmorMaterial material, ArmorType type, Properties properties) {
+        super(properties.humanoidArmor(material, type));
+    }
+
+    //highlight-start
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        // Bunu daha sonra dolduracağız
+    }
+    //highlight-end
+
+    //highlight-start
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return null;
+    }
+    //highlight-end
+}
+```
+
+Şimdi, sınıfımızın en üstünde `final` bir alanda bir `AnimatableInstanceCache` örneği oluşturalım ve bunu `getAnimatableInstanceCache` içinde döndürelim:
+
+```java
+public class ExampleArmorItem extends Item implements GeoItem {
+    //highlight-next-line
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    public ExampleArmorItem(ArmorMaterial material, ArmorType type, Properties properties) {
+        super(properties.humanoidArmor(material, type));
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        // Bunu daha sonra dolduracağız
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        //highlight-next-line
+        return this.geoCache;
+    }
+}
+```
+
+İşte bu kadar!
+
+Animasyon controller'ları ekleme hakkında bilgi için [Animasyon Controller'ları](/docs/concepts/animation/controller/overview.mdx) sayfasına bakın.
+
+:::info
+Bu kurulumun bir GeckoLib item'ına çok benzediğini fark etmiş olabilirsiniz.<br/>
+Haklısınız! Bu, bir GeckoLib item'ıyla tamamen aynı kurulumdur!
+:::
+
+## Ekstra Bilgiler
+### Bu zırhta triggered animasyonları kullanmak istiyorum
+<Collapsible title="Genişletmek için tıklayın">
+    Zırh item sınıfınızı triggered animasyonları kullanmaya hazırlamak için, item'ı senkronize bir animatable olarak kaydetmeniz gerekir.<br/>
+    Bu, constructor içinde şu şekilde yapılır:
+
+```java
+    public class ExampleArmorItem extends Item implements GeoItem {
+        private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+        public ExampleArmorItem(ArmorMaterial material, ArmorType type, Properties properties) {
+            super(properties.humanoidArmor(material, type));
+
+            //highlight-next-line
+            GeoItem.registerSyncedAnimatable(this);
+        }
+
+        // ...
+    }
+```
+
+    Triggered animasyonlar ve nasıl kullanılacakları hakkında daha fazla bilgi için [Triggered Animasyonlar](/docs/miscellaneous/triggerable-animations.mdx) bölümüne bakın
+</Collapsible>
+
+
+## Item'ı kaydetme
+Item sınıfınızı oluşturduktan sonra, onu kaydetmeniz gerekir.
+Bu, kullandığınız modloader'a göre farklılık gösterir.
+
+Item kaydetme hakkında o modloader'ın dokümantasyonuna bağlantı için aşağıdan modloader'ınızı seçin.
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        [https://docs.fabricmc.net/develop/items/first-item#registering-an-item](https://docs.fabricmc.net/develop/items/first-item#registering-an-item)
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        [https://docs.minecraftforge.net/en/latest/concepts/registries/#methods-for-registering](https://docs.minecraftforge.net/en/latest/concepts/registries/#methods-for-registering)
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge" default>
+        [https://docs.neoforged.net/docs/items/#deferredregisteritems](https://docs.neoforged.net/docs/items/#deferredregisteritems)
+    </TabItem>
+</Tabs>

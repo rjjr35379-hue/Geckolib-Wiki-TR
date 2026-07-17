@@ -1,0 +1,53 @@
+---
+sidebar_position: 5
+sidebar_label: The Item JSON Files
+title: The Item JSON Files
+---
+
+All items in Minecraft require associated asset JSON files, and GeckoLib items require them too.<br/>
+GeckoLib's items require some specific contents, however.
+
+## The Item JSON
+The first of the two JSON files your item will need is the "Item JSON".<br/>
+This file goes in your `assets/<modid>/items/` folder, and must be named the same as the registered id of your item.
+
+![Item JSON File](/img/item_json_file.png)
+
+The contents of this JSON file should be as below, with the `<modid>` and `<item_id>` replaced with your mod's id and item's id respectively:
+
+```json
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "<modid>:item/<item_id>",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}
+```
+
+:::danger
+Don't forget to change the `<modid>` and `<item_id>` values to match your mod and item!
+:::
+
+## The Item Display JSON
+The second JSON file your item will need is the "Item Display JSON".<br/>
+This file goes in your `assets/<modid>/models/item/` folder, and must be named the same as the registered id of your item.
+
+![Item Display JSON File](/img/item_display_json_file.png)
+
+The contents of this JSON file should be as below, with the `<modid>` and `<item_id>` replaced with your mod's id and item's id respectively:
+
+```json
+{
+  "parent": "builtin/entity",
+  "textures": {
+    "particle": "<modid>:item/<item_id>"
+  }
+}
+```
+
+:::danger
+Don't forget to change the `<modid>` and `<item_id>` values to match your mod and item!
+:::

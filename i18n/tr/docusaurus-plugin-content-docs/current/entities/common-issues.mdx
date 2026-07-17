@@ -1,0 +1,23 @@
+---
+sidebar_position: 5
+sidebar_label: Common Issues
+title: Common Issues
+---
+
+import ErrorMessage from "@site/src/components/error-message";
+
+See below for some commonly encountered issues when creating an entity.
+
+## I get a crash when spawning my entity
+If you're getting this crash when summoning your entity:
+
+<ErrorMessage>
+    java.lang.NullPointerException: Cannot invoke "net.minecraft.client.renderer.entity.EntityRenderer.shouldRender(net.minecraft.world.entity.Entity, net.minecraft.client.renderer.culling.Frustum, double, double, double)" because "entityrenderer" is null
+</ErrorMessage>
+
+Then you forgot to [register your entity renderer](./the-entity-renderer.mdx#registering-the-renderer).
+
+## I get an error when attempting to /summon my entity
+If you get an in-game error when attempting to /summon your entity, then you haven't registered your entity's attributes.
+
+See your modloader's documentation for registering entity attributes; or ask in a general modding support location

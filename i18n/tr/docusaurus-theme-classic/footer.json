@@ -1,0 +1,50 @@
+{
+  "link.title.Download GeckoLib": {
+    "message": "Download GeckoLib",
+    "description": "The title of the footer links column with title=Download GeckoLib in the footer"
+  },
+  "link.title.Community Links": {
+    "message": "Community Links",
+    "description": "The title of the footer links column with title=Community Links in the footer"
+  },
+  "link.title.Source Code": {
+    "message": "Source Code",
+    "description": "The title of the footer links column with title=Source Code in the footer"
+  },
+  "link.title.More": {
+    "message": "More",
+    "description": "The title of the footer links column with title=More in the footer"
+  },
+  "link.item.label.Modrinth": {
+    "message": "Modrinth",
+    "description": "The label of footer link with label=Modrinth linking to https://modrinth.com/mod/geckolib"
+  },
+  "link.item.label.CurseForge": {
+    "message": "CurseForge",
+    "description": "The label of footer link with label=CurseForge linking to https://www.curseforge.com/minecraft/mc-mods/geckolib"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link with label=Discord linking to https://discord.gg/Bt3p6kA6TK"
+  },
+  "link.item.label.Java Mod": {
+    "message": "Java Mod",
+    "description": "The label of footer link with label=Java Mod linking to https://github.com/bernie-g/geckolib"
+  },
+  "link.item.label.Blockbench Plugin": {
+    "message": "Blockbench Plugin",
+    "description": "The label of footer link with label=Blockbench Plugin linking to https://github.com/JannisX11/blockbench-plugins/tree/master/plugins/geckolib"
+  },
+  "link.item.label.GeckoLib Wiki": {
+    "message": "GeckoLib Wiki",
+    "description": "The label of footer link with label=GeckoLib Wiki linking to https://github.com/Tslat/Geckolib-Wiki"
+  },
+  "link.item.label.Wiki Issues/Suggestions": {
+    "message": "Wiki Issues/Suggestions",
+    "description": "The label of footer link with label=Wiki Issues/Suggestions linking to https://github.com/Tslat/Geckolib-Wiki/issues"
+  },
+  "link.item.label.General Modding Support": {
+    "message": "General Modding Support",
+    "description": "The label of footer link with label=General Modding Support linking to https://discord.gg/moddedmc"
+  }
+}

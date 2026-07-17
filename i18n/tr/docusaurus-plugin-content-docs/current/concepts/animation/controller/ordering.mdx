@@ -1,0 +1,55 @@
+---
+sidebar_position: 3
+sidebar_label: Multiple Controllers
+title: Multiple Controllers
+---
+
+By default, when a controller animates a bone, it will overwrite any other animations on the same bone and transform type
+that another controller is playing.
+
+This means that if you want one controller to have "priority" over another controller, you should register 'base' controllers first.
+
+## An example of ordering
+In the below example, we register two controllers.<br/>
+
+We specifically register the walk/idle controller first, before the attack controller, because we want the
+arm swinging animation to take priority over the walk/idle animation.
+
+This will allow the arm to swing for the attack, even if the walk or idle animations also swing the same arm as part
+of their animation.
+
+```java
+@Override
+public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    controllers.add(
+            DefaultAnimations.genericWalkIdleController(),
+            DefaultAnimations.genericAttackController(this));
+}
+```
+
+## Additive Controllers
+As an alternative to controller priority, you can tell any individual controller to act additively.
+
+When an additive controller plays an animation, instead of taking priority over prior controllers, it _adds_ its animation
+values onto the existing values.
+
+For example:
+
+|                          |                    |
+|-------------------------:|--------------------|
+|        **Controller 1:** | Rotate 45 degrees  |
+|        **Controller 2:** | Rotate 90 degrees  |
+| **Resulting Animation:** | Rotate 135 degrees |
+
+### Making a controller additive
+To make a controller additive, you can use the `#additiveAnimations` method on the `AnimationController` constructor:
+
+```java
+@Override
+public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    controllers.add(
+            DefaultAnimations.genericWalkIdleController(),
+            //highlight-next-line
+            DefaultAnimations.genericAttackController(this).additiveAnimations());
+}
+```

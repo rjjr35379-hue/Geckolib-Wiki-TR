@@ -1,0 +1,89 @@
+---
+sidebar_position: 3
+sidebar_label: Defaulted GeoModels
+title: Defaulted GeoModels
+---
+
+import Collapsible from "@site/src/components/collapsible";
+
+`DefaultedGeoModels` are the next best option for implementing `GeoModels` if letting the renderer do it automatically doesn't give you enough control.
+
+## How do they work?
+Defaulted GeoModels take a simple `Identifier` input, and automatically generate model, animations, and texture resource paths
+based on that identifier, automatically applying a subfolder for easier file management.
+
+This allows you to keep your file names consistent and avoid having to manually define every path.
+
+## Usage
+To create a new Defaulted GeoModel, you can either use one of the existing implementations or create your own.
+
+### Using an existing implementation
+GeckoLib has three existing implementations of Defaulted GeoModels:
+- `DefaultedEntityGeoModel`
+- `DefaultedBlockGeoModel`
+- `DefaultedItemGeoModel`
+
+#### Examples
+<Collapsible title="Example DefaultedItemGeoModel Usage">
+    ```java
+    new DefaultedItemGeoModel(Identifier.fromNamespaceAndPath(ExampleMod.MOD_ID, "example_item"));
+    ```
+
+    Then, we would place our assets in these locations:
+
+    <table>
+        <tbody>
+        <tr>
+            <td>Model</td><td>`/assets/examplemod/geckolib/models/item/example_item.geo.json`</td>
+        </tr>
+        <tr>
+            <td>Animations</td><td>`/assets/examplemod/geckolib/animations/item/example_item.animation.json`</td>
+        </tr>
+        <tr>
+            <td>Texture</td><td>`/assets/examplemod/textures/item/example_item.png`</td>
+        </tr>
+        </tbody>
+    </table>
+</Collapsible>
+<Collapsible title="Example DefaultedEntityGeoModel Usage">
+    ```java
+    new DefaultedEntityGeoModel(Identifier.fromNamespaceAndPath(ExampleMod.MOD_ID, "animal/example_animal"));
+    ```
+
+    Then, we would place our assets in these locations:
+
+    <table>
+        <tbody>
+        <tr>
+            <td>Model</td><td>`/assets/examplemod/geckolib/models/entity/animal/example_animal.geo.json`</td>
+        </tr>
+        <tr>
+            <td>Animations</td><td>`/assets/examplemod/geckolib/animations/entity/animal/example_animal.animation.json`</td>
+        </tr>
+        <tr>
+            <td>Texture</td><td>`/assets/examplemod/textures/entity/animal/example_animal.png`</td>
+        </tr>
+        </tbody>
+    </table>
+</Collapsible>
+
+
+### Creating a custom Defaulted GeoModel
+If the existing implementations don't fit your needs, you can create your own, by creating a new class that extends `DefaultedGeoModel`.
+
+You will then need to override the `subtype` method to return the 'type' of object your type is for, which will automatically act as a subfolder name for your asset paths.
+
+<Collapsible title="Example DefaultedGeoModel Usage">
+    ```java
+    public class ExampleCustomDefaultedGeoModel extends DefaultedGeoModel {
+        public ExampleCustomDefaultedGeoModel(Identifier identifier) {
+            super(identifier);
+        }
+
+        @Override
+        protected String subtype() {
+            return "custom";
+        }
+    }
+    ```
+</Collapsible>

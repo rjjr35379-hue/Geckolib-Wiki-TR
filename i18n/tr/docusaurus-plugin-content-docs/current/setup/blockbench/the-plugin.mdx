@@ -1,0 +1,35 @@
+---
+sidebar_position: 1
+sidebar_label: The GeckoLib Plugin
+title: Blockbench GeckoLib Plugin Setup
+---
+
+GeckoLib uses a custom Blockbench plugin to make and export models and animations.
+
+## Installation
+To use the plugin, you'll need to install it from the Blockbench plugins browser:
+
+1. Click `File`
+2. In the dropdown menu, click `Plugins`
+3. In the popup window that opens; swap to the `Available` tab, and search for `GeckoLib`
+4. Find the `GeckoLib Models & Animations` plugin, and click the `+ Install` button on the right.
+
+![GeckoLib Plugin Installation](/img/blockbench_geckolib_plugin.png)
+
+Then you can close the plugins window, and you're ready to go!<br/>
+See the additional settings section below for additional options; or move to the [Plugin Usage](/docs/making-models/blockbench-plugin-usage.mdx) page to learn how to use the plugin.
+
+## Additional Settings
+The GeckoLib Blockbench plugin comes with a few additional optional settings that can be managed if wanted.
+
+These settings can be found in the `Settings` tab of the GeckoLib plugin window.
+
+| Setting                                    | Type   | Description                                                                                                                                                                             |
+|--------------------------------------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Auto-compute block/item particle texture` | Toggle | When exporting item display settings from Blockbench, attempt to auto-create the particle texture reference for Minecraft to use                                                        |
+| `Bake in bezier keyframes`                 | Toggle | When true, forces Blockbench to export bezier-interpolated keyframes as discrete keyframes using linear interpolation, instead of bezier interpolation                                  |
+| `Always show display tab`                  | Toggle | Force the display settings tab to be always visible, regardless of GeckoLib model type                                                                                                  |
+| `Remember file export locations`           | Toggle | When true, Blockbench will remember the filepath of exported assets, so that it can automatically re-locate that path when exporting again. Puts the full filepath in the .bbmodel file |
+| `Default Mod ID`                           | Text   | Set a default Mod ID for geckolib models, used by the plugin for exporting texture and asset paths                                                                                      |
+
+![GeckoLib Plugin Settings](/img/blockbench_geckolib_plugin_settings.png)

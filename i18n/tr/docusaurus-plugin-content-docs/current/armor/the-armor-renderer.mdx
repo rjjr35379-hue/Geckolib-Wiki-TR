@@ -1,0 +1,90 @@
+---
+sidebar_position: 3
+sidebar_label: Renderer
+title: Renderer'ı Oluşturma
+---
+
+import AdditiveCodeHeader from "@site/src/components/additive-code-header";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Zırh item sınıfınızı oluşturup item'ınızı kaydettikten sonra, artık zırh renderer'ını oluşturup uygulayabilirsiniz.
+
+## Sınıfı oluşturma
+<Tabs groupId="renderer" queryString="renderer">
+    <TabItem value="simple" label="Basit">
+        ### Basit Renderer Sınıfı
+        Varsayılan olarak, GeckoLib özel bir renderer sınıfı gerektirmez; bunun yerine renderer'ınızı uygularken
+        yeni bir `GeoArmorRenderer` örneği geçebilirsiniz.
+
+        Zırhınızın render işlemi için özel bir yönetime ihtiyacınız yoksa, önerilen yaklaşım budur.
+
+        Örneğin:
+```java
+        // Renderer'ı uygulama
+        () -> new GeoArmorRenderer<>(ExampleArmorItem.this);
+```
+    </TabItem>
+    <TabItem value="advanced" label="Gelişmiş">
+        ### Gelişmiş Renderer Sınıfı
+        Bu seçenek, ek yönetim için metotları override edebilen bağımsız bir renderer sınıfı oluşturmak içindir.
+
+        <AdditiveCodeHeader />
+
+        Başlamak için, `GeoArmorRenderer`'ı extend eden bir renderer sınıfı oluşturalım:
+
+```java
+        public class ExampleArmorRenderer extends GeoArmorRenderer {
+
+        }
+```
+
+        Ardından, renderer'ın gerektirdiği [generic türleri](https://www.baeldung.com/java-generics) ekleyeceğiz:
+
+        Bu konuda daha fazla bilgi için [Generic türler](#the-generic-types) bölümüne bakın.
+
+```java
+        //highlight-next-line
+        public class ExampleArmorRenderer<R extends HumanoidRenderState & GeoRenderState> extends GeoArmorRenderer<ExampleArmorItem, R> {
+
+        }
+```
+
+        Ve ardından, `GeoModel`'i otomatik olarak oluşturmak için `Item`'ı geçirdiğimiz constructor'ı ekliyoruz:
+
+```java
+        public class ExampleArmorRenderer<R extends HumanoidRenderState & GeoRenderState> extends GeoArmorRenderer<ExampleArmorItem, R> {
+            //highlight-start
+            public ExampleArmorRenderer(Item item) {
+                super(item);
+            }
+            //highlight-end
+        }
+```
+
+        Bu kadar! Şimdi bunu item'a uygulamanız gerekiyor.
+
+        #### Generic türler
+        2. adımda, renderer'ın gerektirdiği generic türleri ekledik.
+
+        Peki bu generic türler nedir?
+
+        - `R` - Bu, `RenderState` türüdür. GeckoLib zırh render işlemi, GeckoLib'in `GeoRenderState`'i ile birleştirilmiş `HumanoidRenderState`'i gerektirir.
+            RenderState'ler hakkında daha fazla bilgi için [RenderState'ler](/docs/concepts/rendering/renderstates.mdx) sayfasına bakın.
+        - `ExampleArmorITem` - Bu sizin item'ınız! Bunu kendi item sınıfınızın adıyla değiştirin.
+    </TabItem>
+</Tabs>
+
+## Asset dosyaları
+Yukarıdaki talimatları takip ettiyseniz, GeckoLib asset dosyalarınızı (`.geo.json`, `.animation.json`, `.png`)
+`/armor/` alt dizininde, item'ınızın kayıtlı id'siyle aynı isimde arayacaktır.
+
+Örneğin, item'ınız `example_armor_item` olarak kaydedildiyse, dosyalarınız şu şekilde olmalıdır:
+
+> - Model: `resources/assets/<mod_id>/geckolib/models/armor/example_armor_item.geo.json`
+> - Animasyonlar: `resources/assets/<mod_id>/geckolib/animations/armor/example_armor_item.animation.json`
+> - Doku: `resources/assets/<mod_id>/textures/armor/example_armor_item.png`
+
+Burada `<mod_id>`, modunuzun id'sidir.
+
+Bu dosyaları nereye yerleştireceğiniz hakkında daha fazla bilgi için [Dosyaları Yerleştirme](/docs/making-models/placing-the-files.mdx) sayfasına bakın.

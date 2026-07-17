@@ -1,0 +1,49 @@
+---
+sidebar_position: 3
+sidebar_label: DataTickets
+title: DataTickets
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+`DataTicket`s are "Keys" to data stored in the [GeoRenderState](#renderstates.mdx).
+
+## Overview
+When storing or retrieving data from a [GeoRenderState](renderstates.mdx), GeckoLib requires that you provide a `DataTicket`
+to identify the data.
+This acts as the identifier for the specific data point.
+
+## Creating a DataTicket
+To create a `DataTicket`, create a `public static final` field of type `DataTicket` somewhere relevant to you.
+For example, if your `DataTicket` is related to your entity, you might put it in your entity class.
+
+Then, you create the `DataTicket` instance, using one of the two available factory methods:
+
+<Tabs groupId="style" queryString="style">
+    <TabItem value="non-generics" label="No Generics">
+        If your `DataTicket` does not have a generic type:
+
+        ```java
+        public static final DataTicket<Boolean> EXAMPLE_BOOLEAN_TICKET = DataTicket.create("example_boolean", Boolean.class);
+        ```
+    </TabItem>
+    <TabItem value="generics" label="With Generics">
+        If your `DataTicket` does has a generic type:
+
+        ```java
+        public static final DataTicket<EnumMap<Direction>> EXAMPLE_DIRECTIONS_TICKET = DataTicket.create("example_directions", EnumMap.class, new TypeToken<>() {});
+        ```
+    </TabItem>
+</Tabs>
+
+### Built-in DataTickets
+GeckoLib provides and uses a number of built-in `DataTicket`s.<br/>
+These can be found in the `DataTickets` class.
+
+### Third-Party DataTickets
+If you need to utilise a `DataTicket` that another mod has created, you don't need to add a hard-dependency on that mod.
+Instead, you can simply create a new `DataTicket` with the same id, and GeckoLib will automatically give you the same `DataTicket` that the other mod has.
+
+## Using a DataTicket
+Once you have created a `DataTicket`, you can use it to store or retrieve data from a [GeoRenderState](renderstates.mdx) instance.

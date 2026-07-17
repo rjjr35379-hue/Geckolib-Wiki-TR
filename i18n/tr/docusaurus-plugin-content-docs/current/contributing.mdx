@@ -1,0 +1,69 @@
+---
+sidebar_position: 13
+sidebar_label: Contributing
+title: Contributing to the Wiki
+---
+
+Bu wiki açık kaynaklıdır ve katkılara açıktır.<br/>
+Bu sayfa, wiki'ye katkıda bulunmak için katkı ve stil rehberi olarak hizmet eder.
+
+## Araçlar
+Başlamak için wiki'nin [GitHub deposuna](https://github.com/Tslat/Geckolib-Wiki) gidin.
+
+README dosyası, wiki'yi yerel olarak nasıl kuracağınıza dair talimatlar içerir.
+
+### Harici Bağlantılar
+- [Docusaurus](https://docusaurus.io/docs/category/guides) – Wiki'nin üzerine inşa edildiği platform
+- [MDX](https://mdxjs.com) – İçerik sayfalarını yazmak için kullanılan Markdown uzantı dili
+- [React Typescript](https://react.dev/learn/typescript) - Dinamik içerik için Typescript React dokümantasyonu
+
+## Katkı Rehberi
+### Gönderimler
+- Bir PR'a birden fazla sayfa dahil edilse bile, her yeni sayfayı kendi commit'inde tutun.
+- Mevcut sayfalardaki değişiklikler, değişiklik ilgisine göre gruplanarak tek bir commit'te birleştirilmelidir.
+
+### Yeni Klasörler
+Yeni URL alt dizinleri (`/docs/` altındaki klasörler) aşağıdaki format kurallarına uymalıdır:
+- Yalnızca küçük harfler ve tireler kullanılabilir
+- Her klasör, klasörün sidebar'daki sırasını ve görünen adını belirten bir `_category_.json` dosyası içermelidir
+- Kod referansı kelimeleri (Örn. `GeoModel`, `AnimationController`) dosya adlarında küçük harfli, tek kelimelik isimler olarak kalmalıdır
+
+### Yeni Sayfalar
+- Tüm doküman sayfaları `.mdx` dosyası olmalıdır
+- Tüm doküman sayfa adları küçük harflerle ve kelime ayırıcı olarak tirelerle adlandırılmalıdır
+- Kod referansı kelimeleri (Örn. `GeoModel`, `AnimationController`) dosya adlarında küçük harfli, tek kelimelik isimler olarak kalmalıdır
+- Tüm doküman sayfaları en az şu üç özelliği açıkça tanımlamalıdır
+  - `sidebar_position`
+  - `sidebar_label`
+  - `title`
+
+### Biçimlendirme
+- Tüm kod örnekleri türü belirtilmiş bir kod bloğu içinde olmalıdır
+- Tüm önemli özel referansların etrafı \`ters tırnak\` ile çevrilmelidir:
+    - Sınıf adları
+    - Metot adları
+    - Değişken adları
+    - Menü seçeneği adları
+- Önemli metni belirtmek için **kalın metin** kullanın
+- İtalik belirtmek için \*tekli yıldız\* kullanın
+- Wiki'deki diğer sayfalara yapılan referanslar, aşırı kullanımı önlemek için aynı sayfa içinde tekrarlanmamalıdır.
+- Okunabilirliği sağlamak için paragraflar daha küçük parçalara bölünmelidir, tercihen art arda en fazla iki cümle olacak şekilde.
+- Tek satırlık bir satır sonu için `<br/>` kullanılabilir, ancak içerik boşluğu için kullanılmamalıdır.
+
+### İçerik Stili
+- Tüm içerik, doğrudan referanslar kullanarak ve kişisel anlatımdan kaçınarak nesnel bir dil kullanmalıdır.
+- Anekdotlar, kültürel referanslar veya diğer bilgilendirici olmayan içeriklerden kaçınılmalıdır.
+
+### Kod Örnekleri
+- Tüm kod örnekleri için varsayılan dil `java`'dır
+- Aynı sayfada önceki örneklere ek yapan kod örnekleri, değişen satırları belirtmek için [satır vurgulama](https://docusaurus.io/docs/markdown-features/code-blocks#line-highlighting) 
+kullanmalıdır.
+
+#### Kod Stili
+- Tüm kod örnekleri dört boşlukla girintilenmelidir
+- Tüm instance alanlarına `this.` ile referans verilmelidir
+- Instance metotlarına `this.` ile referans <b>verilmemelidir</b>
+- Açılış parantezleri metot bildirimiyle aynı satırda olmalıdır
+- Kapanış parantezleri yeni bir satırda olmalıdır
+- Yalnızca tek satırlık yürütmeye sahip if-ifadeleri, süslü parantez olmadan bir sonraki satıra yazılabilir
+- Diğer tüm if-ifadeleri süslü parantez kullanmalıdır

@@ -27,7 +27,7 @@ const config: Config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'tr'],
   },
 
   presets: [
@@ -80,6 +80,9 @@ const config: Config = {
       items: [
         {
           type: 'docsVersionDropdown',
+        },
+        {
+          type: 'localeDropdown',
         }
       ],
     },

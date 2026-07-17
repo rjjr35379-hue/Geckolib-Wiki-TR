@@ -1,0 +1,51 @@
+---
+sidebar_position: 6
+sidebar_label: The Block Asset Files
+title: The Block Asset Files
+---
+
+As part of creating a block, you will need to create the `blockstate` and `model` JSON files.
+
+This is a vanilla feature, not GeckoLib specific, but it's included here since people often miss it.
+
+## The BlockState JSON
+You will need to create a blockstate JSON for your block.
+
+To do so, create a new `.json` file in your `assets/<modid>/blockstates` folder, with the same name as your registered `Block`.
+
+![BlockState JSON File](/img/blockstate_file.png)
+
+In that file, copy-paste the below contents, replacing the `examplemod` placeholder with your mod's id, and
+`example_block` with your block's registered id.
+
+```json
+{
+  "variants": {
+    "": {
+      "model": "examplemod:block/example_block"
+    }
+  }
+}
+```
+
+## The Block Model JSON
+You will also need to create a block model JSON for your block.
+
+To do so, create a new `.json` file in your `assets/<modid>/models/block` folder, with the same name as your registered `Block`.
+
+![Block Model JSON File](/img/block_model_file.png)
+
+In that file, copy-paste the below contents, replacing the `examplemod` placeholder with your mod's id, and
+`example_block` with your block's registered id.
+
+```json
+{
+  "textures": {
+    "particle": "examplemod:block/example_block"
+  }
+}
+```
+
+:::tip
+You may also target another block entirely for your particle texture. Vanilla chests target oak planks, for example!
+:::

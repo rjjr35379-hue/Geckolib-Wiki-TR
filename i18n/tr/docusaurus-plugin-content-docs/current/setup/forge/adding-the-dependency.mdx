@@ -1,0 +1,71 @@
+---
+sidebar_position: 4
+sidebar_label: Adding the Dependency
+title: Adding the Dependency
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::warning
+This guide assumes you are using ForgeGradle7. If you are using an older setup of ForgeGradle6, see the [Forge Discord](https://discord.minecraftforge.net/)
+for instructions on upgrading to ForgeGradle7.
+:::
+
+Once you've added your GeckoLib version reference, and the maven repository, you can add the dependency.
+
+## Adding the dependency
+<Tabs groupId="versionschema" queryString="versionschema">
+    <TabItem value="gradleproperties" label="gradle.properties">
+        1. Find the `dependencies` block in your `build.gradle` file. If one doesn't exist, create it.
+        2. Inside the `dependencies` block, add the below dependency line:
+
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                implementation minecraft.dependency("com.geckolib:geckolib-forge-${minecraftVersion}:${geckolibVersion}")
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                implementation(minecraft.dependency("com.geckolib:geckolib-forge-${minecraftVersion}:${geckolibVersion}"))
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="versioncatalogue" label="libs.versions.toml">
+        1. Open your `libs.versions.toml` file (located in the `gradle` directory at the root of your project)
+        2. Add a new line in the `[libraries]` section with the following content:
+
+        ```toml
+        geckolib = { group = "com.geckolib", name = "geckolib-forge-26.1", version.ref = "geckolib" }
+        ```
+
+        :::info
+        Make sure you change `26.1` to your intended Minecraft version
+        :::
+
+        3. In your `build.gradle` file, locate the `dependencies` block. If one doesn't exist, create it.
+        4. Inside the `dependencies` block, add the below dependency line:
+
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                implementation minecraft.dependency(libs.geckolib)
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                implementation(minecraft.dependency(libs.geckolib))
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+</Tabs>
+
+## Finally
+Once you're done, refresh Gradle by opening the Gradle tool window and clicking the refresh button.
+
+![Gradle Refresh Button](/img/gradle_refresh_button.png)
+
+And you should be good to go!

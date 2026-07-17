@@ -1,0 +1,72 @@
+---
+sidebar_position: 3
+sidebar_label: Adding the Repository
+title: Adding the Repository
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+To use GeckoLib in your development environment, you need to tell it where it can find the library.
+
+To do this, you'll need to add to the `repositories` section of your `build.gradle` file.
+
+## Adding or finding the repositories block
+Open your `build.gradle` file and find the `repositories` block.
+
+If one doesn't already exist, you can create a new one by adding the following:
+
+:::danger
+You must **NOT** use the `repositories` block found inside the `publishing` or `buildscript` blocks
+:::
+
+```groovy
+repositories {
+
+}
+```
+
+## Adding the maven repository
+Inside that `repositories` block, add GeckoLib's maven repository:
+
+<Tabs groupId="dsl" queryString="dsl">
+    <TabItem value="groovy" label="Groovy">
+        ```groovy
+        repositories {
+            // highlight-start
+            exclusiveContent {
+                forRepository {
+                    maven {
+                        name = 'GeckoLib'
+                        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+                    }
+                }
+                filter { includeGroupAndSubgroups('com.geckolib') }
+            }
+            // highlight-end
+        }
+        ```
+    </TabItem>
+    <TabItem value="kotlin" label="Kotlin">
+        ```kotlin
+        repositories {
+            // highlight-start
+            exclusiveContent {
+                forRepository {
+                    maven {
+                        name = "GeckoLib"
+                        url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
+                    }
+                }
+                filter { includeGroupAndSubgroups("com.geckolib") }
+            }
+            // highlight-end
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+:::warning
+The maven URL above is not browsable. Attempting to browse it will result in a `404` error.<br/>
+If you want to browse the maven repository, see [here](https://cloudsmith.io/~geckolib3/repos/geckolib/packages/) instead
+:::

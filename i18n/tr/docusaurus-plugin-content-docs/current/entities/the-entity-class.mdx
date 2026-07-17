@@ -1,0 +1,101 @@
+---
+sidebar_position: 2
+sidebar_label: The Entity Class
+title: Creating the Entity Class
+---
+
+import AdditiveCodeHeader from "@site/src/components/additive-code-header";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Collapsible from "@site/src/components/collapsible";
+
+The first step in making a GeckoLib entity is to create the entity class itself.
+
+:::note
+This tutorial is specifically for GeckoLib implementation. For information on general-modding entity features, seek
+a tutorial or community support.
+:::
+
+## Making the class
+<AdditiveCodeHeader />
+
+First, we will make the base entity class:
+
+```java
+public class ExampleEntity extends PathfinderMob {
+    public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+        super(entityType, level);
+    }
+}
+```
+
+Then, we will implement the `GeoEntity` interface and override the `getAnimatableInstanceCache` and `registerControllers` methods:
+
+```java
+//highlight-next-line
+public class ExampleEntity extends PathfinderMob implements GeoEntity {
+    public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+        super(entityType, level);
+    }
+
+    //highlight-start
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        // We can fill this in later
+    }
+    //highlight-end
+
+    //highlight-start
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return null;
+    }
+    //highlight-end
+}
+```
+
+Next, let's instantiate an `AnimatableInstanceCache` in a `final` field at the top of our class, and return it in `getAnimatableInstanceCache`:
+
+```java
+public class ExampleEntity extends PathfinderMob implements GeoEntity {
+    //highlight-next-line
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    public ExampleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+        super(entityType, level);
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        // We can fill this in later
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        //highlight-next-line
+        return this.geoCache;
+    }
+}
+```
+
+And you're done!
+
+For information on adding animation controllers, see the [Animation Controllers](/docs/concepts/animation/controller/overview.mdx) page.
+
+## Registering the entity
+Once you have created your entity class, you then need to register it.
+This differs depending on the modloader you are using.
+
+Select your loader below for a link to that loader's documentation for registering entities.
+
+<Tabs groupId="modloader" queryString="modloader">
+    <TabItem value="fabric" label="Fabric">
+        [https://wiki.fabricmc.net/tutorial:entity#creating_registering_an_entity](https://wiki.fabricmc.net/tutorial:entity#creating_registering_an_entity)
+    </TabItem>
+    <TabItem value="forge" label="Forge">
+        [https://docs.minecraftforge.net/en/latest/concepts/registries/#methods-for-registering](https://docs.minecraftforge.net/en/latest/concepts/registries/#methods-for-registering)
+    </TabItem>
+    <TabItem value="neoforge" label="NeoForge" default>
+        [https://docs.neoforged.net/docs/entities/#entitytype](https://docs.neoforged.net/docs/entities/#entitytype)
+    </TabItem>
+</Tabs>

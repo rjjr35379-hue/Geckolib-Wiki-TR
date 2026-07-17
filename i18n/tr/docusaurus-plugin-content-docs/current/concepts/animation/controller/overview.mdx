@@ -1,0 +1,71 @@
+---
+sidebar_position: 1
+sidebar_label: Overview
+title: Overview
+---
+
+import Collapsible from "@site/src/components/collapsible";
+
+The `AnimationController` is the class that handles the logic of animations for GeckoLib animatables.<br/>
+This is the object that you will use to tell GeckoLib when and how to play animations.
+
+Each controller can only play a single animation at a time, however, each animatable can have as many controllers asneeded.
+
+## Usage
+Each `GeoAnimatable` comes with a `registerControllers` method that can be overridden to register controllers for that animatable instance.
+
+```java
+@Override
+public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+
+}
+```
+
+Then you can add controllers to the `ControllerRegistrar` instance.
+
+```java
+@Override
+public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    //highlight-next-line
+    controllers.add(DefaultAnimations.genericWalkIdleController());
+}
+```
+
+### Usage Logic
+If you remember that each controller can only play a single animation at a time, it's important to think about how many controllers
+you may need.
+
+The easiest way to think about it is to think about what animations could be playing at the same time.
+
+For example, your entity will never be simultaneously walking _and_ idling, so a single controller handling both
+of those animations is fine.
+
+However, you may also want your controller to be able to swing their arm while walking, so you would want a second controller for
+an attacking animation.
+
+Things can and do get more complicated than that depending on your animations and the animatable itself, but that is the
+fundamental logic behind how to determine controller registration.
+
+## Additional Parameters
+When creating your controller, you may also want to configure some additional properties.
+
+`AnimationController` comes with several additional factory methods you can append to your constructor.
+
+<Collapsible title="Available Properties">
+    | Method                                | Description                                                                                                                                                                       |
+    |---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `setSoundKeyframeHandler`             | Register the sound keyframe handler for this controller. See [here](/docs/miscellaneous/keyframe-markers.mdx) for more info                                                       |
+    | `setParticleKeyframeHandler`          | Register the sound keyframe handler for this controller. See [here](/docs/miscellaneous/keyframe-markers.mdx) for more info                                                       |
+    | `setCustomInstructionKeyframeHandler` | Register the sound keyframe handler for this controller. See [here](/docs/miscellaneous/keyframe-markers.mdx) for more info                                                       |
+    | `setAnimationSpeed`                   | Set the speed multiplier for how fast animations play on this controller. A value of `2` runs animations twice as fast                                                            |
+    | `setTransitionTicks`                  | Set the number of ticks animations should take to transition into/out of/between                                                                                                  |
+    | `setOverrideEasingType`               | Specify an animation `EasingType` that should forcefully override any animation-define easings that this controller plays                                                         |
+    | `additiveAnimations`                  | Mark this controller as additive. See [here](/docs/concepts/animation/controller/ordering.mdx#additive-controllers) for more info                                                 |
+    | `receiveTriggeredAnimations`          | Mark this controller as wanting to handle triggered animations in your [StateHandler](statehandler.mdx). See [here](/docs/miscellaneous/triggerable-animations.mdx) for more info |
+    | `triggerableAnim`                     | Register a triggerable animation for this controller. See [here](/docs/miscellaneous/triggerable-animations.mdx) for more info.                                                   |
+</Collapsible>
+
+## Stateless Animations
+GeckoLib also offers an alternative approach to animations for those who do not like the controller system.
+
+See [here](/docs/miscellaneous/stateless-animations.mdx) for more info.

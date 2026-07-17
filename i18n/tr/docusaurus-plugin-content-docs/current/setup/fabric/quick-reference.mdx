@@ -1,0 +1,108 @@
+---
+sidebar_position: 5
+sidebar_label: Quick Reference
+title: Quick Reference
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+See below for quick copy-paste templates for adding GeckoLib to your development environment.
+
+## Version reference
+In your `gradle.properties` or `libs.versions.toml` file:
+
+<Tabs groupId="versionschema" queryString="versionschema">
+    <TabItem value="gradleproperties" label="gradle.properties">
+        ```properties
+        geckolibVersion=
+        ```
+    </TabItem>
+    <TabItem value="versioncatalogue" label="libs.versions.toml">
+        ```toml
+        geckolib =
+        ```
+    </TabItem>
+</Tabs>
+
+## Repository declaration
+In your `build.gradle` file:
+
+<Tabs groupId="dsl" queryString="dsl">
+    <TabItem value="groovy" label="Groovy">
+        ```groovy
+        repositories {
+            exclusiveContent {
+                forRepository {
+                    maven {
+                        name = 'GeckoLib'
+                        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+                    }
+                }
+                filter { includeGroupAndSubgroups('com.geckolib') }
+            }
+        }
+        ```
+    </TabItem>
+    <TabItem value="kotlin" label="Kotlin">
+        ```kotlin
+        repositories {
+            exclusiveContent {
+                forRepository {
+                    maven {
+                        name = "GeckoLib"
+                        url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
+                    }
+                }
+                filter { includeGroupAndSubgroups("com.geckolib") }
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+## Dependency declaration
+<Tabs groupId="versionschema" queryString="versionschema">
+    <TabItem value="gradleproperties" label="gradle.properties">
+        In your `build.gradle` file, inside the `dependencies` block:
+
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                modImplementation "com.geckolib:geckolib-fabric-${minecraftVersion}:${geckolibVersion}"
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                modImplementation("com.geckolib:geckolib-fabric-${minecraftVersion}:${geckolibVersion}")
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+    <TabItem value="versioncatalogue" label="libs.versions.toml">
+        In your `libs.versions.toml`, under the `[libraries]` section:
+
+        ```groovy
+        geckolib = { group = "com.geckolib", name = "geckolib-fabric-26.1", version.ref = "geckolib" }
+        ```
+
+        :::info
+        Make sure you change `26.1` to your intended Minecraft version
+        :::
+
+        Then, in your `build.gradle` file:
+
+        <Tabs groupId="dsl" queryString="dsl">
+            <TabItem value="groovy" label="Groovy">
+                ```groovy
+                modImplementation libs.geckolib
+                ```
+            </TabItem>
+            <TabItem value="kotlin" label="Kotlin">
+                ```kotlin
+                modImplementation(libs.geckolib)
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+</Tabs>
